@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "source": {
+    "manifest": "docs/source_manifest.json",
+    "pdf_physical_page": 48,
+    "printed_page": 36,
+    "figure": "3.4",
+    "image_xref": 1665,
+    "image_size_px": [950, 684]
+  },
+  "plot_frame_px": [125, 23, 859, 591],
+  "calibration": {
+    "method": "least_squares_scale_anchored_at_visible_zero_tick",
+    "pixel_origin": [125, 591],
+    "horizontal": [[125, 0], [224, 1000], [323, 2000], [421, 3000], [520, 4000], [618, 5000], [717, 6000], [815, 7000]],
+    "vertical": [[591, 0], [467, 1000], [343, 2000], [218, 3000], [94, 4000]],
+    "evidence": "manual_tick_center_measurement_from_thesis_figure_3_4",
+    "note": "Image-derived chart coordinates only. No geographic/heading calibration yet. Tick residuals do not bound original chart accuracy."
+  },
+  "blue_ink_thresholds": [
+    {"name": "tight", "r_max": 40, "g_max": 40, "b_min": 180},
+    {"name": "baseline", "r_max": 80, "g_max": 100, "b_min": 150},
+    {"name": "loose", "r_max": 120, "g_max": 140, "b_min": 120}
+  ],
+  "quadtree_max_depth": 7,
+  "coordinate_convention": {
+    "horizontal": "chart_E_proxy_equals_thesis_y",
+    "vertical": "chart_N_proxy_equals_thesis_x",
+    "origin": "visible_zero_ticks",
+    "heading": "not_interpreted_in_R0",
+    "unit": "m"
+  },
+  "positions": [
+    {"name": "start", "thesis_xy": [417, 4138], "chart_EN_proxy": [4138, 417]},
+    {"name": "transit_goal", "thesis_xy": [3777, 2548], "chart_EN_proxy": [2548, 3777]},
+    {"name": "stern_goal", "thesis_xy": [3330, 3500], "chart_EN_proxy": [3500, 3330]}
+  ],
+  "occupancy_rule": "any_blue_ink_pixel_overlapping_cell_pixel_window",
+  "land_interiors": "not_filled_matching_boundary_only_representation",
+  "status": "image_reconstruction_not_author_raw_map"
+}

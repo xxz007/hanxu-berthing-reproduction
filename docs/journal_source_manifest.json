@@ -1,0 +1,47 @@
+{
+  "title": "Trajectory Planning of USV: On-Line Computation of the Double S Trajectory Based on Multi-Scale A* Algorithm with Reeds–Shepp Curves",
+  "authors": [
+    "Xu Han",
+    "Xianku Zhang",
+    "Hugan Zhang"
+  ],
+  "journal": "Journal of Marine Science and Engineering",
+  "year": 2023,
+  "volume": 11,
+  "issue": 1,
+  "article_number": 153,
+  "doi": "10.3390/jmse11010153",
+  "url": "https://doi.org/10.3390/jmse11010153",
+  "source_type": "user_supplied_local_pdf",
+  "filename": "jmse-11-00153-v2.pdf",
+  "version_note": "v2 is the user-supplied filename; not independently established as the latest publisher revision",
+  "pages": 12,
+  "bytes": 7412523,
+  "sha256": "6f058904c0a00a9a62cc26dc9c33da26b72711371130bac752559d9b3fc56bdf",
+  "verified_on": "2026-10-29",
+  "timezone": "America/New_York",
+  "data_availability_statement": "Not applicable.",
+  "data_availability_page": 11,
+  "embedded_file_count": 0,
+  "source_pdf_copied_or_uploaded": false,
+  "checked_pages": {
+    "quadtree_and_map": [
+      2,
+      3
+    ],
+    "ordinary_astar": 4,
+    "parent_modification": 5,
+    "g2cbs_and_rs": [
+      5,
+      6
+    ],
+    "comparison_table": 7,
+    "double_s_begins": 7,
+    "data_availability": 11
+  },
+  "transformations": [
+    "read-only text extraction",
+    "visual rendering of pages 4 and 5 to temporary files",
+    "PDF metadata and embedded-attachment inspection"
+  ]
+}
