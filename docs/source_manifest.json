@@ -1,0 +1,27 @@
+{
+  "title": "船舶靠泊路径规划与模型预测航迹保持控制",
+  "author": "韩旭",
+  "institution": "大连海事大学",
+  "degree": "工学博士",
+  "defense_date": "2023-06-11",
+  "year": 2023,
+  "source_type": "user_supplied_local_pdf",
+  "relative_path": "data/raw/thesis.pdf",
+  "verified_on": "2026-10-29",
+  "timezone": "America/New_York",
+  "sha256": "0a931527a7f822c38e0165973668b4436d76c68aa81eed7cce2211a5485d7b32",
+  "bytes": 7102767,
+  "chapter": 3,
+  "printed_pages": [
+    33,
+    48
+  ],
+  "pdf_physical_pages_1_based": [
+    45,
+    60
+  ],
+  "transformations": "只读文本提取用于核对目录、方法与参数；未修改或复制PDF。",
+  "verification_command": "pdftotext -layout -f 49 -l 56 <source.pdf> <temporary_excerpt.txt>; shasum -a 256 <source.pdf>",
+  "external_retrieval": false,
+  "note": "Source PDF is local only; never required to run synthetic demos. Supply --source-pdf to verify the user-held file."
+}

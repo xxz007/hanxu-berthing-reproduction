@@ -1,0 +1,81 @@
+{
+  "scope": "S1_synthetic_map_only_no_path_planning",
+  "leaf_count": 10,
+  "free_leaf_count": 9,
+  "blocked_leaf_count": 1,
+  "leaf_area_sum": 64.0,
+  "map_area": 64.0,
+  "interior_overlap_pairs": 0,
+  "uniform_cells_at_same_depth": 64,
+  "selected_neighbor_centers": [
+    [
+      3.0,
+      1.0
+    ],
+    [
+      3.5,
+      2.5
+    ],
+    [
+      6.0,
+      6.0
+    ]
+  ],
+  "free_graph_undirected_edges": 14,
+  "adjacency_symmetric": true,
+  "los_results": [
+    {
+      "name": "clear",
+      "start": [
+        1,
+        1
+      ],
+      "end": [
+        6,
+        2
+      ],
+      "exact_los": true,
+      "endpoints_only_says_clear": true
+    },
+    {
+      "name": "blocked_diagonal",
+      "start": [
+        1,
+        1
+      ],
+      "end": [
+        6,
+        6
+      ],
+      "exact_los": false,
+      "endpoints_only_says_clear": true
+    },
+    {
+      "name": "endpoints_sampling_miss",
+      "start": [
+        0.5,
+        3.5
+      ],
+      "end": [
+        7.5,
+        3.5
+      ],
+      "exact_los": false,
+      "endpoints_only_says_clear": true
+    },
+    {
+      "name": "touch_obstacle_edge",
+      "start": [
+        0.5,
+        3
+      ],
+      "end": [
+        7.5,
+        3
+      ],
+      "exact_los": false,
+      "endpoints_only_says_clear": true
+    }
+  ],
+  "note": "叶区域数差异是表示差异，不是实测内存或速度提升。"
+}

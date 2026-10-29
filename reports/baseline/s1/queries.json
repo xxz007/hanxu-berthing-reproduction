@@ -1,0 +1,62 @@
+[
+  {
+    "point": [
+      3.5,
+      3.5
+    ],
+    "leaf": "r001111",
+    "label": "L06",
+    "bounds": [
+      3.0,
+      3.0,
+      4.0,
+      4.0
+    ],
+    "blocked": true
+  },
+  {
+    "point": [
+      6,
+      2
+    ],
+    "leaf": "r10",
+    "label": "L07",
+    "bounds": [
+      4.0,
+      0.0,
+      8.0,
+      4.0
+    ],
+    "blocked": false
+  },
+  {
+    "point": [
+      2.5,
+      2.5
+    ],
+    "leaf": "r001100",
+    "label": "L03",
+    "bounds": [
+      2.0,
+      2.0,
+      3.0,
+      3.0
+    ],
+    "blocked": false
+  },
+  {
+    "point": [
+      4,
+      2
+    ],
+    "leaf": "r10",
+    "label": "L07",
+    "bounds": [
+      4.0,
+      0.0,
+      8.0,
+      4.0
+    ],
+    "blocked": false
+  }
+]

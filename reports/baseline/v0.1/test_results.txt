@@ -1,0 +1,40 @@
+test_arc_collision_near_midpoint (test_planning.PlanningTests.test_arc_collision_near_midpoint) ... ok
+test_cubic_collision_between_endpoints (test_planning.PlanningTests.test_cubic_collision_between_endpoints) ... ok
+test_exact_cubic_trim (test_planning.PlanningTests.test_exact_cubic_trim) ... ok
+test_full_synthetic_pipeline (test_planning.PlanningTests.test_full_synthetic_pipeline) ... ok
+test_g2_collinear_is_straight (test_planning.PlanningTests.test_g2_collinear_is_straight) ... ok
+test_g2_right_angle_curvature_and_joins (test_planning.PlanningTests.test_g2_right_angle_curvature_and_joins) ... ok
+test_g2_short_corners_reject_instead_of_violating_radius (test_planning.PlanningTests.test_g2_short_corners_reject_instead_of_violating_radius) ... ok
+test_invalid_units_rejected_at_boundary (test_planning.PlanningTests.test_invalid_units_rejected_at_boundary) ... ok
+test_no_path_is_reported (test_planning.PlanningTests.test_no_path_is_reported) ... ok
+test_obstacle_contact_is_collision (test_planning.PlanningTests.test_obstacle_contact_is_collision) ... ok
+test_polynomial_even_and_simple_roots (test_planning.PlanningTests.test_polynomial_even_and_simple_roots) ... ok
+test_rs_direction_filter_before_candidate_selection (test_planning.PlanningTests.test_rs_direction_filter_before_candidate_selection) ... ok
+test_rs_known_forward_and_reverse (test_planning.PlanningTests.test_rs_known_forward_and_reverse) ... ok
+test_rs_random_pose_endpoints_and_radius (test_planning.PlanningTests.test_rs_random_pose_endpoints_and_radius) ... ok
+test_start_equals_goal (test_planning.PlanningTests.test_start_equals_goal) ... ok
+test_start_inside_obstacle_rejected (test_planning.PlanningTests.test_start_inside_obstacle_rejected) ... ok
+test_uniform_known_shortest_and_any_angle (test_planning.PlanningTests.test_uniform_known_shortest_and_any_angle) ... ok
+test_adjacency_symmetric_free_and_no_corner_links (test_quadtree.QuadTreeTests.test_adjacency_symmetric_free_and_no_corner_links) ... ok
+test_all_base_cell_centers_match_input_occupancy (test_quadtree.QuadTreeTests.test_all_base_cell_centers_match_input_occupancy) ... ok
+test_depth_limit_conservatively_blocks_mixed_region (test_quadtree.QuadTreeTests.test_depth_limit_conservatively_blocks_mixed_region) ... ok
+test_empty_map_and_depth_zero (test_quadtree.QuadTreeTests.test_empty_map_and_depth_zero) ... ok
+test_expected_leaf_partition (test_quadtree.QuadTreeTests.test_expected_leaf_partition) ... ok
+test_generated_maps_against_independent_unit_grid (test_quadtree.QuadTreeTests.test_generated_maps_against_independent_unit_grid) ... ok
+test_invalid_map_configuration (test_quadtree.QuadTreeTests.test_invalid_map_configuration) ... ok
+test_large_leaf_has_multiple_small_neighbors (test_quadtree.QuadTreeTests.test_large_leaf_has_multiple_small_neighbors) ... ok
+test_lookup_examples_and_split_boundary (test_quadtree.QuadTreeTests.test_lookup_examples_and_split_boundary) ... ok
+test_lookup_ownership_is_not_geometric_collision (test_quadtree.QuadTreeTests.test_lookup_ownership_is_not_geometric_collision) ... ok
+test_los_known_geometric_cases (test_quadtree.QuadTreeTests.test_los_known_geometric_cases) ... ok
+test_los_rejects_points_outside_map (test_quadtree.QuadTreeTests.test_los_rejects_points_outside_map) ... ok
+test_outside_and_nonfinite_points (test_quadtree.QuadTreeTests.test_outside_and_nonfinite_points) ... ok
+test_rectangular_map_and_multiple_obstacles (test_quadtree.QuadTreeTests.test_rectangular_map_and_multiple_obstacles) ... ok
+test_configured_depth_changes_actual_partition (test_s1_runner.RunnerTests.test_configured_depth_changes_actual_partition) ... ok
+test_existing_results_are_not_overwritten (test_s1_runner.RunnerTests.test_existing_results_are_not_overwritten) ... ok
+test_reference_run_and_reproducibility_artifacts (test_s1_runner.RunnerTests.test_reference_run_and_reproducibility_artifacts) ... ok
+test_unsupported_conventions_fail_before_output_creation (test_s1_runner.RunnerTests.test_unsupported_conventions_fail_before_output_creation) ... ok
+
+----------------------------------------------------------------------
+Ran 35 tests in 2.055s
+
+OK

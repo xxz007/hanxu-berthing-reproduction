@@ -1,0 +1,28 @@
+# macOS / Python / local environments
+.DS_Store
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+*.egg-info/
+build/
+dist/
+.env
+.env.*
+
+# Keep literature, local raw data and generated runs out of Git by default.
+*.pdf
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+outputs/*
+!outputs/.gitkeep
+
+# Machine-specific bootstrap record retained locally, not published.
+docs/bootstrap_validation.json
+docs/source_local.json

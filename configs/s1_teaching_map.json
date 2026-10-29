@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "experiment": "s1_quadtree",
+  "data_kind": "synthetic_teaching_map_not_paper_harbor",
+  "provenance": "沿用理论窗口手动任务的8×8单障碍教学地图；用户同意按S1顺序推进。不是论文原始长滩港数据。",
+  "coordinate_system": {"x_axis": "right", "y_axis": "up", "length_unit": "teaching_unit"},
+  "map": {"bounds": [0, 0, 8, 8], "obstacles": [[3, 3, 4, 4]], "max_depth": 3},
+  "conventions": {
+    "root_depth": 0,
+    "ownership": "left_bottom_closed_right_top_open",
+    "split": "split_if_positive_area_obstacle_overlap_and_depth_below_max",
+    "mixed_leaf": "conservatively_block_entire_leaf",
+    "quadrant_codes": {"00": "bottom_left", "10": "bottom_right", "01": "top_left", "11": "top_right"},
+    "neighbor": "free_leaves_sharing_positive_length_edge_geometric_scan",
+    "los": "segment_vs_closed_blocked_leaf_rectangles",
+    "obstacle_contact": "blocked",
+    "implementation_status": "teaching_reference_not_author_code"
+  },
+  "point_queries": [[3.5, 3.5], [6, 2], [2.5, 2.5], [4, 2]],
+  "neighbor_query": [6, 2],
+  "los_queries": [
+    {"name": "clear", "start": [1, 1], "end": [6, 2]},
+    {"name": "blocked_diagonal", "start": [1, 1], "end": [6, 6]},
+    {"name": "endpoints_sampling_miss", "start": [0.5, 3.5], "end": [7.5, 3.5]},
+    {"name": "touch_obstacle_edge", "start": [0.5, 3], "end": [7.5, 3]}
+  ],
+  "random_seed": null
+}

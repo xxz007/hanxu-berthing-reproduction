@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "data_kind": "synthetic_harbor_not_long_beach",
+  "units": {
+    "distance": "m",
+    "angle": "rad",
+    "x_axis": "right",
+    "y_axis": "up"
+  },
+  "map": {
+    "bounds": [
+      0,
+      0,
+      4800,
+      4800
+    ],
+    "obstacles": [
+      [
+        0,
+        0,
+        650,
+        3400
+      ],
+      [
+        0,
+        4550,
+        4800,
+        4800
+      ],
+      [
+        4400,
+        0,
+        4800,
+        4800
+      ],
+      [
+        2600,
+        3000,
+        3100,
+        4550
+      ],
+      [
+        3900,
+        2900,
+        4400,
+        4550
+      ],
+      [
+        650,
+        0,
+        4400,
+        750
+      ],
+      [
+        1000,
+        1300,
+        2000,
+        2400
+      ],
+      [
+        2700,
+        750,
+        3200,
+        1600
+      ]
+    ],
+    "max_depth": 6
+  },
+  "maximum_curvature": 0.005,
+  "planning_clearance_m": 150,
+  "validation_clearance_m": 30,
+  "sample_step_m": 5,
+  "rs_anchor_step_m": 100,
+  "reverse_weight": 2.0,
+  "scenarios": [
+    {
+      "name": "transit",
+      "start": [
+        417,
+        4138,
+        0
+      ],
+      "goal": [
+        3777,
+        2548,
+        0
+      ],
+      "final_direction": null
+    },
+    {
+      "name": "stern_berthing",
+      "start": [
+        417,
+        4138,
+        0
+      ],
+      "goal": [
+        3330,
+        3500,
+        0
+      ],
+      "final_direction": -1
+    }
+  ],
+  "provenance": {
+    "paper": "start/goal poses, max curvature from thesis pp.37,42,44; radius 200m",
+    "engineering": "rectangular map; all clearances; reverse penalty 2; map depth 6; conservative rectangle collision; mandatory terminal reverse for stern scenario",
+    "g2cbs": "basic symmetric corner pairs; no multi-corner merging; reject overlap",
+    "parent_rule": "Theta-style relaxation plus separately logged greedy LOS shortcut; not author code"
+  }
+}

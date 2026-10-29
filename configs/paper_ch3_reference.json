@@ -1,0 +1,91 @@
+{
+  "status": "reference_only_not_runnable",
+  "source_manifest": "../docs/source_manifest.json",
+  "values": [
+    {
+      "name": "quadtree_max_depth",
+      "value": 7,
+      "unit": "level",
+      "figure": "3.4",
+      "evidence": "paper_explicit",
+      "note": "图示设置，根节点深度约定仍需核对"
+    },
+    {
+      "name": "smoothing_min_turn_radius",
+      "value": 200,
+      "unit": "m",
+      "figure": "3.8",
+      "evidence": "paper_explicit"
+    },
+    {
+      "name": "rs_max_curvature",
+      "value": 0.005,
+      "unit": "1/m",
+      "figure": "3.10,3.13",
+      "evidence": "paper_value_unit_inferred_from_metre_coordinates"
+    },
+    {
+      "name": "start_pose",
+      "value": [
+        417,
+        4138,
+        0
+      ],
+      "units": [
+        "m",
+        "m",
+        "angle_unit_to_verify"
+      ],
+      "figure": "3.10,3.13",
+      "evidence": "paper_explicit"
+    },
+    {
+      "name": "goal_pose_case_3_10",
+      "value": [
+        3777,
+        2548,
+        0
+      ],
+      "units": [
+        "m",
+        "m",
+        "angle_unit_to_verify"
+      ],
+      "figure": "3.10",
+      "evidence": "paper_explicit"
+    },
+    {
+      "name": "goal_pose_stern_berthing",
+      "value": [
+        3330,
+        3500,
+        0
+      ],
+      "units": [
+        "m",
+        "m",
+        "angle_unit_to_verify"
+      ],
+      "figure": "3.13",
+      "evidence": "paper_explicit"
+    },
+    {
+      "name": "rs_attempt_spacing",
+      "value": 100,
+      "unit": "m",
+      "figure": "3.13",
+      "evidence": "paper_explicit",
+      "note": "从路径后1/3开始尝试，具体运行定义待核对"
+    }
+  ],
+  "unknown": {
+    "raw_map": null,
+    "map_resolution": null,
+    "obstacle_preprocessing": null,
+    "los_step": null,
+    "los_parallel_offset": null,
+    "reverse_penalty": null,
+    "astar_parent_update_pseudocode": null,
+    "g2cbs_construction": null
+  }
+}

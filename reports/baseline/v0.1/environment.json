@@ -1,0 +1,19 @@
+{
+  "python": "3.12.14",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "third_party_dependencies": [],
+  "configuration_sha256": "4f0504a154fbbcdda55d88a9fbef8594e3782f06b95f2b8ccd0963b945337948",
+  "source_sha256": {
+    "src/berthing_planner/rs_families.py": "a8a77069166566c2c6816ae041c86171b2f082def524657b43e80a14b4bd97ed",
+    "src/berthing_planner/__init__.py": "39a01672a31e02473af0671dbe09b1ead721495a13b97e9691e17f1398a282c0",
+    "src/berthing_planner/quadtree.py": "468e4d1913cabfbdbfc03b316be908a0946dc3fafacf6adc25b2ee00b104e403",
+    "src/berthing_planner/reeds_shepp.py": "70743e9e424b15cf546c437fc7ab34b8ccb72a4ba9acaea69ead366e75632795",
+    "src/berthing_planner/pipeline.py": "f056bb48612a574b2afda2b3e2a6f662559d01d5cbd82804d89f11f9b756be01",
+    "src/berthing_planner/curves.py": "211839dd3ce1f3419268bbab424e65d199899b624fa8f0e55b69261040cd872d",
+    "src/berthing_planner/search.py": "9c6fb4b02a6b71584d959253319b50eb9c617aa85731b7971c42a6fb75450246",
+    "scripts/run_demo.py": "92cf64859fa2c927882212324f5a70e1339890db56c0c3cf06b4c4c475a2b641"
+  },
+  "git_commit": null,
+  "git_dirty": true,
+  "created_utc": "2026-10-29T15:58:34.395568+00:00"
+}

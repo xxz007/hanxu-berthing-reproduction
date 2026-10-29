@@ -1,0 +1,9 @@
+[project]
+name = "hanxu-berthing-reproduction"
+version = "0.1.0"
+description = "Chapter 3 learning reproduction: multiscale A-star, G2CBS and Reeds-Shepp berthing"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = []
+
+# Script-first, standard-library project. No package installation required.

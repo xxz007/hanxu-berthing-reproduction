@@ -1,0 +1,35 @@
+{
+  "started_at_utc": "2026-10-29T15:58:34.439374+00:00",
+  "python": "3.12.14",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "third_party_dependencies": [],
+  "git_head": null,
+  "git_status_porcelain": [
+    "?? .gitignore",
+    "?? AGENTS.md",
+    "?? HANDOFF.md",
+    "?? README.md",
+    "?? configs/",
+    "?? data/",
+    "?? docs/",
+    "?? outputs/",
+    "?? pyproject.toml",
+    "?? reports/",
+    "?? scripts/",
+    "?? src/",
+    "?? tests/",
+    "?? third_party/"
+  ],
+  "config_sha256": "d2efd17c5db512e323a1df3b7b5e2485c92fcd0507aa0ed12c876d75054385f3",
+  "source_sha256": {
+    "scripts/run_s1.py": "682f17b5aa12836a844103061767da5ef3ebf1eee590699a3df079970281844f",
+    "src/berthing_planner/__init__.py": "39a01672a31e02473af0671dbe09b1ead721495a13b97e9691e17f1398a282c0",
+    "src/berthing_planner/quadtree.py": "468e4d1913cabfbdbfc03b316be908a0946dc3fafacf6adc25b2ee00b104e403",
+    "tests/test_quadtree.py": "24cea133d9a605ab9663689a992e7b85dbe34dee5a935d42c8e40b51d083b124",
+    "tests/test_s1_runner.py": "f3cd2a9a8a2596d796d8c38aca1959f4256a04acd6a8e960d1d34bcdc7c77261"
+  },
+  "command": [
+    "scripts/run_s1.py"
+  ],
+  "source_kind": "synthetic_teaching_map_not_paper_harbor"
+}
