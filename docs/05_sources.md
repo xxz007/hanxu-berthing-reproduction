@@ -22,3 +22,9 @@
 - 这是无障碍最短RS解析族产生的有限候选集，筛选碰撞和倒车权重不等同于求解有障碍、加权全局最优RS规划；候选失败不证明任意有障碍曲率路径不存在。
 
 本轮限定检索未找到可确认属于学位论文作者的官方源程序，也未取得长滩港原始数据。独立库均未声称是作者实现。
+
+## 2026-10-29完整原文核查补充
+
+本轮通过Firecrawl读取大学站点TRO2010.Xu.pdf，7页文件主体是Kai Xu与Nabil Simaan的另一篇文章，末尾只有Yang与Sukkarieh的开篇，并非561–568页全文。它不能支持G2CBS控制点／短航段处理的完整核对。OpenAlex与Semantic Scholar的该DOI记录本轮均未给OA全文地址；已询问用户学校图书馆或IEEE入口。
+
+地图全局中心线细化使用自行实现的Zhang–Suen两子步算法，方法出处https://doi.org/10.1145/357994.358023 ，公开说明https://scikit-image.org/docs/stable/auto_examples/edges/plot_skeleton.html 。不是论文作者提供的地图恢复代码。

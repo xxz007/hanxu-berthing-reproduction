@@ -1,29 +1,26 @@
 # 实验窗口交接
 
-更新：2026-10-29，America/New_York。
+更新：2026-10-29，America/New_York。完整复现目标仍在进行，按docs/08_full_reproduction_protocol.md的R0–R8顺序执行，未宣称全部完成。
 
-## 最新决定与入口
+## 范围和授权
 
-用户选择实验迁至当前工作区，先整体跑通再局部攻坚，理论窗口独立学习和验收。项目根为 `01_projects/hanxu-berthing-reproduction`，桌面旧项目保持不动。当前主入口README、scripts/run_demo.py与reports/整体流程基线_v0.1.md。
+当前根为01_projects/hanxu-berthing-reproduction，桌面旧项目与v0.1固定基线保留。理论窗口独立精读／验收。GitHub私有仓库xxz007/hanxu-berthing-reproduction已授权同步代码、文档和生成基线；论文PDF、派生源图／地图及私人笔记不自动上传。新包安装、公开发布或发外部消息另需授权。
 
-GitHub私有仓库：https://github.com/xxz007/hanxu-berthing-reproduction；main为实验代码与固定证据分支。公开性已通过GitHub返回的isPrivate=true核验。
+两份PDF只读，来源清单为docs/source_manifest.json及docs/journal_source_manifest.json，本机路径在忽略入Git的docs/source_local.json。期刊第4–5页提供伪代码、第7页表1与学位论文表3.3一致；坐标书写顺序不同，航向需单独核对。
 
-已授权使用明确标注的替代港口地图、LOS父节点候选规则；已授权上传为用户GitHub私有项目，论文PDF／私人笔记不上传。新依赖安装或公开发布另询问。
+## 本轮已推进
 
-## 已完成
+- R1：全局Zhang–Suen细化恢复绘图中心线，三个预设颜色阈值均保持各自组件／封闭孔洞数，全部参考点自由可达；可见原黑网格的F1约从0.883提高至0.912。未移点／清格。基线1642叶、695阻塞细格。允许作为独立恢复的规划输入，不等于作者原始地图。输出outputs/20261029T164055_994609Z_paper_map_r1/。
+- R2：原图恢复地图的普通A*在两个算例×三个阈值上与同图Dijkstra一致，全段闭矩形LOS和长度回算通过。基线通航5742.8m、船艉目标位置4397.1m。输出outputs/20261029T165627_390562Z_paper_search_r2_r3/，含trace及策略差异。
+- R3：parent解释为parent(current)。无回退版本6例均不可达；Theta式保留current候选可达，基线4680.1m／3747.4m。不是作者实现等价证明。邻域仍是共边，LOS仍是解析矩形参照，航向／G2CBS／RS尚未加在原图结果上。宽阈值的船艉位置长度会变化，不能忽略重建不确定性。
+- 39项标准库测试、9项研究测试通过。最新图outputs/20261029T165630_437056Z_paper_search_plots/paper_search_comparison.png已目视核对。报告reports/R1_R3_原图搜索阶段记录.md；规则解释docs/09_parent_policy_audit.md。
 
-完整复现已按docs/08_full_reproduction_protocol.md启动。R1原图恢复脚本scripts/reconstruct_paper_map.py和配置configs/paper_map_r0.json已运行；使用既有workbench的PyMuPDF/NumPy/Pillow，无新安装，项目标准库环境不变。5项research_tests通过。当前输出outputs/20261029T163029_584515Z_paper_map_r0/：约7440.98×4572.04m、深度7、2629叶，标定刻度最大残差7.24m/3.76m（不是总地图误差）。起点与船艉终点可连通，但通航终点被蓝色墨迹保守聚合阻塞，三阈值均如此；R1尚未放行，不记原图A*或完整复现通过。详见reports/R1_原图恢复初检.md。下一步核对点/线绘制宽度、中心位置、根边界和终点接入；不可移动终点或强制清格凑通过。源图和派生地图仅留忽略入Git的outputs。
+## 当前资料缺口与下一步
 
-独立Python3.12环境，标准库运行，无pip／第三方运行依赖。沿用S1；新增均匀／多尺度A*、Theta风格父节点候选、独立LOS简化、G2CBS基本转角对、RS解析族和有倒车代价的位姿衔接，双算例HTML回放与阶段图。
+R3的完整回退／parent语义仍需核对。R4需G2CBS参考文献127完整原文及短航段合并。大学站点TRO2010.Xu.pdf实际主体为另一篇文章，仅末尾含Yang/Sukkarieh开篇，不能当作全文。OpenAlex及Semantic Scholar均未提供OA全文。已异步询问用户学校图书馆／IEEE入口（DOI10.1109/TRO.2010.2042990），尚未收到；不能擅自使用凭据或发送作者邮件。
 
-35项测试通过，含40对固定种子随机RS位姿。默认两算例长度约3796.1m／4265.2m；后者倒车1129.5m，一次方向切换、末段倒车。起终位姿、曲率数值极值、解析中心线碰撞和连接检查通过。固定配置、指标、轨迹、原始基元和代码快照在reports/baseline/v0.1，S1基线在reports/baseline/s1。
+后续继续R4曲率／短转角、R5/R6原图RS组合、R7公平方法对比、R8坐标与重规划。GSHHG官方与Zenodo入口已核实，但数据未下载，不能与3.2港口图等同。避免在缺少原文时另换平滑算法并称完整复现。
 
-## 限制与下一步
+## 保留的旧基线
 
-用户已提供本地期刊PDF jmse-11-00153-v2.pdf；已核对12页、SHA-256，并目视核对第4–5页伪代码。来源清单docs/journal_source_manifest.json，对齐记录docs/07_journal_v2_alignment.md，本机路径仅存忽略入Git的docs/source_local.json。期刊表1与学位论文表3.3一致；期刊位姿(4138,417,0)→(2548,3777,0)与学位论文前两项顺序不同，转换及零航向需核对。原文PDF未复制或上传；本次没有改动算法或v0.1结果。
-
-进一步完整复现的核查：已从PDF提取并目视核对图3.3（524×341）和图3.4（950×684），可尝试原图障碍恢复；图3.4横轴y、纵轴x，必须重新标定。尚未实施分割／标定／原图规划。相关期刊论文DOI为10.3390/jmse11010153，后续Firecrawl已成功读取全文，Data Availability Statement为“Not applicable.”；正文未检出代码／数据下载或补充材料入口，但提供A*与父节点修改伪代码。GitHub限定查询尚未发现可确认的作者工程；通用组件与现有私有仓库均不是作者完整源码，图像重建也不是原始数据。详见docs/06_reproduction_feasibility.md；严格同值复现仍需作者资料，v0.1保留不动。
-
-不是长滩港原图或表3.3数值复现；未实现作者完整父节点规则、G2CBS短转角合并、3.3节坐标转换／重规划、Smooth-RRT／JPS。RS连接可有曲率跳变，未做船体和动力学，回放不是真实航行仿真。G2CBS原始2010全文未成功获取，构造依据明确的MIT独立实现；来源与许可见docs/05_sources.md。
-
-下一步让用户先运行整体报告，再选择从S1/S2逐步拆解；每次只改一个参数并保存新输出。理论精读和验收进度不由实验成功代替。
+v0.1合成主链reports/baseline/v0.1与S1基线不变。原粗墨迹失败outputs/20261029T163029_584515Z_paper_map_r0保留。主规划仍为独立标准库Python3.12环境；研究预处理／绘图使用workbench已有NumPy/Pillow/PyMuPDF/SciPy/Matplotlib，无新安装。v0.1约3796.1m／4265.2m、倒车1129.5m属于合成图，不能与本轮原图位置路径混用。

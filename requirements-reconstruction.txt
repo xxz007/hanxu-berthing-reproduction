@@ -1,0 +1,6 @@
+# Observed workbench preprocessing/plotting versions; no packages installed by this task.
+numpy==2.5.2
+Pillow==12.3.0
+PyMuPDF==1.28.2
+scipy==1.18.0
+matplotlib==3.11.1
