@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "uniform_cell_size_m": 10.0,
+  "deterministic_repeats": 5,
+  "warmup_runs_per_method": 1,
+  "shuffle_seed": 20261029,
+  "maximum_curvature_per_m": 0.005,
+  "initial_yaw_rad": 0.0,
+  "goal_yaw_rad": 0.0,
+  "reverse_weight": 2.0,
+  "rrt": {
+    "step_m": 200.0,
+    "maximum_turn_degrees": [30.0, 60.0],
+    "goal_bias": 0.1,
+    "max_iterations": 20000,
+    "baseline_seeds": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "sensitivity_seeds": [0, 1, 2],
+    "greedy_policy": "preserve_both_joins"
+  },
+  "parameter_evidence": {
+    "uniform_cell_size_m": "Han thesis printed p44 Fig3.12: 10 m",
+    "maximum_curvature_per_m": "Han thesis printed p42: 0.005 per m",
+    "rrt_turn_profiles": "Yu et al.2017 p1500: 30 and 60 degrees",
+    "rrt_source_step": "Yu et al.2017 uses rho=5 in a100x100 example; Han harbor step unspecified",
+    "rrt_step_bias_budget_seeds": "explicit engineering settings; not fitted to table3.3",
+    "headings": "journal EN pose convention; discrepancy with thesis axis-swapped formula remains documented",
+    "repeats_warmups_shuffle": "measurement protocol, not author settings"
+  }
+}

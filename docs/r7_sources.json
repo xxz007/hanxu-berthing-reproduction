@@ -1,0 +1,56 @@
+{
+  "verified_on": "2026-10-29",
+  "jps": {
+    "title": "Regarding Goal Bounding and Jump Point Search",
+    "authors": [
+      "Yue Hu",
+      "Daniel Harabor",
+      "Long Qin",
+      "Quanjun Yin"
+    ],
+    "doi": "10.1613/jair.1.12255",
+    "url": "https://pathfinding.ai/pdf/hhqy-jair21-rgbajps.pdf",
+    "pages": 51,
+    "printed_pages": "631-681",
+    "year": 2021,
+    "source_type": "author_lab_public_pdf",
+    "sha256": "d67fb2f00db4fe0b30e456dd878229936020dc20446c2146a2791957deac0d49",
+    "bytes": 1140175,
+    "retrieved_utc": "2026-10-29T23:46:01.156583+00:00",
+    "checked": "problem definition p633 no corner cutting; p635 octile distance; p639-641 online JPS, Fig1 and definitions1-3; visual p639-640",
+    "implementation": "independent online JPS, not JPS+, goal bounding or author code"
+  },
+  "smooth_rrt": {
+    "title": "Path optimization of AUV based on smooth-RRT algorithm",
+    "authors": [
+      "Lijun Yu",
+      "Zhihong Wei",
+      "Zhengan Wang",
+      "Yukun Hu",
+      "Hui Wang"
+    ],
+    "doi": "10.1109/ICMA.2017.8016038",
+    "year": 2017,
+    "conference": "2017 IEEE International Conference on Mechatronics and Automation",
+    "printed_pages": "1498-1502",
+    "pages": 5,
+    "source_type": "user_supplied_local_pdf",
+    "filename": "Path_optimization_of_AUV_based_on_smooth-RRT_algorithm.pdf",
+    "sha256": "35063aae0e342c7c976777630f77003d010e74f8bceba331c31f2db81b7b6203",
+    "bytes": 739469,
+    "checked": "full5-page text extracted; algorithm and simulations inspected; visual p1499-1500 steering, greedy pseudocode and Fig3; source uses rho5 in100x100 and angles30/60deg",
+    "explicit_inferences": [
+      "Eq5 interpreted as heading clipping and capped step",
+      "root yaw chosen0",
+      "greedy both-joins guard supplements the incoming-only pseudocode to preserve global stated turn constraint",
+      "CHECKANGLE interpreted as absolute wrapped angle difference, plus future-join guard; not verbatim pseudocode"
+    ],
+    "unspecified": [
+      "Bias value",
+      "Han harbor step and angle",
+      "seed, iteration budget",
+      "curvature interpolation or RS in Han comparator"
+    ]
+  },
+  "source_pdfs_uploaded": false
+}

@@ -35,3 +35,7 @@
 2010原文IV节提供对称双三次构造和曲率所需长度；VII-A将删去冗余路径点交给规划器，VII-B提到剩余长度余量并引用2008参考文献27。未找到韩旭38页所述多个短转向自动合并的完整规则。原文VI节的离散碰撞结点方法也不等于本项目的保守曲线细分检查。公式、路径点预处理、短段合并和碰撞修正须分别验收。
 
 已从[ARAA官方会议入口](https://www.araa.asn.au/conference/acra-2008/)定位到同作者2008论文[Planning Continuous Curvature Paths for UAVs Amongst Obstacles](https://www.araa.asn.au/acra/acra2008/papers/pap104s1.pdf)。先经Firecrawl读取到余量分配、角度二分和流程文本，后使用已有科研Python成功下载完整10页PDF，目视核对第5–7页。来源哈希见g2cbs_2008_source_manifest.json。已用式(21)做独立长度预算，一次二分后本例短段仍不足；未实现二分曲线生成，也未宣称短段合并已解决。
+
+## R7参考方法
+
+JPS依据Hu等2021年原文4.1节独立实现，禁止对角穿障碍角点；无JPS+或goal bounding。Smooth-RRT依据用户提供的Yu等2017完整PDF，采用目标偏置、转角限制和贪心折线简化。式5的方向裁剪、根航向及双接头保护为明确补充解释，incoming-only失败保留；未将其折线伪称连续曲率。来源哈希见[r7_sources.json](r7_sources.json)，结果与限制见[R7报告](../reports/R7_方法对照与来源差异.md)。未复制第三方程序。
