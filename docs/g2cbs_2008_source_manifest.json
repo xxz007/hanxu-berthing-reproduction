@@ -1,0 +1,24 @@
+{
+  "title": "Planning Continuous Curvature Paths for UAVs Amongst Obstacles",
+  "authors": [
+    "Kwangjin Yang",
+    "Salah Sukkarieh"
+  ],
+  "conference": "Australasian Conference on Robotics and Automation 2008",
+  "year": 2008,
+  "url": "https://www.araa.asn.au/acra/acra2008/papers/pap104s1.pdf",
+  "official_index": "https://www.araa.asn.au/conference/acra-2008/",
+  "retrieved_utc": "2026-10-29T23:17:07.162261+00:00",
+  "pages": 10,
+  "bytes": 5643077,
+  "sha256": "f1dcaba4ed18fb911eb7586fcb67b9fbad15b6428b33ad57ef3f4121d8ef09b2",
+  "source_type": "official_conference_public_pdf",
+  "pdf_uploaded": false,
+  "checked_visually": {
+    "page5": "sections 4.2-4.3, shared length feasibility and margin distribution",
+    "page6": "section 5, bisection geometry and eqs.16-22",
+    "page7": "section 7 and Fig.10, smoothing process and collision adjustment"
+  },
+  "used_for": "eq.21 length-only feasibility audit; no implementation of bisection curves or claim of thesis equivalence",
+  "retrieval_note": "curl SSL and web screenshot failed; existing research Python urllib succeeded; source read with PyMuPDF; no dependency installation"
+}

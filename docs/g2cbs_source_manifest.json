@@ -1,0 +1,37 @@
+{
+  "title": "An Analytical Continuous-Curvature Path-Smoothing Algorithm",
+  "authors": [
+    "Kwangjin Yang",
+    "Salah Sukkarieh"
+  ],
+  "journal": "IEEE Transactions on Robotics",
+  "year": 2010,
+  "volume": 26,
+  "issue": 3,
+  "page_range": "561-568",
+  "doi": "10.1109/TRO.2010.2042990",
+  "url": "https://doi.org/10.1109/TRO.2010.2042990",
+  "source_type": "user_supplied_local_pdf",
+  "filename": "An_Analytical_Continuous-Curvature_Path-Smoothing_Algorithm.pdf",
+  "pages": 8,
+  "bytes": 684789,
+  "sha256": "dff618b4decd5fed48004bfc4b9eba1d31e708335066d82ecfa7c522a8fa072f",
+  "verified_on": "2026-10-29",
+  "source_pdf_copied_or_uploaded": false,
+  "checked_sections": {
+    "planar_construction": "IV, printed 563-564, equations 4-15; visual verification",
+    "collision_check": "VI, printed 565-566; knot discretization is not our conservative continuous-curve check",
+    "planner_pruning": "VII-A, printed 566-567; pruning delegated to planner, not specified here",
+    "remaining_length_margin": "VII-B, printed 567; cites reference 27; not an explicit short-turn merge rule"
+  },
+  "transformations": [
+    "read-only text extraction",
+    "visual rendering of printed 563-564 to temporary PNG files",
+    "independent formula and recovered-map numerical checks"
+  ],
+  "limitations": [
+    "printed c1=7.2364 yields a small literal B3/E3 gap; cause not established; midpoint closure is an implementation choice audited separately",
+    "no explicit rule found for merging overlapping adjacent short turns",
+    "no author source code or raw harbor map supplied"
+  ]
+}

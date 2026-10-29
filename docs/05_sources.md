@@ -9,9 +9,9 @@
 ## G2CBS
 
 - 原文参考文献127：Yang, K.; Sukkarieh, S. *An Analytical Continuous-Curvature Path-Smoothing Algorithm*. IEEE Transactions on Robotics, 26(3), 561–568 (2010). [DOI](https://doi.org/10.1109/TRO.2010.2042990)。
-- 找到[大学站点PDF线索](https://rii.sjtu.edu.cn/images/6/65/TRO2010.Xu.pdf)，本轮完整PDF获取失败；不能称为已完成原文全文核对。
-- 实际构造依据：Mithun Nallana 与 Balaji C.A. 的[独立MATLAB实现](https://github.com/MithunNallana/path-smoothing/blob/c610cdf2b7b881c6850343a8f0a8434323ccdfbe/code/matlab/pathsmoothbezier.m)，固定提交 `c610cdf2b7b881c6850343a8f0a8434323ccdfbe`，MIT许可存于 `third_party/path-smoothing.LICENSE`。
-- 本项目将其二维对称双三次构造改写为标准库Python，直接在全局二维坐标构造控制点；增加共线处理、航段长度／转角重叠拒绝、曲率数值极值、几何连续性和曲线碰撞检查。
+- 用户现已提供完整8页IEEE原文，561–568页齐全；本地哈希与核查范围见[g2cbs_source_manifest.json](g2cbs_source_manifest.json)。已目视核对563–564页控制点与曲率公式。PDF只读，未复制或上传。
+- 初始改写依据：Mithun Nallana 与 Balaji C.A. 的[独立MATLAB实现](https://github.com/MithunNallana/path-smoothing/blob/c610cdf2b7b881c6850343a8f0a8434323ccdfbe/code/matlab/pathsmoothbezier.m)，固定提交 `c610cdf2b7b881c6850343a8f0a8434323ccdfbe`，MIT许可存于 `third_party/path-smoothing.LICENSE`。
+- 本项目将其二维对称双三次构造改写为标准库Python，直接在全局二维坐标构造控制点；现已与原文式(4)–(15)交叉检查。印刷常数c1=7.2364按字面计算会有小接缝，原因未确认；代码共享中点属于显式实现选择，另查实际曲率及G²连续性。增加共线处理、航段长度／转角重叠拒绝、曲率数值极值和保守曲线碰撞检查。
 - 没有引入完整第三方运行程序；没有照搬其3D转换或固定步长绘图代码。未实现多转角合并，不能声称完整还原论文图3.8的所有情形。
 
 ## Reeds–Shepp
@@ -25,6 +25,12 @@
 
 ## 2026-10-29完整原文核查补充
 
-本轮通过Firecrawl读取大学站点TRO2010.Xu.pdf，7页文件主体是Kai Xu与Nabil Simaan的另一篇文章，末尾只有Yang与Sukkarieh的开篇，并非561–568页全文。它不能支持G2CBS控制点／短航段处理的完整核对。OpenAlex与Semantic Scholar的该DOI记录本轮均未给OA全文地址；已询问用户学校图书馆或IEEE入口。
+本轮通过Firecrawl读取大学站点TRO2010.Xu.pdf，7页文件主体是Kai Xu与Nabil Simaan的另一篇文章，末尾只有Yang与Sukkarieh的开篇，并非561–568页全文。它不能支持G2CBS控制点／短航段处理的完整核对。OpenAlex与Semantic Scholar当时未给OA全文地址。此为历史检索失败记录；用户随后提供了完整本地IEEE原文，当前不再等待学校入口。
 
 地图全局中心线细化使用自行实现的Zhang–Suen两子步算法，方法出处https://doi.org/10.1145/357994.358023 ，公开说明https://scikit-image.org/docs/stable/auto_examples/edges/plot_skeleton.html 。不是论文作者提供的地图恢复代码。
+
+## 原文补齐后的边界
+
+2010原文IV节提供对称双三次构造和曲率所需长度；VII-A将删去冗余路径点交给规划器，VII-B提到剩余长度余量并引用2008参考文献27。未找到韩旭38页所述多个短转向自动合并的完整规则。原文VI节的离散碰撞结点方法也不等于本项目的保守曲线细分检查。公式、路径点预处理、短段合并和碰撞修正须分别验收。
+
+已从[ARAA官方会议入口](https://www.araa.asn.au/conference/acra-2008/)定位到同作者2008论文[Planning Continuous Curvature Paths for UAVs Amongst Obstacles](https://www.araa.asn.au/acra/acra2008/papers/pap104s1.pdf)。先经Firecrawl读取到余量分配、角度二分和流程文本，后使用已有科研Python成功下载完整10页PDF，目视核对第5–7页。来源哈希见g2cbs_2008_source_manifest.json。已用式(21)做独立长度预算，一次二分后本例短段仍不足；未实现二分曲线生成，也未宣称短段合并已解决。

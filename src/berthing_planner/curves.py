@@ -50,10 +50,12 @@ def line(a,b):
 
 
 def g2_smooth(path, maximum_curvature):
-    """Basic symmetric G2CBS corner pair, adapted from MIT MATLAB reference.
+    """Symmetric G2CBS pair: Yang/Sukkarieh (2010), equations (4)-(15).
 
-    Reject overlapping/too-short corners. Does not implement the thesis's
-    unspecified merging of multiple short turns. Never clamp d and hide k violation.
+    Initially adapted from the pinned MIT MATLAB reference. Use the shared
+    midpoint to close the small gap obtained using the printed c1=7.2364;
+    verify actual curvature independently. Reject insufficient segment budgets.
+    The primary article gives no explicit short-turn merging procedure.
     """
     c1, c2 = 7.2364, 2*(math.sqrt(6)-1)/5
     c3 = (c2+4)/(c1+6)
