@@ -74,9 +74,9 @@ hanxu-berthing-reproduction/
 
 ### 成果图
 
-![恢复港口图实验的通航与船艉抵泊轨迹，绿色为前进、红色虚线为倒车](docs/assets/berthing_results.png)
+![实际障碍栅格背景下的通航与船艉抵泊路径，标出前进、倒车、起终点、船头朝向和换向点](docs/assets/berthing_results_with_obstacles.png)
 
-上图来自已保存实验：左侧为通航到达，右侧为船艉倒车抵泊。仅展示生成轨迹，恢复港口底图保留本地。
+左侧为通航到达，右侧为船艉倒车抵泊。灰色为实验实际使用的恢复障碍栅格，青色为前进、红色虚线为倒车；深色箭头标出起终船头朝向，空心圆为换向点。
 
 ![同一恢复地图上各方法的路径长度中位数及曲率约束检查结果](docs/assets/method_lengths.png)
 

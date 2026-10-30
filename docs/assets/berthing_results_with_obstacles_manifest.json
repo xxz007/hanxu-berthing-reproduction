@@ -1,0 +1,68 @@
+{
+  "generated_utc": "2026-10-30T08:52:27.059200+00:00",
+  "kind": "Saved routes redrawn over the exact saved obstacle grid; no planner rerun",
+  "contains_reconstructed_obstacle_geometry": true,
+  "contains_paper_page_or_private_notes": false,
+  "obstacle_representation": "Blocked cells only; polygon interiors are not added",
+  "obstacle_cells_drawn_per_panel": 695,
+  "map_bounds_EN_m": [
+    0,
+    0,
+    7440.978551068482,
+    4572.038236094493
+  ],
+  "grid_n": 128,
+  "display_sampling_m": 4,
+  "script_sha256": "a6dcdfca2803fdf6ee495455aa8c8fe40cc9f5ec148eba0486bd25123d0c2e22",
+  "input_sha256": {
+    "baseline_map.json": "2483c8d740c92863aae30d8301f7ea57ac09391f7231d1d689443801918ffa43",
+    "baseline_transit_goal_journal_E0_canonical.json": "ee6eb2a49db75db7e747db606101daa97fc27fd7267902bbb5590e9ecd1a042f",
+    "baseline_stern_goal_journal_E0_canonical_plus_stern_axis.json": "0289b35e332f29c03ce600b3e2b58e80426ed539336c23fc93d2620b82da4257"
+  },
+  "output_sha256": {
+    "berthing_results_with_obstacles.png": "8bdfd65a34500ebf42c33d7ea3af84ab68532d19d7db17e4c5a18deba8bb3c04",
+    "berthing_results_with_obstacles.pdf": "6625adda0f2bae24261ad30eeb357e96bc861b00b182e3b71a67ffeccb38fdf9",
+    "berthing_results_with_obstacles.svg": "95e930477e895a347301adb694eb9859f2bd3bda15dbc056aa92f04cf3a162d4"
+  },
+  "matplotlib": "3.11.1",
+  "saved_routes_collision_rechecked": true,
+  "route_metrics": {
+    "transit": {
+      "length_m": 4908.327691159487,
+      "reverse_m": 0,
+      "maximum_curvature_per_m": 0.005,
+      "cusps": [],
+      "start_pose": [
+        4138,
+        417,
+        0.0
+      ],
+      "goal_pose": [
+        2548,
+        3777,
+        0.0
+      ]
+    },
+    "stern": {
+      "length_m": 4142.296556157231,
+      "reverse_m": 989.4471104988377,
+      "maximum_curvature_per_m": 0.005,
+      "cusps": [
+        [
+          4489.447110498838,
+          3330.0
+        ]
+      ],
+      "start_pose": [
+        4138,
+        417,
+        0.0
+      ],
+      "goal_pose": [
+        3500,
+        3330,
+        0.0
+      ]
+    }
+  }
+}
