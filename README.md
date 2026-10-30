@@ -82,19 +82,75 @@ hanxu-berthing-reproduction/
 
 ### 关键数据
 
-| 恢复港口图算例 | 路径长度 | 倒车距离 | 方向切换 | 最大曲率 | 中心线几何检查 |
-| --- | ---: | ---: | ---: | ---: | --- |
-| 通航到达 | **4908.3 m** | 0 m | 0 次 | 0.005 /m | 通过 |
-| 船艉倒车抵泊 | **4142.3 m** | **989.4 m** | 1 次 | 0.005 /m | 通过 |
+<table width="840">
+  <thead>
+    <tr>
+      <th width="170">恢复港口图算例</th>
+      <th width="125">路径长度</th>
+      <th width="115">倒车距离</th>
+      <th width="110">方向切换</th>
+      <th width="125">最大曲率</th>
+      <th width="195">中心线几何检查</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">通航到达</td>
+      <td align="right"><strong>4908.3 m</strong></td>
+      <td align="right">0 m</td>
+      <td align="right">0 次</td>
+      <td align="right">0.005 /m</td>
+      <td align="left">通过</td>
+    </tr>
+    <tr>
+      <td align="left">船艉倒车抵泊</td>
+      <td align="right"><strong>4142.3 m</strong></td>
+      <td align="right"><strong>989.4 m</strong></td>
+      <td align="right">1 次</td>
+      <td align="right">0.005 /m</td>
+      <td align="left">通过</td>
+    </tr>
+  </tbody>
+</table>
 
 方法对照共 **77 次正式试验、15 次预热**；下表为基线地图中位数。RRT 每组 10 个固定种子，确定性方法各重复 5 次。
 
-| 独立重建的方法 | 路径长度 | 本机时间 | 计时内容 |
-| --- | ---: | ---: | --- |
-| 多尺度 A*＋RS | 4908.3 m | 1.474 s | 搜索、平滑前段、两端 RS 及内部检查 |
-| JPS，10 m 网格 | 4705.6 m | 0.136 s | 网格搜索 |
-| Smooth-RRT，30° 转角限制 | 6032.0 m | 1.703 s | 树生长＋贪心简化 |
-| Smooth-RRT，60° 转角限制 | 6004.5 m | 0.251 s | 树生长＋贪心简化 |
+<table width="840">
+  <thead>
+    <tr>
+      <th width="275">独立重建的方法</th>
+      <th width="125">路径长度</th>
+      <th width="115">本机时间</th>
+      <th width="325">计时内容</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">多尺度 A*＋RS</td>
+      <td align="right">4908.3 m</td>
+      <td align="right">1.474 s</td>
+      <td align="left">搜索、平滑前段、两端 RS 及内部检查</td>
+    </tr>
+    <tr>
+      <td align="left">JPS，10 m 网格</td>
+      <td align="right">4705.6 m</td>
+      <td align="right">0.136 s</td>
+      <td align="left">网格搜索</td>
+    </tr>
+    <tr>
+      <td align="left">Smooth-RRT，30° 转角限制</td>
+      <td align="right">6032.0 m</td>
+      <td align="right">1.703 s</td>
+      <td align="left">树生长＋贪心简化</td>
+    </tr>
+    <tr>
+      <td align="left">Smooth-RRT，60° 转角限制</td>
+      <td align="right">6004.5 m</td>
+      <td align="right">0.251 s</td>
+      <td align="left">树生长＋贪心简化</td>
+    </tr>
+  </tbody>
+</table>
 
 JPS 与同网格普通 A* 最短路一致。JPS 和当前 Smooth-RRT 输出仍是折线，不满足本次连续曲率与起终航向要求；各方法的计时与节点口径也不同，不能据此直接排名靠泊效果或宣称同约束速度优势。[完整方法对照](reports/R7_方法对照与来源差异.md)
 
