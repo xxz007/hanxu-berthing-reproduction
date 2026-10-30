@@ -6,7 +6,7 @@
 
 **一句话理解：给船舶做一套“靠泊导航”——先在开阔处粗、近岸处细的地图找出避障通路，再把转弯变平滑，安排最后的朝向和进退动作，让船按要求抵达泊位。**
 
-[框架图](#1框架图) · [项目结构](#2项目结构) · [学习路线](#3学习路线) · [文献实验解读](#4文献实验解读) · [成果展示](#5实验复现结果展示) · [完成清单](#6未完成部分说明) · [运行指南](#7项目运行指南)
+[框架图](#1框架图) · [项目结构](#2项目结构) · [学习路线](#3学习路线) · [文献实验解读](#4文献实验解读) · [成果展示](#5实验复现结果展示) · [完成清单](#6未完成部分说明)
 
 ## 1、框架图
 
@@ -182,80 +182,3 @@ JPS 与同网格普通 A* 最短路一致。JPS 和当前 Smooth-RRT 输出仍�
 - **整体连续性需要核验**：RS 接入仍有曲率跳变，局部通过不等于整章验收。
 
 详细进度见[暂停检查点](reports/暂停检查点_2026-10-29.md)，验收标准见[复现协议](docs/08_full_reproduction_protocol.md)。
-
-> ## 7、项目运行指南
->
-> ### 环境
->
-> | 用途 | 环境与依赖 |
-> | --- | --- |
-> | 合成演示、规划算法、标准库测试 | Python **3.12**，无第三方运行依赖，使用项目 `.venv` |
-> | 论文地图恢复、预处理与绘图 | Python 3.12＋PyMuPDF、NumPy、Pillow、SciPy、Matplotlib；版本见 [requirements-reconstruction.txt](requirements-reconstruction.txt) |
->
-> 以下命令从项目根目录运行，适用于 macOS／Linux。Windows 将 `.venv/bin/python` 换成 `.venv\Scripts\python.exe`；PowerShell 测试前设置 `$env:PYTHONPATH="src"`。
->
-> ### 流程 A：先运行可随仓库复跑的合成港口演示
->
-> ```bash
-> git clone https://github.com/xxz007/hanxu-berthing-reproduction.git
-> cd hanxu-berthing-reproduction
-> python3.12 -m venv --without-pip .venv
-> .venv/bin/python scripts/check_environment.py
-> .venv/bin/python scripts/run_demo.py
-> ```
->
-> 私有仓库需要有访问权限；已有本地项目时跳过克隆，已有 `.venv` 时跳过创建环境。运行后打开新生成的 `outputs/<UTC时间>_full_demo/index.html`，可回放各阶段和进退过程。该流程无需论文 PDF，使用**自建合成港口**。
->
-> 标准库测试：
->
-> ```bash
-> PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -v
-> ```
->
-> ### 流程 B：从本地论文重建港口场景并运行组合实验
->
-> **准备材料与科研环境。**需要与[来源登记](docs/source_manifest.json)哈希一致的学位论文 PDF；文件不同会停止，需重新核对图像与标定。本机已具备科研环境，可直接指定：
->
-> ```bash
-> source /Users/omo/Documents/AI-Research-Workbench/activate-research-env.zsh
-> research_python=/Users/omo/Documents/AI-Research-Workbench/.venv/bin/python
-> ```
->
-> 其他电脑可另建科研环境；以下是需要安装预处理／绘图库时的准备命令，不影响标准库规划环境：
->
-> ```bash
-> python3.12 -m venv venv/reconstruction
-> venv/reconstruction/bin/python -m pip install -r requirements-reconstruction.txt
-> research_python=venv/reconstruction/bin/python
-> ```
->
-> **按顺序运行。**将第一行改为自己的学位论文路径；本组命令在同一个终端执行。时间标记使每次运行写入新目录。
->
-> ```bash
-> thesis_pdf="/填写你的路径/船舶靠泊路径规划与模型预测航迹保持控制_韩旭.pdf"
-> run_tag=$(date -u +%Y%m%dT%H%M%SZ)
-> paper_run="outputs/${run_tag}_paper_rerun"
->
-> # 1. 提取与标定 → 2. 中心线恢复，生成三种阈值地图
-> "$research_python" scripts/reconstruct_paper_map.py \
->   --source-pdf "$thesis_pdf" --output-dir "${paper_run}_r0"
-> "$research_python" scripts/refine_paper_map.py \
->   --input-dir "${paper_run}_r0" --output-dir "${paper_run}_r1"
->
-> # 3. 普通与改进搜索 → 4. 平滑前段与 RS 组合
-> .venv/bin/python scripts/run_paper_search.py \
->   --map-dir "${paper_run}_r1" --output-dir "${paper_run}_r2_r3"
-> .venv/bin/python scripts/run_paper_combination.py \
->   --map-dir "${paper_run}_r1" --search-dir "${paper_run}_r2_r3" \
->   --output-dir "${paper_run}_r5_r6"
->
-> # 5. 绘制组合路径 → 6. 运行并绘制方法对照
-> "$research_python" scripts/plot_paper_combination.py --input-dir "${paper_run}_r5_r6"
-> .venv/bin/python scripts/run_comparison_r7.py \
->   --map-dir "${paper_run}_r1" --output-dir "${paper_run}_r7"
-> "$research_python" scripts/plot_comparison_r7.py --input-dir "${paper_run}_r7"
-> ```
->
-> 若某一步失败，先检查该步输出与报告，再继续后续命令。组合脚本保留失败候选，不会因此把未完成的短转向合并算作通过。地图预处理检查可用 `"$research_python" -m unittest discover -s research_tests -v` 单独执行。
->
-> 各阶段在指定的 `outputs/` 子目录保存结果及相应配置、输入／源码哈希；脚本拒绝覆盖已有运行目录。地图恢复、平滑审计与验收细节见[完整复跑协议](docs/08_full_reproduction_protocol.md)。
