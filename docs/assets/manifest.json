@@ -1,0 +1,36 @@
+{
+  "generated_utc": "2026-10-30T00:27:47.792324+00:00",
+  "kind": "README presentation of existing validated results; no experiment rerun",
+  "contains_source_map_background": false,
+  "contains_paper_page_or_private_notes": false,
+  "script_sha256": "9b4745f5601ed17369e7b8662a64f7e818e77a8361dc1de4b88054dbfeceeb7a",
+  "input_sha256": {
+    "outputs/20261029T232932_076530Z_paper_combination_r5_r6/baseline_transit_goal_journal_E0_canonical.json": "ee6eb2a49db75db7e747db606101daa97fc27fd7267902bbb5590e9ecd1a042f",
+    "outputs/20261029T232932_076530Z_paper_combination_r5_r6/baseline_stern_goal_journal_E0_canonical_plus_stern_axis.json": "0289b35e332f29c03ce600b3e2b58e80426ed539336c23fc93d2620b82da4257",
+    "outputs/20261029T234816_905214Z_comparison_r7/summary.json": "2f7b7af99b073c10b985ae0da8d00000b0c8d2533391dad4dd326b4e5138397c"
+  },
+  "output_sha256": {
+    "berthing_results.png": "ea48c80f16d30842b31c8412e9f4d8de1362801de3243d70eb1d2be0704156ac",
+    "method_lengths.png": "33bd134e4baf56905e538f6936ea8be59a7adb8d60c7dd2517c717617e4719b2"
+  },
+  "matplotlib": "3.11.1",
+  "route_metrics": {
+    "transit": {
+      "length_m": 4908.327691159487,
+      "reverse_m": 0,
+      "maximum_curvature_per_m": 0.005,
+      "cusps": []
+    },
+    "stern": {
+      "length_m": 4142.296556157231,
+      "reverse_m": 989.4471104988377,
+      "maximum_curvature_per_m": 0.005,
+      "cusps": [
+        [
+          4489.447110498838,
+          3330.0
+        ]
+      ]
+    }
+  }
+}
