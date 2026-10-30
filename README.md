@@ -17,7 +17,6 @@
 ```text
 hanxu-berthing-reproduction/
 ├── README.md                     项目首页：方法、成果、进度与运行入口
-├── HANDOFF.md                    暂停状态与跨会话续接说明
 ├── configs/                      地图、算法参数、固定随机种子
 ├── src/berthing_planner/
 │   ├── quadtree.py               四叉树与几何查询
@@ -122,7 +121,7 @@ JPS 与同网格普通 A* 最短路一致。JPS 和当前 Smooth-RRT 输出仍�
 - ☐ 获取并核查 GSHHG 数据，完成第 3.3 节跨图与局部重规划实验。
 - ☐ 完成第三章各项验收与整体复跑；个人理论理解验收另行记录。
 
-续接时先读 [HANDOFF](HANDOFF.md) 和[暂停检查点](reports/暂停检查点_2026-10-29.md)，完整验收标准见[复现协议](docs/08_full_reproduction_protocol.md)。
+续接时先读[暂停检查点](reports/暂停检查点_2026-10-29.md)，完整验收标准见[复现协议](docs/08_full_reproduction_protocol.md)。
 
 ## 7、项目运行指南
 

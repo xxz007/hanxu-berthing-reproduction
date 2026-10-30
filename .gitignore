@@ -26,3 +26,8 @@ outputs/*
 # Machine-specific bootstrap record retained locally, not published.
 docs/bootstrap_validation.json
 docs/source_local.json
+
+# Local agent instructions and handoff notes (all filename case variants).
+[Aa][Gg][Ee][Nn][Tt].[Mm][Dd]
+[Aa][Gg][Ee][Nn][Tt][Ss].[Mm][Dd]
+[Hh][Aa][Nn][Dd][Oo][Ff][Ff].[Mm][Dd]

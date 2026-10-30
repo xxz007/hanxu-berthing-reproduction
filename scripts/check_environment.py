@@ -16,7 +16,7 @@ def main():
     manifest = json.loads((root / "docs/source_manifest.json").read_text(encoding="utf-8"))
     source = args.source_pdf or (root / manifest["relative_path"])
     required = [
-        "README.md", "AGENTS.md", "HANDOFF.md", "pyproject.toml",
+        "README.md", "pyproject.toml",
         "configs/paper_ch3_reference.json", "docs/01_scope.md",
         "docs/02_reproduction_plan.md", "docs/03_paper_alignment.md",
         "src/berthing_planner/__init__.py", "tests/README.md", "data/README.md",
