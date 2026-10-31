@@ -1,0 +1,13 @@
+{
+  "prepared_manifest_sha256": "73774870965b197642337c96e0a5b05c39c1921d97e1d821945c71ec717815ca",
+  "plot_script_sha256": "5a6d930f15ef6b9d93382bc4df45fec5cfc3566a2295e46cc2c818da2a029d11",
+  "output_sha256": {
+    "png": "de543b8e92172a1b77685718b9890436cb4ac9113030b2bad7db5691aa515fcd",
+    "pdf": "4639730f6b34085da15cd44357559652757b6d499c629a926c5ce75b3b22d7c8",
+    "svg": "6a7947e3f440db139de8e1a410d33912c094c571e49ca2b71031bf9010ea4c58"
+  },
+  "task_area_m2": 10031250.0,
+  "candidate_area_m2": 8767426.837145586,
+  "coverage_planner_run": false,
+  "raw_charts_uploaded": false
+}

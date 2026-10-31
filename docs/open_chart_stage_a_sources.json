@@ -1,0 +1,146 @@
+{
+  "recorded_on": "2026-10-31",
+  "timezone": "America/New_York",
+  "official_sources": [
+    {
+      "title": "NOAA ENC download catalog",
+      "url": "https://charts.noaa.gov/ENCs/ENCs.shtml"
+    },
+    {
+      "title": "NOAA ENC Product Catalog",
+      "url": "https://charts.noaa.gov/ENCs/ENCProdCat.xml",
+      "catalog_valid_utc": "2026-10-30T04:52:47Z",
+      "sha256": "8ed5c2176103e74fad7ecedfa24853591254fb29987e6caf7f960a8d65b8cb4a"
+    },
+    {
+      "title": "NOAA ENC Direct to GIS help",
+      "url": "https://nauticalcharts.noaa.gov/learn/encdirect/"
+    },
+    {
+      "title": "GDAL S-57 driver and UPDATES=APPLY",
+      "url": "https://gdal.org/en/stable/drivers/vector/s57.html"
+    }
+  ],
+  "selected_chart_cells": [
+    {
+      "name": "US5LGBCE",
+      "lname": "San Pedro Channel - The Port of Long Beach, CA",
+      "status": "Active",
+      "cscale": "12000",
+      "zipfile_location": "https://www.charts.noaa.gov/ENCs/US5LGBCE.zip",
+      "zipfile_datetime_iso8601": "2026-10-30T04:34:11Z",
+      "zipfile_size": "126372",
+      "edtn": "1",
+      "updn": "1",
+      "uadt": "2025-12-03",
+      "isdt": "2026-04-22",
+      "sha256": "04ea1c66daa656c6b2be6ea916773b3b20f40c895f061c28ed98874cbdc163d6",
+      "bbox": [
+        -118.2,
+        33.675,
+        -118.125,
+        33.75
+      ]
+    },
+    {
+      "name": "US5LGBDE",
+      "lname": "Port of Long Beach - Long Beach, CA",
+      "status": "Active",
+      "cscale": "12000",
+      "zipfile_location": "https://www.charts.noaa.gov/ENCs/US5LGBDE.zip",
+      "zipfile_datetime_iso8601": "2026-10-30T04:34:10Z",
+      "zipfile_size": "126845",
+      "edtn": "1",
+      "updn": "1",
+      "uadt": "2025-12-03",
+      "isdt": "2026-04-22",
+      "sha256": "22b0aa2558b600353c679079d595f07b21cbc936d17cbe36161d5d81f170a18e",
+      "bbox": [
+        -118.2,
+        33.75,
+        -118.125,
+        33.825
+      ]
+    }
+  ],
+  "bbox_lon_lat": [
+    -118.2,
+    33.72,
+    -118.14,
+    33.77
+  ],
+  "transforms": [
+    "Original full ZIP archives retained locally",
+    "GDAL 3.8.5 S57 reader applies .001 incremental updates; DSID checked",
+    "Clip to geographic window, project to local WGS84 ellipsoidal Mercator",
+    "GEOS union, depth lower-bound qualification, explicit restriction-code filter, vector obstacle buffer",
+    "Intersect with manually specified concave task polygon; preserve holes and excluded geometry"
+  ],
+  "engineering_choices": {
+    "task_polygon": "Manually specified simulation task; not a NOAA-designated survey mission",
+    "minimum_depth_lower_bound_m": 5.0,
+    "obstacle_margin_m": 50.0,
+    "buffer_approximation_pad_m": 0.5,
+    "depth_rule": "Only DEPARE polygons with DRVAL1 >= 5 m qualify; unknown and shallower bands are excluded",
+    "hazard_rule": "Buffer all land, shoreline/construction, obstruction, underwater rock and wreck geometries by at least 50 m",
+    "excluded_restriction_codes": [
+      7,
+      11,
+      14
+    ],
+    "restriction_rule": "Exclude RESARE with entry prohibited (7), diving prohibited (11) or area to be avoided (14). Preserve all other RESARE as context. Entry restricted (8) remains conditional and is not treated as clearance or permission for an actual mission.",
+    "scope": "2D chart-derived candidate task area; tide, vessel dimensions, 3D clearance, traffic, turning and coverage trajectories are separate later checks"
+  },
+  "verification": {
+    "stdlib_tests": 104,
+    "research_tests": 20,
+    "source_feature_count": 559,
+    "source_invalid_geometries": 0,
+    "independent_grid_centres": 308580,
+    "independent_interior_centres": 308435,
+    "boundary_centres_reported_separately": 145,
+    "independent_grid_violations": {
+      "outside_task": 0,
+      "outside_chart_coverage": 0,
+      "outside_qualified_depth_band": 0,
+      "on_source_land": 0,
+      "in_prohibited_restriction": 0,
+      "task_partition_gap": 0,
+      "task_partition_overlap": 0
+    },
+    "forward_inverse_locations_each": 64,
+    "max_forward_difference_m": 4.936009645462036e-08,
+    "max_inverse_difference_deg": 4.334310688136611e-13
+  },
+  "results": {
+    "task_area_m2": 10031250.0,
+    "searchable_area_m2": 8767426.837145586,
+    "searchable_components": 1,
+    "minimum_hazard_clearance_m": 50.479980031222325,
+    "buffer_distance_m": 50.51731102078883,
+    "task_outside_chart_m2": 0.0,
+    "forbidden_overlap_m2": 1.045339406765953e-14,
+    "task_restriction_context_overlap_m2": 9301000.703448445,
+    "searchable_restriction_context_overlap_m2": 8767426.837145532
+  },
+  "restriction_codes_source": {
+    "catalog": "GDAL s57expectedinput.csv",
+    "sha256": "d5b09a5c4248f3eb0906a4e3ac68d7380c86f819d70deae3662e736f0597bc6c",
+    "values": {
+      "7": "entry prohibited",
+      "8": "entry restricted",
+      "11": "diving prohibited",
+      "14": "area to be avoided"
+    }
+  },
+  "status": "Stage A map/task preparation complete; coverage planner not yet run",
+  "raw_data_uploaded": false,
+  "new_dependencies_installed": false,
+  "actual_mission_authorization_evaluated": false,
+  "limitations": [
+    "Chart catalog date is not the date of all hydrographic observations; source cells edition 1/update 1 issued 2026-04-22",
+    "Depth areas are chart bands, not a reconstructed continuous bathymetric surface",
+    "The entire geometric candidate lies in conditional RESARE context; actual operating conditions and permissions are not evaluated",
+    "No vessel footprint, tide, 3D clearance, turning, coverage or tracking result yet"
+  ]
+}

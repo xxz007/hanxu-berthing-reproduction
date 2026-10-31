@@ -1,0 +1,49 @@
+{
+  "stage": "A: real-chart selection and task-area preparation",
+  "area_name": "Long Beach, California",
+  "bbox_lon_lat": [-118.20, 33.72, -118.14, 33.77],
+  "charts": [
+    {
+      "cell": "US5LGBCE",
+      "url": "https://www.charts.noaa.gov/ENCs/US5LGBCE.zip",
+      "sha256": "04ea1c66daa656c6b2be6ea916773b3b20f40c895f061c28ed98874cbdc163d6",
+      "bytes": 126372,
+      "edition": 1,
+      "update": 1,
+      "scale_denominator": 12000
+    },
+    {
+      "cell": "US5LGBDE",
+      "url": "https://www.charts.noaa.gov/ENCs/US5LGBDE.zip",
+      "sha256": "22b0aa2558b600353c679079d595f07b21cbc936d17cbe36161d5d81f170a18e",
+      "bytes": 126845,
+      "edition": 1,
+      "update": 1,
+      "scale_denominator": 12000
+    }
+  ],
+  "projection": {
+    "ellipsoid": "WGS84",
+    "a_m": 6378137.0,
+    "b_m": 6356752.314245179,
+    "central_longitude_deg": -118.20,
+    "true_scale_latitude_deg": 33.745,
+    "origin_latitude_deg": 33.72,
+    "axes": "E east, N north, metres; southwest corner is local (0, 0)"
+  },
+  "task_polygon_local_m": [
+    [750, 1100], [4350, 900], [5050, 2450], [3950, 3550],
+    [2550, 3350], [1450, 4250], [800, 3100], [750, 1100]
+  ],
+  "engineering_choices": {
+    "task_polygon": "Manually specified simulation task; not a NOAA-designated survey mission",
+    "minimum_depth_lower_bound_m": 5.0,
+    "obstacle_margin_m": 50.0,
+    "buffer_approximation_pad_m": 0.5,
+    "depth_rule": "Only DEPARE polygons with DRVAL1 >= 5 m qualify; unknown and shallower bands are excluded",
+    "hazard_rule": "Buffer all land, shoreline/construction, obstruction, underwater rock and wreck geometries by at least 50 m",
+    "excluded_restriction_codes": [7, 11, 14],
+    "restriction_rule": "Exclude RESARE with entry prohibited (7), diving prohibited (11) or area to be avoided (14). Preserve all other RESARE as context. Entry restricted (8) remains conditional and is not treated as clearance or permission for an actual mission.",
+    "scope": "2D chart-derived candidate task area; tide, vessel dimensions, 3D clearance, traffic, turning and coverage trajectories are separate later checks"
+  }
+}
