@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "source": {
+    "dataset": "GSHHG 2.3.7 native binary",
+    "archive": "data/raw/gshhg-bin-2.3.7.zip",
+    "url": "https://github.com/GenericMappingTools/gshhg-gmt/releases/download/2.3.7/gshhg-bin-2.3.7.zip",
+    "sha256": "28600e8f7a08645aab43079326df6504212ec5ccb2b4bcf3b5f4f12ed60e82bc",
+    "bytes": 118617033
+  },
+  "projection": {"a": 6378137.0, "b": 6356755.0, "lon0_deg": 0.0, "lat_ts_deg": 0.0},
+  "coarse": {"resolution": "c", "bounds_EN_m": [11150000, 0, 11690000, 430000], "grid_n": 512},
+  "fine": {"resolution": "f", "bounds_EN_m": [11480000, 110000, 11580000, 175000], "grid_n": 1024},
+  "start_EN_m": [11340000, 220000],
+  "goal_EN_m": [11565000, 335000],
+  "safety_margin_m": 50.0,
+  "local_replan": {"sample_step_m": 100.0, "anchor_padding_m": 200.0},
+  "evidence": {
+    "scenario": "Singapore Strait and 50m shoreline margin: thesis printed p47, Fig3.16",
+    "projection": "thesis Eq3.7 a,b,B0,L0; corrected standard E/N axes separately audited",
+    "start_goal": "Approximate reading of Fig3.16 axis ticks; author exact endpoints unavailable",
+    "map_windows": "Independent chosen EN extents covering the shown overall and local regions",
+    "resolutions_and_grid": "Engineering choices frozen before first run; not author map scales",
+    "status": "Independent real-data cross-chart reproduction, not pixel-identical Fig3.16"
+  }
+}

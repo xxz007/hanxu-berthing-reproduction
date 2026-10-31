@@ -1,0 +1,74 @@
+{
+  "recorded_on": "2026-10-30",
+  "timezone": "America/New_York",
+  "research_status": "resumed_active",
+  "scope": "Han Xu 2023 Chapter 3 R0-R8; fourth/fifth chapter controls out of current scope",
+  "complete_chapter_strict_reproduction": false,
+  "verification": {
+    "stdlib_unit_tests": 104,
+    "research_preprocessing_tests": 14,
+    "independent_PROJ_forward_inverse_comparisons": 1648,
+    "new_dependencies_installed": false
+  },
+  "gates": {
+    "R1": {
+      "independent_map_checks": true,
+      "author_raw_map_equivalence": false
+    },
+    "R2_R3": {
+      "same_graph_shortest_path_checked": true,
+      "parent_policy_interpretations_recorded": true,
+      "author_neighbor_parent_equivalence": false
+    },
+    "R4": {
+      "basic_and_2008_bisection": true,
+      "engineering_merge_transit_cases_passed": 3,
+      "engineering_merge_stern_cases_failed": 3,
+      "author_merge_equivalence": false,
+      "all_original_full_smoothing_cases_passed": false
+    },
+    "R5_R6": {
+      "previous_two_primary_cases_preserved": true,
+      "engineering_full_merge_then_RS_transit_cases_passed": 3,
+      "engineering_transit_length_m": 5048.617811331884,
+      "engineering_RS_max_curvature_jump_per_m": 0.01,
+      "global_G2_continuity": false,
+      "author_splice_parameters_confirmed": false
+    },
+    "R7": {
+      "independent_comparison_saved": true,
+      "formal_runs": 77,
+      "warmups": 15,
+      "strict_table_3_3": false,
+      "author_SmoothRRT_curvature_and_statistics_confirmed": false
+    },
+    "R8": {
+      "coordinate_kernel_independently_verified": true,
+      "official_GSHHG_hash_verified": true,
+      "real_data_local_repair_passed": true,
+      "independent_vector_land_and_raster_collision_review": true,
+      "margin_relaxed_in_primary_case": false,
+      "initial_collision_cells_on_fine_map": 191,
+      "final_collision_cells_on_fine_map": 0,
+      "initial_length_m": 481501.1967344433,
+      "final_length_m": 484451.48607505596,
+      "original_replaced_segment_length_m": 23871.37627676672,
+      "author_exact_endpoints_chart_scales_and_margin_semantics_confirmed": false
+    }
+  },
+  "remaining": [
+    "author G2CBS adjacent-turn merge semantics and stern full-spine collision/budget cases",
+    "author raw harbor input, neighbors/parent update, RS splice and reverse penalty",
+    "author Smooth-RRT finite-curvature construction, timing and node-count rules, strict Table3.3",
+    "strict Fig3.16 endpoint/chart resolution and margin discretization alignment",
+    "chapter-wide strict acceptance; no source gap hidden by engineering choices"
+  ],
+  "local_only": [
+    "AGENTS.md",
+    "HANDOFF.md",
+    "source_local.json",
+    "original PDFs",
+    "raw GSHHG archive and map arrays",
+    "full run traces and source snapshots"
+  ]
+}

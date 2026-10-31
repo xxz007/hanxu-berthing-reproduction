@@ -39,3 +39,9 @@
 ## R7参考方法
 
 JPS依据Hu等2021年原文4.1节独立实现，禁止对角穿障碍角点；无JPS+或goal bounding。Smooth-RRT依据用户提供的Yu等2017完整PDF，采用目标偏置、转角限制和贪心折线简化。式5的方向裁剪、根航向及双接头保护为明确补充解释，incoming-only失败保留；未将其折线伪称连续曲率。来源哈希见[r7_sources.json](r7_sources.json)，结果与限制见[R7报告](../reports/R7_方法对照与来源差异.md)。未复制第三方程序。
+
+## 2026-10-30续核与真实数据
+
+2010完整8页PDF已按用户新路径重新定位、核对相同SHA并逐页渲染检查；不是只有开篇或缓存文本。2008二分构造已经实现并检查；本轮新增的相邻同向工程合并另行标记，不能认定为作者规则。参见[g2_merge_sources.json](g2_merge_sources.json)。
+
+新坐标内核与既有PROJ9.7.1独立核对，公式审计见[r8_coordinate_sources.json](r8_coordinate_sources.json)。GSHHG2.3.7官方native binary已下载并核对公布SHA，粗细地图在原生层级填陆和保守闭格缓冲后运行；来源、许可与变换见[r8_data_sources.json](r8_data_sources.json)。没有安装GIS包，GEOS仅用于独立审计。之前“未实现二分／坐标”的语句属于历史阶段。

@@ -1,0 +1,19 @@
+{
+  "kind": "Saved GSHHG cross-chart run; no planner rerun by plotting",
+  "input_sha256": {
+    "result.json": "49b8b8e0f6fb42441de7a9a4571fa37bdbdeb71a3e784213bcd4b0838b03092f",
+    "coarse_map.json": "38a1a90c482a00f9764439817063216371609d9b343fccb1b90312a62636cff5",
+    "fine_map.json": "31359e8c4e33f4f6cf6ae5bc2645bf281fd6d9e11143e43c1ba4e16f2cfca6ad"
+  },
+  "script_sha256": "d71e9a5564d243d584d5ee95ddd75827ce934f628180aa543d136f2f1f78c750",
+  "output_sha256": {
+    "cross_chart_r8.png": "b90b6168f5c07d6a97e6113d9a418ee4a856ffd09d13d9f525eca7ba58482a16",
+    "cross_chart_r8.pdf": "9c6862dffb534072fff74a16c669e3ec075f467fd57ebabce48eed64af01736d",
+    "cross_chart_r8.svg": "49673f95c3f5235afae0ddaa8dd50e9067eea8befbd0dbf38469d7157404aa52"
+  },
+  "raw_data_uploaded": false,
+  "author_exact_figure": false,
+  "initial_length_m": 481501.1967344433,
+  "final_length_m": 484451.48607505596,
+  "active_margin_m": 50.0
+}

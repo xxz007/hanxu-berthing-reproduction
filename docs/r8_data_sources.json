@@ -1,0 +1,36 @@
+{
+  "dataset": "GSHHG 2.3.7",
+  "creator": [
+    "Paul Wessel",
+    "Walter H. F. Smith"
+  ],
+  "record_doi": "10.5281/zenodo.7007502",
+  "source_paper_doi": "10.1029/96JB00104",
+  "source_distribution": "native binary, not the GMT netCDF archive linked by the Zenodo record",
+  "release_metadata_url": "https://github.com/GenericMappingTools/gshhg-gmt/releases/tag/2.3.7",
+  "download_url": "https://github.com/GenericMappingTools/gshhg-gmt/releases/download/2.3.7/gshhg-bin-2.3.7.zip",
+  "sha256": "28600e8f7a08645aab43079326df6504212ec5ccb2b4bcf3b5f4f12ed60e82bc",
+  "md5": "6f933dfe92878f27d1f0a36aff6f04ad",
+  "bytes": 118617033,
+  "retrieved_local_date": "2026-10-30",
+  "timezone": "America/New_York",
+  "format_specification": "README.TXT inside the checksum-verified official archive: 11 big-endian int32 header, then int32 longitude/latitude microdegrees",
+  "format_readme_sha256": "8c83b0d9e861c3cf9390ccfcc28d57dd484b192e1767524e094c988ee9f84ac7",
+  "resolutions_used": {
+    "coarse": "c",
+    "fine": "f"
+  },
+  "hierarchy": "L1/L3 land, L2/L4 water; all shoreline-touched cells blocked",
+  "coordinates": "source WGS84 geographic degrees; planning uses thesis ellipsoid a=6378137,b=6356755 with explicit E/N convention",
+  "transformations": [
+    "regional polygon clipping",
+    "Mercator projection",
+    "hierarchical scanline interior fill",
+    "closed shoreline-cell supercover",
+    "conservative closed-land-cell 50m dilation"
+  ],
+  "raw_data_uploaded": false,
+  "author_version_and_exact_chart_scales": "unconfirmed",
+  "license": "LGPL v3 or later, per official LICENSE.TXT",
+  "license_text_transformation": "Line endings normalized to LF and trailing whitespace removed; notice words unchanged"
+}

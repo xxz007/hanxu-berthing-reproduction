@@ -1,0 +1,77 @@
+{
+  "review_date": "2026-10-30",
+  "timezone": "America/New_York",
+  "scope": "R4 short-turn budget lower bound and explicitly supplemental geometric merge candidate",
+  "primary_sources": [
+    {
+      "title": "Planning Continuous Curvature Paths for UAVs Amongst Obstacles",
+      "authors": [
+        "Kwangjin Yang",
+        "Salah Sukkarieh"
+      ],
+      "year": 2008,
+      "url": "https://www.araa.asn.au/acra/acra2008/papers/pap104s1.pdf",
+      "sha256": "f1dcaba4ed18fb911eb7586fcb67b9fbad15b6428b33ad57ef3f4121d8ef09b2",
+      "current_review": "Full text, PDF pages 5-7 and Fig.8/10 rendered and inspected; equations 16-22 and sections 7.1-7.3",
+      "evidence": "Single-corner angle bisection and segment-length margin allocation; no explicit adjacent multi-turn merge pseudocode found"
+    },
+    {
+      "title": "An Analytical Continuous-Curvature Path-Smoothing Algorithm",
+      "authors": [
+        "Kwangjin Yang",
+        "Salah Sukkarieh"
+      ],
+      "year": 2010,
+      "doi": "10.1109/TRO.2010.2042990",
+      "current_review": "The complete user-provided 8-page PDF has been relocated and its SHA-256 matches the preceding verified source exactly. All 8 physical pages were freshly extracted, rendered at scale 1.6 and visually inspected in this continuation, with emphasis on printed pages 563-568. No reliance on cached layout text is needed for the current conclusion.",
+      "evidence": "Printed pp.563-564, IV gives single-triplet G2CBS and curvature-length formulas; pp.565-566, VI/Algorithm1 controls collision-check knot spacing, not curve repair or turn merging; pp.566-567, VII-A delegates removal of unnecessary waypoints to the planner; p.567, VII-B references [27] (the 2008 work) for remaining length margins; p.568, VIII states integration into path planning as future work. No explicit adjacent multi-turn merge construction or additional collision-repair construction was found.",
+      "sha256": "dff618b4decd5fed48004bfc4b9eba1d31e708335066d82ecfa7c522a8fa072f",
+      "rendered_review": {
+        "physical_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "printed_pages": [
+          561,
+          562,
+          563,
+          564,
+          565,
+          566,
+          567,
+          568
+        ],
+        "original_pdf_uploaded": false
+      }
+    },
+    {
+      "title": "船舶靠泊路径规划与模型预测航迹保持控制",
+      "author": "韩旭",
+      "year": 2023,
+      "location": "Printed page 38, physical PDF page 50, Fig.3.8 discussion",
+      "evidence": "Claims that nearby turns are merged without waypoint preprocessing; gives no executable merge steps in this passage."
+    }
+  ],
+  "derived_result": {
+    "formula": "d_n = (C/kmax) * tan(abs(gamma)/2) / cos(gamma/(2*n)); limit d_inf = (C/kmax) * tan(abs(gamma)/2)",
+    "C": 1.1225927854175946,
+    "scope": "Uniform equal-angle independent-corner G2CBS construction using the full 2010 coefficient; not a lower bound for every possible smooth path.",
+    "checks": "n=1 agrees with basic pair; n=2 agrees with implemented 2008 Fig.8 bisection; monotone limit and radius scaling tested."
+  },
+  "engineering_extension": {
+    "rule": "For an insufficient internal segment whose two incident turns have the same sign, replace those two virtual corners by the intersection of their exterior tangent rays. Recompute complete basic/bisected G2CBS, verify all curves and preserve original-index groups.",
+    "author_equivalence": false,
+    "source_algorithm_gate_passed": false,
+    "limitations": "Deterministic greedy candidate only. Does not merge opposite-sign turns or repair collision-only failures. Does not change endpoints/obstacles, apply LOS pruning or replace a tail by RS."
+  },
+  "excluded_search_hit": {
+    "url": "https://rii.sjtu.edu.cn/images/6/65/TRO2010.Xu.pdf",
+    "reason": "Search snippet contains the desired next-paper title, but the PDF is the preceding continuum-robot paper (printed pages 555-561), not the full desired article. Not used as full-text evidence."
+  }
+}

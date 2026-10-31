@@ -1,0 +1,49 @@
+{
+  "recorded_on": "2026-10-30",
+  "timezone": "America/New_York",
+  "scope": "R8 coordinate kernel and independent formula audit",
+  "sources": [
+    {
+      "kind": "user_supplied_thesis_full_text",
+      "title": "船舶靠泊路径规划与模型预测航迹保持控制",
+      "author": "韩旭",
+      "year": 2023,
+      "source_manifest": "source_manifest.json",
+      "pdf_physical_pages_1_based": [57, 58, 59],
+      "printed_pages": [45, 46, 47],
+      "formulas": ["3.7", "3.8", "3.9"],
+      "read_method": "PyMuPDF text plus visual inspection of rendered physical page 58",
+      "sha256": "0a931527a7f822c38e0165973668b4436d76c68aa81eed7cce2211a5485d7b32",
+      "reported_parameters": {"a_m": 6378137, "b_m": 6356755, "B0_rad": 0, "L0_rad": 0}
+    },
+    {
+      "kind": "official_projection_documentation",
+      "title": "PROJ: Mercator — ellipsoidal form",
+      "url": "https://proj.org/en/stable/operations/projections/merc.html",
+      "access_date": "2026-10-30",
+      "used_for": "Standard east/north convention, true-scale latitude and ellipsoidal forward/inverse definitions"
+    },
+    {
+      "kind": "existing_local_independent_executable",
+      "software": "PROJ",
+      "version": "9.7.1",
+      "used_for": "Independent executable reference with exact thesis a,b plus separately labelled WGS84 sensitivity",
+      "installation_by_this_task": false,
+      "note": "Executable selected by --proj-executable or an existing installed application; file hash and actual version saved per run"
+    }
+  ],
+  "explicit_implementation_choices": [
+    "Public geographic input/output uses degrees, core trigonometric calculations use radians",
+    "Projected E is east, N is north; longitude normalized about the central meridian",
+    "Default ellipsoid is the exact thesis a,b rather than silently replacing b by WGS84",
+    "Planning uses standard axes inverse; thesis eq3.8 literal swapped-axis version remains audit-only",
+    "General true-scale latitude uses standard cos-squared denominator; paper B0=0 makes the observed printed difference vanish",
+    "Cell size is metres per cell; world-to-grid divides by dx/dy and explicitly chooses north-up or south-down rows",
+    "Grid coordinate origin is a cell corner, cell_center adds one half, cell_index uses half-open cells"
+  ],
+  "unresolved_author_alignment": [
+    "Whether the author code uses the axis convention printed in eq3.7 or eq3.8",
+    "Whether dx/dy in the author implementation denote metres per cell or reciprocal scale",
+    "Whether the cos term lacking a squared exponent is only a printed equation issue; B0=0 in the actual stated setup is unaffected"
+  ]
+}
