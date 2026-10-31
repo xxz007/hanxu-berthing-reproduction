@@ -1,0 +1,186 @@
+{
+  "recorded_on": "2026-10-31",
+  "timezone": "America/New_York",
+  "stage": "A2 geometric coverage passed under the declared ideal model",
+  "A1_registry": "docs/open_chart_stage_a_sources.json",
+  "target_geometry_sha256": "12183e2b7a1ef72109b8b1886ae93f50bc7619d6d7eb05d8927820cbdeda14ea",
+  "config": "configs/open_chart_coverage_a2.json",
+  "config_sha256": "bbb013ef1dbbe3061596d80c0e3787b537c67d8f71959d3dec74e4cee9d1431f",
+  "protocol": "docs/coverage_a2_protocol.md",
+  "vector_coverage": {
+    "target_geometry_sha256": "12183e2b7a1ef72109b8b1886ae93f50bc7619d6d7eb05d8927820cbdeda14ea",
+    "target_area_m2": 8767426.837145586,
+    "covered_area_m2": 8758663.986377195,
+    "missed_area_m2": 8762.850768364666,
+    "repeated_area_m2": 2179714.4467452015,
+    "coverage_ratio": 0.9990005219397708,
+    "missed_ratio": 0.0009994780602261165,
+    "repeated_ratio": 0.24861507113013467,
+    "summed_pass_area_m2": 10946591.30695755,
+    "excess_area_m2": 2187927.320580356,
+    "excess_fraction_of_pass_area": 0.19987293388670954,
+    "initial_coverage_ratio": 0.994545213449472,
+    "initial_missed_area_m2": 47824.44199398067,
+    "sensor_model": "Ideal circular horizontal footprint, radius 50 m; active straight scanning legs only. Transit legs do not scan. No 3D/occlusion/dwell-time model.",
+    "buffer_quadrant_segments": 30,
+    "circle_approximation": "Inscribed polygonal caps; vector footprint area is a conservative approximation of ideal radius50m circles"
+  },
+  "route": {
+    "length_m": 166954.52840701546,
+    "scan_length_m": 109570.0,
+    "transit_length_m": 57384.52840701547,
+    "supplement_length_m": 762.5,
+    "scan_leg_count": 86,
+    "primary_scan_leg_count": 66,
+    "supplemental_scan_count": 20,
+    "direction_change_count": 375
+  },
+  "checks": {
+    "target_unchanged": true,
+    "full_path_inside_candidate": true,
+    "minimum_original_hazard_clearance_m": 51.66496792463841,
+    "coverage_target_passed": true,
+    "partition_area_residual_m2": 2.60770320892334e-08,
+    "full_path_length_recomputed_m": 166954.5284070155,
+    "quadtree_LOS_all_segments": true
+  },
+  "navigation_domain": {
+    "policy": "Use the largest four-connected conservative-grid component as the selected starting navigation domain. Other components remain in the original full A1 coverage target and are never removed from the coverage denominator.",
+    "source_grid_components": 3,
+    "selected_component_id": 1,
+    "selected_free_cells": 1396836,
+    "other_free_cells_still_in_coverage_target": 506,
+    "source_grid_unchanged": true,
+    "target_geometry_unchanged": true
+  },
+  "other_navigation_component_coverage": [
+    {
+      "source_grid_component": 2,
+      "closed_cells": 505,
+      "closed_cell_area_m2": 3156.25,
+      "covered_area_m2": 237.13668749032362,
+      "missed_area_m2": 2919.1133125096762,
+      "coverage_ratio": 0.07513241583851837,
+      "platform_centres_visited": false,
+      "retained_in_original_coverage_target": true
+    },
+    {
+      "source_grid_component": 3,
+      "closed_cells": 1,
+      "closed_cell_area_m2": 6.25,
+      "covered_area_m2": 6.25,
+      "missed_area_m2": 0.0,
+      "coverage_ratio": 1.0,
+      "platform_centres_visited": false,
+      "retained_in_original_coverage_target": true
+    }
+  ],
+  "grid": {
+    "n": 2048,
+    "dx_m": 2.5,
+    "dy_m": 2.5,
+    "grid_sha256": "e674978c4ea3f95aac548cb3bf859049da1fad136d21ab9e143d89f696ae0e7b",
+    "source_candidate_area_m2": 8767426.837145586,
+    "free_cells": 1397342,
+    "retained_closed_cell_area_m2": 8733387.5,
+    "connected_components_4": 3,
+    "numeric_inset_m": 0.001,
+    "all_free_closed_cells_checked": true
+  },
+  "independent_audit": {
+    "passed": true,
+    "candidate_closed_grid_centres": 87713,
+    "candidate_boundary_grid_centres_separately_reported": 127,
+    "candidate_interior_grid_centres": 87586,
+    "sampled_interior_metrics": {
+      "target_area_m2": 8758600.0,
+      "covered_area_m2": 8750400.0,
+      "repeated_area_m2": 2184400.0,
+      "missed_area_m2": 8200.0,
+      "coverage_ratio": 0.9990637773160094,
+      "repeated_ratio": 0.24940058913524993,
+      "missed_ratio": 0.0009362226839905921
+    },
+    "sampled_minus_native_metrics": {
+      "target_area_m2": -8826.837145585567,
+      "covered_area_m2": -8263.986377194524,
+      "repeated_area_m2": 4685.55325479852,
+      "missed_area_m2": -562.8507683646658,
+      "coverage_ratio": 6.325537623852462e-05,
+      "repeated_ratio": 0.0007855180051152544,
+      "missed_ratio": -6.32553762355243e-05
+    },
+    "raw_grid_collision": {
+      "path_points_outside_grid_bounds": 0,
+      "segments_touching_or_crossing_blocked_cells": 0,
+      "unique_blocked_cells_hit": 0,
+      "examples": []
+    },
+    "route": {
+      "path_matches_ordered_legs": true,
+      "maximum_leg_gap_m": 0.0,
+      "maximum_leg_length_error_m": 4.547473508864641e-13,
+      "recomputed_path_length_m": 166954.5284070155,
+      "recomputed_leg_length_m": 166954.52840701552,
+      "path_vs_declared_length_error_m": 2.9103830456733704e-11,
+      "legs_vs_declared_length_error_m": 5.820766091346741e-11,
+      "non_straight_active_leg_indices": [],
+      "transit_legs_with_scanning_flag": [],
+      "active_pass_count": 86,
+      "transit_leg_count": 85,
+      "passed": true
+    },
+    "target_unchanged": true,
+    "native_target_area_matches_A1": true,
+    "limits": "Finite 10 m sampling is not exact area or a proof that arbitrarily narrow missed slivers are absent. Native area differences are diagnostics, not zero-error expectations. No occlusion, 3D, sensing physics, curvature, speed, controller, hull or operational validation."
+  },
+  "verification": {
+    "stdlib_tests": 114,
+    "research_tests": 42,
+    "new_dependencies_installed": false,
+    "figure_minimum_font_pt": 9,
+    "figure_collisions_fail": 0,
+    "figure_collisions_warn": 0,
+    "fresh_archive_to_map_grid_route_audit_reproduction_passed": true,
+    "reproduced_A1_geometry_files": 27,
+    "reproduced_coverage_geometry_files": 4,
+    "route_legs_and_scientific_metrics_identical": true,
+    "formal_png_identical_to_reviewed": true,
+    "changed_target_hazards_and_config_rejected": true
+  },
+  "existing_environment": {
+    "Python": "3.12.14",
+    "NumPy": "2.5.2",
+    "SciPy": "1.18.0",
+    "Matplotlib": "3.11.1",
+    "GDAL": "3.8.5",
+    "GEOS": "3.14.1"
+  },
+  "sources": [
+    {
+      "title": "GDAL ALL_TOUCHED",
+      "url": "https://gdal.org/en/stable/programs/gdal_rasterize.html#cmdoption-gdal_rasterize-at"
+    },
+    {
+      "title": "GEOS C API",
+      "url": "https://libgeos.org/doxygen/geos__c_8h.html"
+    }
+  ],
+  "raw_data_uploaded": false,
+  "motion_constraints_verified": false,
+  "multi_platform_run": false,
+  "method_changes_disclosed": [
+    "5m all-scan-centre visitation failed and remains saved",
+    "2.5m restores one connection but still3 conservative components",
+    "Starting navigation domain selected explicitly; complete original A1 candidate retained as sensor coverage target",
+    "Other component coverage/misses computed and independently checked; no obstacle clearing or denominator reduction"
+  ],
+  "local_evidence": "outputs/20261031T044614_242722Z_open_chart_coverage_a2",
+  "final_local_outputs": {
+    "prepared": "fresh_A1",
+    "grid": "grid_reproduced",
+    "run": "run_formal",
+    "audit": "independent_audit_formal.json",
+    "figure": "figure_formal"
+  }
+}

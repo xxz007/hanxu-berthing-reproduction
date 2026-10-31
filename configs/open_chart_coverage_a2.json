@@ -1,0 +1,46 @@
+{
+  "stage": "A2: single-platform 2D geometric coverage",
+  "target_candidate_sha256": "12183e2b7a1ef72109b8b1886ae93f50bc7619d6d7eb05d8927820cbdeda14ea",
+  "a1_manifest_sha256": "73774870965b197642337c96e0a5b05c39c1921d97e1d821945c71ec717815ca",
+  "grid_bounds": [
+    0.0,
+    0.0,
+    5120.0,
+    5120.0
+  ],
+  "grid_n": 2048,
+  "grid_cell_m": 2.5,
+  "swath_width_m": 100.0,
+  "lane_spacing_m": 80.0,
+  "lane_offset_m": 40.0,
+  "sensor_model": "Ideal circular horizontal footprint, radius 50 m; active straight scanning legs only. Transit legs do not scan. No 3D/occlusion/dwell-time model.",
+  "lane_axis": "Local east-west; rows ordered south to north, serpentine left/right",
+  "target_coverage_ratio": 0.999,
+  "max_supplemental_scans": 64,
+  "supplemental_half_length_m": 20.0,
+  "supplemental_rule": "Consider missed polygons from largest to smallest; choose the first representative-point scan with positive exact missed-area gain from the selected navigation domain. Short horizontal scan or vertical fallback. Preserve all residuals, including those without gain; maximum64 scans.",
+  "footprint_quadrant_segments": 30,
+  "coverage_definitions": {
+    "coverage_ratio": "union of clipped active scan footprints / original A1 candidate area",
+    "missed_ratio": "original candidate minus active footprint union / original candidate area",
+    "repeated_ratio": "area visited by at least two active scan legs / original candidate area",
+    "excess_fraction_of_pass_area": "sum of per-active-leg footprint areas minus union area, divided by summed pass area"
+  },
+  "acceptance": {
+    "target_geometry_unchanged": true,
+    "full_path_inside_candidate": true,
+    "minimum_original_hazard_clearance_m": 50.0,
+    "raster_collision_free": true,
+    "coverage_ratio_at_least": 0.999
+  },
+  "limitations": [
+    "Point-platform position polyline; heading discontinuities are not finite-curvature turns",
+    "A1 chart depth/restriction assumptions retained",
+    "No USV/UUV task allocation, tracking, depth dynamics or actual mission authorization evaluated"
+  ],
+  "scan_center_policy": "Use the largest four-connected conservative-grid component as the selected starting navigation domain. Other components remain in the original full A1 coverage target and are never removed from the coverage denominator.",
+  "method_revision": "Initial5m all-run visitation explicitly failed at a disconnected connector. 2.5m refinement restores one previous connection but leaves3 grid components. Revised scan-centre domain is declared before this run; target SHA, sensor footprint, spacing and coverage threshold stay unchanged.",
+  "a1_config_sha256": "fefc6d16f9978edc7a5bff4457570c4c17ffdfbc35cb1fc8eba16b5670387761",
+  "a1_hazards_sha256": "939e51d6f1ad2d89723e85e4cc12614a8042de3742074c72ac3ec57a64aae8a7",
+  "manifest_reference_policy": "a1_manifest_sha256 records the original A1 reference snapshot. A fresh preparation may change timestamps/code metadata; exact target, hazard geometry and source config hashes must still match."
+}

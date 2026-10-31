@@ -31,8 +31,15 @@ class Geos:
             'GEOSBuffer_r': ([pointer, pointer, C.c_double, C.c_int], pointer),
             'GEOSIntersection_r': ([pointer, pointer, pointer], pointer),
             'GEOSDifference_r': ([pointer, pointer, pointer], pointer),
+            'GEOSPointOnSurface_r': ([pointer, pointer], pointer),
             'GEOSArea_r': ([pointer, pointer, C.POINTER(C.c_double)], C.c_int),
+            'GEOSLength_r': ([pointer, pointer, C.POINTER(C.c_double)], C.c_int),
             'GEOSDistance_r': ([pointer, pointer, pointer, C.POINTER(C.c_double)], C.c_int),
+            'GEOSCovers_r': ([pointer, pointer, pointer], C.c_ubyte),
+            'GEOSPrepare_r': ([pointer, pointer], pointer),
+            'GEOSPreparedGeom_destroy_r': ([pointer, pointer], None),
+            'GEOSPreparedCovers_r': ([pointer, pointer, pointer], C.c_ubyte),
+            'GEOSGeom_createRectangle_r': ([pointer, C.c_double, C.c_double, C.c_double, C.c_double], pointer),
             'GEOSisValid_r': ([pointer, pointer], C.c_ubyte),
             'GEOSGetNumGeometries_r': ([pointer, pointer], C.c_int)
         }
@@ -68,6 +75,8 @@ class Geos:
                 result = self.lib.GEOSUnaryUnion_r(self.context, inputs[0])
             elif name == 'buffer':
                 result = self.lib.GEOSBuffer_r(self.context, inputs[0], distance, quadrant_segments)
+            elif name == 'point_on_surface':
+                result = self.lib.GEOSPointOnSurface_r(self.context, inputs[0])
             elif name in ('intersection', 'difference'):
                 fn = self.lib.GEOSIntersection_r if name == 'intersection' else self.lib.GEOSDifference_r
                 result = fn(self.context, *inputs)
@@ -93,11 +102,15 @@ class Geos:
             area = C.c_double()
             if not self.lib.GEOSArea_r(self.context, pointer, C.byref(area)):
                 raise ValueError('GEOS area calculation failed')
+            length = C.c_double()
+            if not self.lib.GEOSLength_r(self.context, pointer, C.byref(length)):
+                raise ValueError('GEOS length calculation failed')
             valid = self.lib.GEOSisValid_r(self.context, pointer)
             count = self.lib.GEOSGetNumGeometries_r(self.context, pointer)
             if valid == 2 or count < 0:
                 raise ValueError('GEOS geometry inspection failed')
-            return {'area_m2': area.value, 'valid': bool(valid), 'components': count}
+            return {'area_m2': area.value, 'valid': bool(valid), 'components': count,
+                    'length_m': length.value}
         finally:
             self.lib.GEOSGeom_destroy_r(self.context, pointer)
 
@@ -113,3 +126,46 @@ class Geos:
             self.lib.GEOSGeom_destroy_r(self.context, pa)
             if pb:
                 self.lib.GEOSGeom_destroy_r(self.context, pb)
+
+    def covers(self, container, geometry):
+        """Whole-geometry inclusion, including a covered boundary."""
+        outer, inner = self._read(container), None
+        try:
+            inner = self._read(geometry)
+            value = self.lib.GEOSCovers_r(self.context, outer, inner)
+            if value == 2:
+                raise ValueError('GEOS covers predicate failed')
+            return bool(value)
+        finally:
+            self.lib.GEOSGeom_destroy_r(self.context, outer)
+            if inner:
+                self.lib.GEOSGeom_destroy_r(self.context, inner)
+
+    def covers_rectangles(self, container, rectangles):
+        """Prepared whole-cell inclusion for an iterable of [xmin,ymin,xmax,ymax].
+
+        This tests complete closed rectangles, rather than their centers or
+        corners. The returned booleans retain the input order.
+        """
+        outer, prepared = self._read(container), None
+        try:
+            prepared = self.lib.GEOSPrepare_r(self.context, outer)
+            if not prepared:
+                raise ValueError('GEOS could not prepare inclusion geometry')
+            result = []
+            for bounds in rectangles:
+                rectangle = self.lib.GEOSGeom_createRectangle_r(self.context, *bounds)
+                if not rectangle:
+                    raise ValueError('GEOS could not create inclusion rectangle')
+                try:
+                    value = self.lib.GEOSPreparedCovers_r(self.context, prepared, rectangle)
+                    if value == 2:
+                        raise ValueError('GEOS prepared covers predicate failed')
+                    result.append(bool(value))
+                finally:
+                    self.lib.GEOSGeom_destroy_r(self.context, rectangle)
+            return result
+        finally:
+            if prepared:
+                self.lib.GEOSPreparedGeom_destroy_r(self.context, prepared)
+            self.lib.GEOSGeom_destroy_r(self.context, outer)
