@@ -1,0 +1,56 @@
+{
+  "stage": "A3: 1 surface-support USV + 2 coverage UUVs, timed 2D point-platform simulation",
+  "target_candidate_sha256": "12183e2b7a1ef72109b8b1886ae93f50bc7619d6d7eb05d8927820cbdeda14ea",
+  "source_a2_result_sha256": "a7ca733c4c09d36aa05e7f1b4767211836a7111bc731b431eb3aca37a9931b77",
+  "source_a2_config_sha256": "bbb013ef1dbbe3061596d80c0e3787b537c67d8f71959d3dec74e4cee9d1431f",
+  "source_a2_provenance_sha256": "47dfccd1fbef7835258180bed5d252048f1d23ea84e32fc2e23961e789f4d329",
+  "source_grid_sha256": "e674978c4ea3f95aac548cb3bf859049da1fad136d21ab9e143d89f696ae0e7b",
+  "platform_speeds_mps": {
+    "usv": 3.0,
+    "uuv_1": 1.5,
+    "uuv_2": 1.5
+  },
+  "minimum_horizontal_separation_m": 25.0,
+  "support_anchor_route_clearance_m": 35.0,
+  "support_range_m": 3000.0,
+  "support_checkpoint_count": 7,
+  "support_departure_step_s": 30.0,
+  "uuv_departure_delay_step_s": 10.0,
+  "maximum_uuv_departure_delay_s": 3600.0,
+  "source_task_policy": "Retain each of the 86 original A2 active scan legs exactly once, with endpoint reversal allowed. Split south/north bands using an explicit workload proxy. Transit legs never scan. The USV does not scan.",
+  "support_policy": "At seven mission-time checkpoints, target the midpoint of the two scheduled UUV positions. Snap to the nearest reachable grid centre at least35m from either complete UUV route, so holds remain separated. Connect anchors with LOS/A*. Schedule each support transit within its checkpoint interval using continuous-time separation/range checks. This is a surface-relay geometry surrogate, not an acoustic-channel model.",
+  "clock_boundary": "All three platforms are already deployed at their reported initial positions at t=0. Before delayed departure and after route completion they hold position. Deployment, launch, recovery and return-to-port are outside the reported mission clock.",
+  "coverage_policy": "Same original A1 full target and same A2 ideal circular radius50m active footprints, including the original unresolved pockets. No transit or USV coverage credit; original missed/repeated polygons retained.",
+  "acceptance": {
+    "each_source_task_assigned_exactly_once": true,
+    "source_task_geometry_preserved": true,
+    "all_paths_inside_original_candidate": true,
+    "all_paths_clear_original_blocked_cells": true,
+    "minimum_original_hazard_clearance_m": 50.0,
+    "continuous_horizontal_pair_separation_m": 25.0,
+    "continuous_horizontal_surface_support_range_m": 3000.0,
+    "original_coverage_ratio_at_least": 0.999
+  },
+  "limitations": [
+    "Speeds, horizontal clearance and support range are declared engineering settings, not measured platform specifications",
+    "Arc-length timing of point-position polylines; instantaneous corner heading changes, no acceleration/curvature/tracking/current/energy validation",
+    "Horizontal USV/UUV separation is a conservative surrogate; UUV depth, bathymetric clearance, ascent/descent and 3D collisions are not modelled",
+    "Support range is geometric only; underwater acoustics, occlusion, outages, bandwidth and communication protocol are not modelled",
+    "Distributed initial deployment and final recovery are not simulated; no operational permission assessed",
+    "Not an optimal allocation claim or a complete reproduction of Han Xu chapter3 or the supplied USV/UAV figure"
+  ],
+  "source_a2_scientific_result_sha256": "b5482f98c08c8ea92b8ce8a71d7d056a4b2e9c49624ee10e690dc223c7e3b38b",
+  "a2_volatile_result_fields": [
+    "tree_seconds",
+    "primary_planning_seconds",
+    "total_experiment_seconds"
+  ],
+  "source_a2_navigation_grid_sha256": "dbd2efcdbb43aac28e9287f908b37ffcc1b6051c639efb32624d133844e6a245",
+  "source_a2_geometry_sha256": {
+    "covered.geojson": "0900ae66503b11c17e09f60d6657dfee6b6a94f1bc8ae66fa0ca23d696f1883e",
+    "missed.geojson": "b1a5aa323b01f300c1f4079824b0dc41967e433e5f8745bab13dcd21a1dadb4e",
+    "repeated.geojson": "14154a0d330e50e2db147b837b7f151b2d73d13b9ab7178cc6af8cf5664f0bb2",
+    "initial_missed.geojson": "4c3622a9cad67955a68917384fbd971460f088778f2fc18bbe3115d2a59ac921"
+  },
+  "fresh_a2_policy": "Default config pins the saved full A2 snapshot. For a regenerated A2 whose three computation timing fields differ, freeze_equivalent_a2_inputs.py may produce a NEW config only after the canonical scientific result, source config, navigation grid and all four geometry hashes match the pinned reference. The original config is never overwritten."
+}

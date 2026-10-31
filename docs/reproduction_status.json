@@ -5,8 +5,8 @@
   "scope": "Han Xu 2023 Chapter 3 R0-R8; fourth/fifth chapter controls out of current scope",
   "complete_chapter_strict_reproduction": false,
   "verification": {
-    "stdlib_unit_tests": 114,
-    "research_preprocessing_tests": 42,
+    "stdlib_unit_tests": 139,
+    "research_preprocessing_tests": 70,
     "independent_PROJ_forward_inverse_comparisons": 1648,
     "new_dependencies_installed": false
   },
@@ -73,7 +73,7 @@
   ],
   "application_extension": {
     "approved_scope": "Open-chart irregular-area coverage, followed by USV/UUV cooperation",
-    "current_stage": "A2 single-platform ideal geometric coverage passed",
+    "current_stage": "A3 1 USV + 2 UUV allocation and timed 2D point-platform geometry passed",
     "candidate_area_m2": 8767426.837145586,
     "task_area_m2": 10031250.0,
     "chart_cells": [
@@ -81,7 +81,7 @@
       "US5LGBDE"
     ],
     "coverage_planner_run": true,
-    "next_stage": "USV/UUV task allocation and timed replay; preserve remaining geometric misses and separately verify motion constraints",
+    "next_stage": "Finite-turning-radius and speed feasibility of coverage/transit paths, then deployment/recovery, depth clearance and actual communication constraints",
     "source_registry": "docs/open_chart_stage_a_sources.json",
     "coverage_ratio": 0.9990005219397708,
     "repeated_ratio": 0.24861507113013467,
@@ -89,6 +89,16 @@
     "route_length_m": 166954.52840701546,
     "coverage_summary": "docs/coverage_a2_summary.json",
     "motion_constraints_verified": false,
-    "multi_platform_run": false
+    "multi_platform_run": true,
+    "multi_platform_summary": "docs/cooperative_coverage_a3_summary.json",
+    "mission_end_s": 50475.63625858447,
+    "platforms": {
+      "usv": 1,
+      "uuv": 2
+    },
+    "minimum_horizontal_separation_m": 445.0,
+    "maximum_usv_uuv_range_m": 2760.3849369245586,
+    "launch_recovery_included": false,
+    "depth_dynamics_acoustics_verified": false
   }
 }
