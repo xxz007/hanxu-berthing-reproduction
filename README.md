@@ -8,7 +8,7 @@
 
 **一句话理解：给船舶做一套“靠泊导航”——先在开阔处粗、近岸处细的地图找出避障通路，再把转弯变平滑，安排最后的朝向和进退动作，让船按要求抵达泊位。**
 
-[框架图](#1框架图) · [项目结构](#2项目结构) · [学习路线](#3学习路线) · [文献实验解读](#4文献实验解读) · [成果展示](#5实验复现结果展示) · [完成清单](#6未完成部分说明)
+[框架图](#1框架图) · [项目结构](#2项目结构) · [学习路线](#3学习路线) · [文献实验解读](#4文献实验解读) · [成果展示](#5实验复现结果展示) · [运行指南](#6项目运行指南)
 
 ## 1、框架图
 
@@ -204,38 +204,131 @@ JPS 与同网格普通 A* 最短路一致。JPS 和当前 Smooth-RRT 输出仍�
 - **边界说明**：任务范围、5 m 水深下界和至少 50 m 裕度为仿真设定；海图管制信息单独保留，当前只评价几何空间。
 - **阶段关系**：本地图已作为 A2 单平台覆盖实验的固定输入。[地图阶段报告](reports/A1_开放海图与任务区域.md)
 
-## 6、未完成部分说明
+## 6、项目运行指南
 
+### 环境准备
 
-### 已完成
+| 运行内容 | 环境要求 |
+| --- | --- |
+| 合成港口演示、核心算法测试 | Python **3.12**，只使用标准库 |
+| 真实海图处理、覆盖规划与结果绘图 | Python 3.12，以及 [requirements-reconstruction.txt](requirements-reconstruction.txt) 中的依赖 |
+| 海图读取、栅格生成与独立坐标核查 | GDAL 命令行工具、GEOS 动态库、PROJ；不由 Python 依赖文件自动安装 |
 
-- ✅ 来源与地图：完成文献、参数来源登记，以及三阈值港口地图恢复与检查。
-- ✅ 地图搜索：实现四叉树、普通／改进 A*，普通 A* 已与同图 Dijkstra 核对。
-- ✅ 平滑与组合：基本 G2CBS、角度二分及既有两类靠泊组合通过相应检查；新增通航工程合并及经典 RS 集成，保留失败与作者差异。[续核报告](reports/R4_短转向合并续核.md)
-- ✅ 方法对照：保留 77 次正式试验与 15 次预热；139 项标准库测试、70 项科研预处理与审计检查通过。
-- ✅ 坐标转换：1648 组独立 PROJ 正逆比较通过；原文轴向和单位疑点另行登记。[坐标核查](reports/R8_坐标公式核查.md)
-- ✅ 跨图重规划：真实 GSHHG 数据算例通过，独立复核没有漏陆或路径碰撞，明确保留栅格与作者条件差异。
-- ✅ 应用地图：完成长滩 NOAA ENC 选区、不规则任务区域与候选水域检查。
-- ✅ 单平台覆盖：完成往复扫描、A* 连接、显式补扫及独立覆盖／碰撞核查，达到声明的 99.9% 几何目标，保留剩余漏扫。
-- ✅ 多平台几何回放：完成两艘 UUV 分工、USV 水面支援、固定速度时钟与连续间距核查，提供可交互回放。
+真实海图流程已验证的环境为 macOS、Python 3.12.14、GDAL 3.8.5、GEOS 3.14.1、PROJ 9.7.1。Python 依赖版本以仓库记录为准。
 
-### 待完成任务
+首次使用，在终端执行：
 
-- ☐ 加入部署／回收流程、水下深度及通信约束，扩展当前几何支援模型。
-- ☐ 处理细颈可达性与剩余漏扫；补扫已插入任务排序，连接效率仍需继续改进。
-- ☐ 加入平台转弯与运动约束，验证几何覆盖路径的可执行性。
-- ☐ 对齐作者 G2CBS 合并规则，解决船艉位置路径的完整平滑；通航工程分支不替代原文验收。
-- ☐ 核实作者原始地图、搜索规则、RS 接入与倒车权重。
-- ☐ 明确作者 Smooth-RRT 曲率处理及评价条件，严格复现表 3.3。
-- ☐ 对齐图 3.16 精确端点、海图／栅格尺度和裕度条件，完成严格算例核对。
-- ☐ 完成第三章逐项严格验收与整体复跑。
+```bash
+git clone https://github.com/xxz007/hanxu-berthing-reproduction.git
+cd hanxu-berthing-reproduction
+python3.12 -m venv .venv
+source .venv/bin/activate
+```
 
-### 当前难点
+已有本地科研环境时，可直接激活现有环境并进入项目目录，无需重新创建。
 
-- **细颈离散断联**：保守格区仍有小区无法连接，漏扫未从目标中删除。
-- **连接效率待改进**：补扫已按高度插入，障碍附近的转场与任务顺序仍有优化空间。
-- **运动约束未齐**：覆盖折线转向、船艉平滑及 RS 曲率接入仍需分别核验。
-- **协同模型待深化**：水平距离尚不能代表水下通信质量，部署／回收与深度需补建模型。
-- **原文条件缺口**：原始代码／地图、关键参数及对照统计口径仍待确认。
+### 第一步：快速体验靠泊规划
 
-最新验证和验收边界见[完整复现协议](docs/08_full_reproduction_protocol.md)；暂停时的历史状态见[检查点](reports/暂停检查点_2026-10-29.md)。
+```bash
+python scripts/run_demo.py
+```
+
+脚本使用合成港口地图，运行通航到达与船艉抵泊两个算例，并在 `outputs/` 下自动新建带时间戳的目录。终端会打印结果位置，用浏览器打开其中的 **`index.html`**，即可查看路径、指标与回放；`metrics.json` 和轨迹 CSV 保存在同一目录。
+
+这是教学演示入口；第 5 部分的真实海图覆盖结果按下面的 A1→A2→A3 流程生成。
+
+### 第二步：运行真实海图覆盖与多平台协同
+
+先在已激活的环境中准备 Python 依赖，并让原生工具进入 PATH。本机 GDAL / PROJ 位于 `/Applications/Postgres.app/Contents/Versions/18/bin`；使用该安装时，先执行 `export PATH="/Applications/Postgres.app/Contents/Versions/18/bin:$PATH"`。其他安装位置应使用自己的目录；GEOS 也需能被系统或脚本发现。
+
+```bash
+python -m pip install -r requirements-reconstruction.txt
+ogrinfo --version
+command -v ogr2ogr gdal_rasterize proj
+```
+
+地图脚本支持通过 `--gdal-bin`、`--geos-lib` 指定位置，详见各脚本的 `--help`。
+
+流程为：**A1 下载并整理海图 → A2 单平台覆盖与审计 → 固定等价输入 → A3 两艘 UUV 分工与 USV 支援 → 审计、绘图与回放**。
+
+原始海图和完整运行数据没有随仓库上传，需要自行下载或使用本地保存的固定快照。NOAA 在线文件可能更新；如果大小或 SHA 校验失败，脚本会停止并保留下载文件，应先核对来源版本，再继续运行。
+
+<details>
+<summary><strong>展开完整运行命令（在项目根目录执行）</strong></summary>
+
+以下步骤使用同一组目录变量；每次运行新建目录，任一步失败即停止，不覆盖已有结果。
+
+```bash
+(
+set -e
+berthing_run="outputs/$(date -u +%Y%m%dT%H%M%SZ)_reproduce"
+mkdir "$berthing_run"
+
+# A1：下载固定海图，生成任务区域并独立核查
+python scripts/download_open_chart_stage_a.py \
+  --output-dir "$berthing_run/archives"
+python scripts/prepare_open_chart_stage_a.py \
+  --archives-dir "$berthing_run/archives" --output-dir "$berthing_run/a1_map"
+python research_tests/audit_open_chart_stage_a.py \
+  --prepared-dir "$berthing_run/a1_map" --json-out "$berthing_run/a1_audit.json"
+
+# A2：生成 2.5 m 栅格、单平台扫描路线与覆盖结果
+python scripts/prepare_coverage_grid.py \
+  --prepared-dir "$berthing_run/a1_map" --n 2048 --output-dir "$berthing_run/grid"
+python scripts/run_open_chart_coverage.py \
+  --prepared-dir "$berthing_run/a1_map" --grid-dir "$berthing_run/grid" \
+  --output-dir "$berthing_run/a2"
+python research_tests/audit_open_chart_coverage.py \
+  --prepared-dir "$berthing_run/a1_map" --grid-dir "$berthing_run/grid" \
+  --run-dir "$berthing_run/a2" --json-out "$berthing_run/a2_audit.json"
+python scripts/plot_open_chart_coverage.py \
+  --prepared-dir "$berthing_run/a1_map" --run-dir "$berthing_run/a2" \
+  --audit-json "$berthing_run/a2_audit.json" --output-dir "$berthing_run/a2_figure"
+
+# 仅允许重新生成的 A2 有计算耗时差异，科学结果须保持一致
+python scripts/freeze_equivalent_a2_inputs.py \
+  --a2-run-dir "$berthing_run/a2" --output-config "$berthing_run/a3_config.json"
+
+# A3：两艘 UUV 分工、一艘 USV 支援，并核查完整任务时钟
+python scripts/run_cooperative_coverage.py \
+  --a2-run-dir "$berthing_run/a2" --prepared-dir "$berthing_run/a1_map" \
+  --grid-dir "$berthing_run/grid" --config "$berthing_run/a3_config.json" \
+  --output-dir "$berthing_run/a3"
+python research_tests/audit_cooperative_coverage.py \
+  --run-dir "$berthing_run/a3" --a2-run-dir "$berthing_run/a2" \
+  --prepared-dir "$berthing_run/a1_map" --grid-dir "$berthing_run/grid" \
+  --json-out "$berthing_run/a3_audit.json"
+python scripts/plot_cooperative_coverage.py \
+  --prepared-dir "$berthing_run/a1_map" --run-dir "$berthing_run/a3" \
+  --audit-json "$berthing_run/a3_audit.json" --output-dir "$berthing_run/a3_figure"
+python scripts/build_cooperative_replay.py \
+  --prepared-dir "$berthing_run/a1_map" --run-dir "$berthing_run/a3" \
+  --audit-json "$berthing_run/a3_audit.json" --output "$berthing_run/replay.html"
+
+printf '结果目录：%s\n' "$berthing_run"
+)
+```
+
+若已有固定的 `US5LGBCE.zip` 和 `US5LGBDE.zip`，可跳过下载，把 A1 的 `--archives-dir` 改为其所在目录；两个文件仍须通过配置中的大小与哈希核验。连接 NOAA 遇到问题时，下载脚本另提供 `--noaa-cname` 选项，具体方式见 [A1 报告](reports/A1_开放海图与任务区域.md)。
+
+</details>
+
+### 第三步：查看结果与运行检查
+
+| 想查看的内容 | 输出位置 |
+| --- | --- |
+| 合成港口路径与回放 | 演示目录中的 `index.html` |
+| A2 覆盖、重复覆盖与漏扫图 | 本次目录下 `a2_figure/` 的 PNG、PDF、SVG |
+| A3 分工航线与间距核查图 | 本次目录下 `a3_figure/` 的 PNG、PDF、SVG |
+| A3 交互回放 | 本次目录下 **`replay.html`**，用浏览器离线打开 |
+| 路线、指标、参数与来源哈希 | `a2/`、`a3/` 中的 `result.json`、`config.json`、`provenance.json` |
+| 独立核查结果 | 本次目录下 `a1_audit.json`、`a2_audit.json`、`a3_audit.json` |
+
+需要检查代码时，在项目根目录执行：
+
+```bash
+PYTHONPATH=src python -m unittest discover -s tests
+PYTHONPATH=src:scripts python -m unittest discover -s research_tests
+```
+
+各阶段的参数、结果与验证范围见 [A1 地图报告](reports/A1_开放海图与任务区域.md)、[A2 覆盖报告](reports/A2_单平台区域覆盖规划.md) 和 [A3 协同报告](reports/A3_USV_UUV任务分配与时间回放.md)。
