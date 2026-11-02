@@ -1,0 +1,160 @@
+{
+  "recorded_on": "2026-11-02",
+  "timezone": "America/New_York",
+  "stage": "A5 separated-domain fixed-pose connector audit completed; full UUV motion route not found",
+  "config": "configs/headland_navigation_a5.json",
+  "config_sha256": "df1fb51b02fe789b8c35f496b42f5c0f95ab6746397c2f7f1263107dbe4f5706",
+  "source_registry": "docs/dubins_sources_a5.json",
+  "coverage_target_sha256": "12183e2b7a1ef72109b8b1886ae93f50bc7619d6d7eb05d8927820cbdeda14ea",
+  "navigation_sha256": "c93c7015a9937471da022f771f3463fcec468e0955cc29e7154a09c5aa1aacbc",
+  "source_result_sha256": "f6e3ce67d10b9c305e1f2f659bb64e0fa523249b9d02f7e96fe695c54c6db4a7",
+  "adapted_result_sha256": "d739fc6894d44da2ff70912fc9de6e07dab9b15dc63e2b0ed01b5c70e81b4f30",
+  "coverage_target_area_m2": 8767426.837145586,
+  "navigation_area_m2": 17628413.234442856,
+  "navigation_outside_target_m2": 8860986.397297224,
+  "minimum_original_hazard_clearance_m": 50.47950086362238,
+  "task_outside_navigation_m2": 0.0,
+  "connector_counts": {
+    "original_domain": {
+      "uuv_1": {
+        "passed": 12,
+        "required": 38
+      },
+      "uuv_2": {
+        "passed": 3,
+        "required": 46
+      },
+      "usv": {
+        "passed": 6,
+        "required": 6
+      }
+    },
+    "separated_domain": {
+      "uuv_1": {
+        "passed": 24,
+        "required": 38
+      },
+      "uuv_2": {
+        "passed": 17,
+        "required": 46
+      },
+      "usv": {
+        "passed": 6,
+        "required": 6
+      }
+    }
+  },
+  "failed_direct_connectors": 43,
+  "independently_verified_endpoint_obstructions": 41,
+  "unproven_search_failures": [
+    {
+      "platform": "uuv_1",
+      "from_task": "scan_020",
+      "to_task": "scan_083"
+    },
+    {
+      "platform": "uuv_2",
+      "from_task": "scan_046",
+      "to_task": "scan_072"
+    }
+  ],
+  "scan_tasks_unchanged_in_fixed_trial": 86,
+  "uuv_minimum_radius_m": 20,
+  "usv_minimum_radius_m": 40,
+  "adaptation_failures": {
+    "uuv_1": {
+      "empty_variant_task_ids": [
+        "scan_018",
+        "scan_019"
+      ],
+      "original_scan_lengths_m": [
+        52.5,
+        7.5
+      ]
+    },
+    "uuv_2": {
+      "failed_connection_task_ids": [
+        "scan_044",
+        "scan_045"
+      ],
+      "layer_index_zero_based": 21
+    }
+  },
+  "usv_independent_motion": {
+    "length_m": 3182.944169381162,
+    "duration_s": 1516.4451638636162,
+    "scope": "No UUV support waiting; not a cooperative mission duration; stop at every primitive join"
+  },
+  "independent_audit": {
+    "passed": true,
+    "errors": [],
+    "source_result_sha256": "f6e3ce67d10b9c305e1f2f659bb64e0fa523249b9d02f7e96fe695c54c6db4a7",
+    "adapted_result_sha256": "d739fc6894d44da2ff70912fc9de6e07dab9b15dc63e2b0ed01b5c70e81b4f30",
+    "navigation_sha256": "c93c7015a9937471da022f771f3463fcec468e0955cc29e7154a09c5aa1aacbc",
+    "independent_source_mask_points": 65536,
+    "source_mask_boundary_points_excluded": 85,
+    "source_mask_mismatch_count": 0,
+    "target_outside_navigation_m2": 0.0,
+    "navigation_outside_coverage_m2": 0.0,
+    "navigation_outside_depth_qualified_m2": 3.674615420979233e-12,
+    "navigation_minimum_hazard_clearance_m": 50.47950086362238,
+    "forbidden_overlap_m2": {
+      "hazard_buffer": 1.327677455023446e-11,
+      "restricted": 0.0,
+      "no_coverage": 0.0
+    },
+    "connector_counts": {
+      "original_domain": {
+        "uuv_1": {
+          "passed": 12,
+          "required": 38
+        },
+        "uuv_2": {
+          "passed": 3,
+          "required": 46
+        },
+        "usv": {
+          "passed": 6,
+          "required": 6
+        }
+      },
+      "separated_domain": {
+        "uuv_1": {
+          "passed": 24,
+          "required": 38
+        },
+        "uuv_2": {
+          "passed": 17,
+          "required": 46
+        },
+        "usv": {
+          "passed": 6,
+          "required": 6
+        }
+      }
+    },
+    "independent_enclosed_curve_count": 68,
+    "minimum_curve_hazard_clearance_lower_bound_m": 50.76249788374146,
+    "maximum_join_position_error_m": 4.547473508864641e-13,
+    "maximum_join_heading_error_rad": 4.440892098500626e-16,
+    "independently_verified_obstruction_count": 41,
+    "full_mission_verified": false,
+    "scope": "Audited fixed-pose experiment and retained failed adaptation; no full-route timing/separation or executed coverage acceptance."
+  },
+  "validation": {
+    "stdlib_tests_passed": 168,
+    "research_tests_passed": 83,
+    "input_tamper_cases_rejected": 3,
+    "navigation_and_fixed_trial_clean_export_byte_identical": true,
+    "adaptation_repeated_byte_identical": true,
+    "figure_alignment": "PASS",
+    "figure_minimum_text_pt": 9,
+    "figure_collision_fail": 0,
+    "figure_collision_warn": 0
+  },
+  "full_mission_motion_feasible": false,
+  "full_mission_retiming_released": false,
+  "new_executed_coverage_ratio": null,
+  "original_A3_values_are_baseline_only": true,
+  "next_step": "Joint short-scan position/direction/order and curvature-constrained connection planning, followed by full original-target footprint and curved variable-speed continuous separation checks."
+}

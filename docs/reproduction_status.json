@@ -73,7 +73,7 @@
   ],
   "application_extension": {
     "approved_scope": "Open-chart irregular-area coverage, followed by USV/UUV cooperation",
-    "current_stage": "A4: forward-turn workspace audit and six independently checked local motion cases completed; unchanged full mission is infeasible under declared fixed-domain/forward-only model",
+    "current_stage": "A5: safe navigation separated from fixed target; 47/90 fixed-pose connectors pass, 41/43 remaining have endpoint obstruction certificates; finite task-adaptation trial has no complete UUV route",
     "candidate_area_m2": 8767426.837145586,
     "task_area_m2": 10031250.0,
     "chart_cells": [
@@ -81,7 +81,7 @@
       "US5LGBDE"
     ],
     "coverage_planner_run": true,
-    "next_stage": "Separate safe headland/navigation water from unchanged coverage target; replan bounded-curvature UUV and USV routes; re-evaluate whole-target coverage and continuous distances for curved variable-speed motion",
+    "next_stage": "Joint short-scan position/direction/order and curvature-constrained connection planning, followed by full original-target footprint and curved variable-speed continuous separation checks.",
     "source_registry": "docs/open_chart_stage_a_sources.json",
     "coverage_ratio": 0.9990005219397708,
     "repeated_ratio": 0.24861507113013467,
@@ -107,6 +107,11 @@
     "local_motion_cases_independently_audited": 6,
     "full_mission_motion_feasible": false,
     "full_mission_retiming_released": false,
-    "mission_end_s_scope": "A3 point-platform constant-speed baseline only; not a motion-feasible A4 clock"
+    "mission_end_s_scope": "A3 point-platform constant-speed baseline only; no motion-feasible A4/A5 full-mission clock",
+    "a5_summary": "docs/headland_navigation_a5_summary.json",
+    "a5_navigation_area_m2": 17628413.234442856,
+    "a5_fixed_connectors_passed": 47,
+    "a5_fixed_connectors_required": 90,
+    "a5_endpoint_obstruction_certificates": 41
   }
 }

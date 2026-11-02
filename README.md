@@ -87,14 +87,23 @@ hanxu-berthing-reproduction/
 
 ## 5、实验复现结果展示
 
-### 当前进展 A4：转弯空间与局部速度实验
+### 当前进展 A5：分开覆盖目标与安全导航水域
+
+![原任务内导航与独立安全导航水域中的全部连接核查](docs/assets/headland_navigation_a5.png)
+
+- **导航域分离**：覆盖目标仍为 **8.767 km²**，安全导航水域扩大至 **17.628 km²**；原 50 m 障碍裕度保持，新增水域只用于通行和掉头。
+- **逐段连接**：保留原 86 条扫描任务，90 处必需连接中，通过整段曲线检查的数量从 **21 处增至 47 处**。UUV / USV 最小转弯半径设为 **20 / 40 m**。
+- **失败定位**：余下 43 处中，**41 处原端点缺少必要转弯空间**；另两处仅为当前候选搜索失败。端点调整后仍卡在两条短扫描段和一处绕障连接，尚未形成完整 UUV 路线。
+- **结果边界**：本轮没有新的全任务覆盖率或协同时间；A3 的覆盖率与 14.02 h 保留为原折线基线。[实验解读、失败原因与运行入口](reports/A5_独立导航域与转弯连接核查.md)
+
+### 前序核查 A4：转弯空间与局部速度实验
 
 ![固定任务边界附近的原端点、局部掉头曲线与20m和40m半径的启停速度对照](docs/assets/motion_feasibility_a4.png)
 
 - **空间核查**：在固定导航域、只前进且不能原地转向的模型下，最小半径 **20 m** 时，至少 **40 / 168** 个必要扫描端点空间不足，涉及 **36 条任务**。
 - **局部修正**：构造半径 **20 / 40 m** 的掉头曲线并加入启停、切向与横向加速度限制；六组局部实验独立审计通过，原始闭格碰撞均为 **0**。这是局部运动验证，完整任务尚未通过运动验收。
 - **覆盖影响**：名义 20 m 方案只退回两个端点，掉头不扫描时覆盖从 **99.9001%** 降为 **99.8807%**；沿用原足迹数值模型时，开启转弯扫描的对照仍低于 99.9% 门槛。原完整目标与 A3 基线均保留。
-- **建模结论**：任务边界不等于障碍边界，下一步将安全导航水域与覆盖目标分开设计，再重排完整路线与协同时钟。[核查推导、参数对照与运行入口](reports/A4_转弯空间核查与局部速度实验.md)
+- **建模结论**：任务边界不等于障碍边界，A5 已分开安全导航水域与覆盖目标，完整路线与协同时钟继续独立验证。[核查推导、参数对照与运行入口](reports/A4_转弯空间核查与局部速度实验.md)
 
 ### 应用基线 A3：USV / UUV 分工与时间回放
 
@@ -259,7 +268,7 @@ command -v ogr2ogr gdal_rasterize proj
 
 地图脚本支持通过 `--gdal-bin`、`--geos-lib` 指定位置，详见各脚本的 `--help`。
 
-流程为：**A1 下载并整理海图 → A2 单平台覆盖与审计 → 固定等价输入 → A3 两艘 UUV 分工与 USV 支援 → A4 转弯空间核查与局部修正**。A4 的完成状态表示核查实验完成，不表示完整任务运动验收通过。
+流程为：**A1 下载并整理海图 → A2 单平台覆盖与审计 → 固定等价输入 → A3 两艘 UUV 分工与 USV 支援 → A4 转弯空间核查与局部修正 → A5 独立导航域与连接核查**。A4 / A5 的核查完成不表示完整任务运动验收通过。
 
 原始海图和完整运行数据没有随仓库上传，需要自行下载或使用本地保存的固定快照。NOAA 在线文件可能更新；如果大小或 SHA 校验失败，脚本会停止并保留下载文件，应先核对来源版本，再继续运行。
 
@@ -320,6 +329,23 @@ python scripts/run_motion_sensitivity.py \
   --a3-run-dir "$berthing_run/a3" --prepared-dir "$berthing_run/a1_map" \
   --grid-dir "$berthing_run/grid" --output-dir "$berthing_run/a4_study"
 
+# A5：保留覆盖目标，扩展安全导航水域，核查连接与端点调整
+python scripts/prepare_navigation_domain.py \
+  --prepared-dir "$berthing_run/a1_map" --output-dir "$berthing_run/a5_nav"
+python scripts/run_headland_connectors.py \
+  --a3-run-dir "$berthing_run/a3" --prepared-dir "$berthing_run/a1_map" \
+  --navigation-dir "$berthing_run/a5_nav" --output-dir "$berthing_run/a5_fixed"
+python scripts/classify_connector_obstructions.py \
+  --trial-dir "$berthing_run/a5_fixed" --navigation-dir "$berthing_run/a5_nav" \
+  --json-out "$berthing_run/a5_obstructions.json"
+python scripts/run_adapted_headland_routes.py \
+  --a3-run-dir "$berthing_run/a3" --prepared-dir "$berthing_run/a1_map" \
+  --navigation-dir "$berthing_run/a5_nav" --output-dir "$berthing_run/a5_adapted"
+python research_tests/audit_headland_navigation.py \
+  --prepared-dir "$berthing_run/a1_map" --navigation-dir "$berthing_run/a5_nav" \
+  --trial-dir "$berthing_run/a5_fixed" --adapted-dir "$berthing_run/a5_adapted" \
+  --obstructions-json "$berthing_run/a5_obstructions.json" --json-out "$berthing_run/a5_audit.json"
+
 printf '结果目录：%s\n' "$berthing_run"
 )
 ```
@@ -338,6 +364,7 @@ printf '结果目录：%s\n' "$berthing_run"
 | A3 交互回放 | 本次目录下 **`replay.html`**，用浏览器离线打开 |
 | 路线、指标、参数与来源哈希 | `a2/`、`a3/` 中的 `result.json`、`config.json`、`provenance.json` |
 | 独立核查结果 | 本次目录下 `a1_audit.json`、`a2_audit.json`、`a3_audit.json` |
+| A5 安全导航域、逐段连接、失败节点与独立核查 | `a5_nav/`、`a5_fixed/result.json`、`a5_adapted/result.json`、`a5_obstructions.json`、`a5_audit.json` |
 | A4 参数对照、局部轨迹与图件 | `a4_study/study_summary.json`、`cases/` 中的 `local_motion.csv` 和 `figure/` |
 
 需要检查代码时，在项目根目录执行：
@@ -347,4 +374,4 @@ PYTHONPATH=src python -m unittest discover -s tests
 PYTHONPATH=src:scripts python -m unittest discover -s research_tests
 ```
 
-各阶段的参数、结果与验证范围见 [A1 地图报告](reports/A1_开放海图与任务区域.md)、[A2 覆盖报告](reports/A2_单平台区域覆盖规划.md)、[A3 协同报告](reports/A3_USV_UUV任务分配与时间回放.md) 和 [A4 运动核查报告](reports/A4_转弯空间核查与局部速度实验.md)。
+各阶段的参数、结果与验证范围见 [A1 地图报告](reports/A1_开放海图与任务区域.md)、[A2 覆盖报告](reports/A2_单平台区域覆盖规划.md)、[A3 协同报告](reports/A3_USV_UUV任务分配与时间回放.md)、[A4 运动核查报告](reports/A4_转弯空间核查与局部速度实验.md) 和 [A5 导航域与连接报告](reports/A5_独立导航域与转弯连接核查.md)。

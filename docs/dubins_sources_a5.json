@@ -1,0 +1,10 @@
+{
+  "repository": "AtsushiSakai/PythonRobotics",
+  "commit": "8c392897c7f41a6e4d9aab9cb2e9737a7a6fa031",
+  "path": "PathPlanning/DubinsPath/dubins_path_planner.py",
+  "sha256": "07fba67057d900d4c2b7794c9b0818a86342af8a520c914252dec620d94c61eb",
+  "documentation": "https://atsushisakai.github.io/PythonRobotics/modules/5_path_planning/dubins_path/dubins_path.html",
+  "license": "MIT; third_party/PythonRobotics.LICENSE",
+  "retrieved_utc_date": "2026-11-02",
+  "adaptation": "Six scalar path-family formulas with MIT attribution; own exact single-circle degeneracy handling, Pose/Piece integration, endpoint validation and obstacle-enclosure filtering. Finite direct-family testing is not a complete obstacle planner."
+}
