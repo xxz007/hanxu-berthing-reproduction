@@ -1,0 +1,10 @@
+{
+  "stage": "A6 explicit repair scan scheduling on unchanged complete curves",
+  "source_a6_scientific_sha256": "73120e904a030b03798bc6af728caa7899a5ff63113b8171188aa770379c814c",
+  "target_geometry_sha256": "12183e2b7a1ef72109b8b1886ae93f50bc7619d6d7eb05d8927820cbdeda14ea",
+  "sensor_radius_m": 50,
+  "required_coverage_ratio": 0.999,
+  "maximum_arc_sagitta_m": 0.02,
+  "footprint_quadrant_segments": 30,
+  "policy": "All86 original scans remain; greedily select explicit curved repair scans among existing transit legs. All other transit scanning OFF. Original complete target, trajectories and motion profiles unchanged. Ideal horizontal circle, not validated sonar."
+}

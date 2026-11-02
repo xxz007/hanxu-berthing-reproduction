@@ -41,6 +41,8 @@ hanxu-berthing-reproduction/
 │   ├── cooperative_allocation.py  两艘 UUV 的任务分带与路线
 │   ├── mission_timing.py        路线赋时、等待与连续间距核查
 │   ├── motion_feasibility.py    转弯空间必要条件与局部启停速度律
+│   ├── joint_coverage.py        扫描位置／朝向／顺序候选与分层搜索
+│   ├── maneuver_search.py      有界前进位姿搜索与曲线连接
 │   └── pipeline.py               合成港口学习流程
 ├── scripts/                      地图恢复、实验运行、对照与绘图
 ├── tests/                        标准库算法检查
@@ -87,7 +89,16 @@ hanxu-berthing-reproduction/
 
 ## 5、实验复现结果展示
 
-### 当前进展 A5：分开覆盖目标与安全导航水域
+### 当前进展 A6：完整个体曲线与按需补扫
+
+![完整个体曲线、明确补扫段与短扫描任务的局部修复](docs/assets/joint_coverage_a6.png)
+
+- **完整路线**：两艘 UUV 保留原 **39 / 47 条任务**，路线分别为 **75.09 / 93.00 km**；USV 独立路线 **3.18 km**。UUV / USV 最小转弯半径设为 **20 / 40 m**，只前进、保持原 **50 m** 障碍裕度。
+- **短段修复**：调整扫描位置与朝向；UUV2 将邻近三条短任务放到开头连续完成，因此初始位置随之改变。原 **8.767 km²** 目标与全部 86 个原任务 ID 均保留。
+- **按需补扫**：仅原 86 个调整后扫描段覆盖 **99.8761%**；明确增加 **3 个曲线补扫任务**后，保守覆盖下界达到 **99.9039%**，漏扫面积不超过 **8424 m²**。其余转场保持扫描关闭。
+- **代价与范围**：补扫沿用现有曲线，在当前模型内不增加航行距离和运动时间，合计增加约 **14.9 分钟**扫描开启。已验证个体几何、启停速度和理想 50 m 水平圆形足迹；协同时钟、连续间距及部署／回收继续单独验证。[阶段报告、策略对照与运行入口](reports/A6_连续曲线与按需补扫.md)
+
+### 前序核查 A5：分开覆盖目标与安全导航水域
 
 ![原任务内导航与独立安全导航水域中的全部连接核查](docs/assets/headland_navigation_a5.png)
 
@@ -254,7 +265,7 @@ python scripts/run_demo.py
 
 脚本使用合成港口地图，运行通航到达与船艉抵泊两个算例，并在 `outputs/` 下自动新建带时间戳的目录。终端会打印结果位置，用浏览器打开其中的 **`index.html`**，即可查看路径、指标与回放；`metrics.json` 和轨迹 CSV 保存在同一目录。
 
-这是教学演示入口；第 5 部分的真实海图覆盖结果按下面的 A1→A2→A3 流程生成。
+这是教学演示入口；第 5 部分的真实海图结果按下面的 A1→A6 分阶段流程生成。
 
 ### 第二步：运行真实海图覆盖、协同与运动核查
 
@@ -268,7 +279,7 @@ command -v ogr2ogr gdal_rasterize proj
 
 地图脚本支持通过 `--gdal-bin`、`--geos-lib` 指定位置，详见各脚本的 `--help`。
 
-流程为：**A1 下载并整理海图 → A2 单平台覆盖与审计 → 固定等价输入 → A3 两艘 UUV 分工与 USV 支援 → A4 转弯空间核查与局部修正 → A5 独立导航域与连接核查**。A4 / A5 的核查完成不表示完整任务运动验收通过。
+流程为：**A1 下载并整理海图 → A2 单平台覆盖与审计 → 固定等价输入 → A3 两艘 UUV 分工与 USV 支援 → A4 转弯空间核查与局部修正 → A5 独立导航域与连接核查 → A6 个体连续曲线与按需补扫**。A6 验证个体二维运动与理想足迹，协同时钟和连续间距另行验收。
 
 原始海图和完整运行数据没有随仓库上传，需要自行下载或使用本地保存的固定快照。NOAA 在线文件可能更新；如果大小或 SHA 校验失败，脚本会停止并保留下载文件，应先核对来源版本，再继续运行。
 
@@ -346,6 +357,30 @@ python research_tests/audit_headland_navigation.py \
   --trial-dir "$berthing_run/a5_fixed" --adapted-dir "$berthing_run/a5_adapted" \
   --obstructions-json "$berthing_run/a5_obstructions.json" --json-out "$berthing_run/a5_audit.json"
 
+# A6：联合扫描位姿／顺序，生成完整个体曲线并独立核查
+python scripts/run_joint_coverage.py \
+  --a3-run-dir "$berthing_run/a3" --a5-run-dir "$berthing_run/a5_adapted" \
+  --prepared-dir "$berthing_run/a1_map" --navigation-dir "$berthing_run/a5_nav" \
+  --output-dir "$berthing_run/a6"
+python research_tests/audit_joint_coverage.py \
+  --run-dir "$berthing_run/a6" --a3-run-dir "$berthing_run/a3" \
+  --a5-run-dir "$berthing_run/a5_adapted" --prepared-dir "$berthing_run/a1_map" \
+  --navigation-dir "$berthing_run/a5_nav" --json-out "$berthing_run/a6_audit.json"
+
+# 新增明确补扫任务，其余转场扫描保持关闭
+python scripts/schedule_repair_scans.py \
+  --run-dir "$berthing_run/a6" --audit-json "$berthing_run/a6_audit.json" \
+  --prepared-dir "$berthing_run/a1_map" --output-dir "$berthing_run/a6_repair"
+python research_tests/audit_repair_scans.py \
+  --repair-dir "$berthing_run/a6_repair" --run-dir "$berthing_run/a6" \
+  --route-audit-json "$berthing_run/a6_audit.json" --prepared-dir "$berthing_run/a1_map" \
+  --json-out "$berthing_run/a6_repair_audit.json"
+python scripts/plot_joint_coverage.py \
+  --run-dir "$berthing_run/a6" --repair-dir "$berthing_run/a6_repair" \
+  --prepared-dir "$berthing_run/a1_map" --navigation-dir "$berthing_run/a5_nav" \
+  --audit-json "$berthing_run/a6_audit.json" --repair-audit-json "$berthing_run/a6_repair_audit.json" \
+  --output-dir "$berthing_run/a6_figure"
+
 printf '结果目录：%s\n' "$berthing_run"
 )
 ```
@@ -364,6 +399,7 @@ printf '结果目录：%s\n' "$berthing_run"
 | A3 交互回放 | 本次目录下 **`replay.html`**，用浏览器离线打开 |
 | 路线、指标、参数与来源哈希 | `a2/`、`a3/` 中的 `result.json`、`config.json`、`provenance.json` |
 | 独立核查结果 | 本次目录下 `a1_audit.json`、`a2_audit.json`、`a3_audit.json` |
+| A6 个体曲线、补扫时段与覆盖图 | `a6/result.json`、`a6_repair/repair_schedule.csv`、`a6_repair/result.json`、`a6_figure/` |
 | A5 安全导航域、逐段连接、失败节点与独立核查 | `a5_nav/`、`a5_fixed/result.json`、`a5_adapted/result.json`、`a5_obstructions.json`、`a5_audit.json` |
 | A4 参数对照、局部轨迹与图件 | `a4_study/study_summary.json`、`cases/` 中的 `local_motion.csv` 和 `figure/` |
 
@@ -374,4 +410,4 @@ PYTHONPATH=src python -m unittest discover -s tests
 PYTHONPATH=src:scripts python -m unittest discover -s research_tests
 ```
 
-各阶段的参数、结果与验证范围见 [A1 地图报告](reports/A1_开放海图与任务区域.md)、[A2 覆盖报告](reports/A2_单平台区域覆盖规划.md)、[A3 协同报告](reports/A3_USV_UUV任务分配与时间回放.md)、[A4 运动核查报告](reports/A4_转弯空间核查与局部速度实验.md) 和 [A5 导航域与连接报告](reports/A5_独立导航域与转弯连接核查.md)。
+各阶段的参数、结果与验证范围见 [A1 地图报告](reports/A1_开放海图与任务区域.md)、[A2 覆盖报告](reports/A2_单平台区域覆盖规划.md)、[A3 协同报告](reports/A3_USV_UUV任务分配与时间回放.md)、[A4 运动核查报告](reports/A4_转弯空间核查与局部速度实验.md)、[A5 导航域与连接报告](reports/A5_独立导航域与转弯连接核查.md) 和 [A6 连续曲线与补扫报告](reports/A6_连续曲线与按需补扫.md)。

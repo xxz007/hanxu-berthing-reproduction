@@ -1,0 +1,113 @@
+{
+  "recorded_on": "2026-11-02",
+  "timezone": "America/New_York",
+  "stage": "A6 individual forward-curvature routes and explicit ideal repair coverage passed; cooperative mission clock not verified",
+  "configs": [
+    "configs/joint_coverage_a6.json",
+    "configs/coverage_repair_a6.json"
+  ],
+  "input_scope": "Frozen A1 target / A3 allocation / A5 navigation and candidate snapshots; no new dataset retrieval.",
+  "coverage_target_sha256": "12183e2b7a1ef72109b8b1886ae93f50bc7619d6d7eb05d8927820cbdeda14ea",
+  "navigation_sha256": "c93c7015a9937471da022f771f3463fcec468e0955cc29e7154a09c5aa1aacbc",
+  "source_route_result_sha256": "7f7e8575721be8d86496971567f63afac876797c6704d69c88e8040a92ff82e7",
+  "source_repair_result_sha256": "d1b9d018baaf9913fc6a77ebb4b4d4ed2186a65f535cb23b526880a7672fe457",
+  "coverage_target_area_m2": 8767426.837145586,
+  "navigation_area_m2": 17628413.234442856,
+  "minimum_declared_hazard_margin_m": 50,
+  "uuv_minimum_turning_radius_m": 20,
+  "usv_minimum_turning_radius_m": 40,
+  "platforms": {
+    "uuv_1": {
+      "source_scan_task_count": 39,
+      "explicit_repair_task_count": 2,
+      "length_m": 75087.83124778577,
+      "independent_motion_duration_s": 54013.16157531878,
+      "primitive_count": 246,
+      "selected_order": "source_order",
+      "changed_scan_geometry_count": 17
+    },
+    "uuv_2": {
+      "source_scan_task_count": 47,
+      "explicit_repair_task_count": 1,
+      "length_m": 92997.1345116897,
+      "independent_motion_duration_s": 67772.97121203525,
+      "primitive_count": 322,
+      "selected_order": "short_cluster_first_scan_048",
+      "changed_scan_geometry_count": 40
+    },
+    "usv": {
+      "source_scan_task_count": 0,
+      "explicit_repair_task_count": 0,
+      "length_m": 3182.944169381162,
+      "independent_motion_duration_s": 1516.4451638636162,
+      "primitive_count": 18,
+      "selected_order": null,
+      "changed_scan_geometry_count": 0
+    }
+  },
+  "original_scan_tasks_retained": 86,
+  "explicit_repair_tasks": 3,
+  "total_scan_tasks": 89,
+  "coverage": {
+    "original86_only_lower_ratio": 0.9987612857904586,
+    "original86_only_upper_ratio": 0.9987624087635317,
+    "explicit_repair_policy_lower_ratio": 0.999039175619205,
+    "explicit_repair_policy_upper_ratio": 0.9990399709366006,
+    "missed_area_upper_bound_m2": 8423.957461966202,
+    "all_transit_scanning_ON_sensitivity_lower_ratio": 0.9993812535313771,
+    "all_transit_scanning_ON_sensitivity_upper_ratio": 0.9993813901853242,
+    "required_ratio": 0.999
+  },
+  "repair_schedule": [
+    {
+      "task_id": "repair_001",
+      "platform": "uuv_2",
+      "source_transit_leg_index": 77,
+      "active_scan_duration_s": 366.33385162249033,
+      "guaranteed_marginal_area_m2": 988.4360133034339
+    },
+    {
+      "task_id": "repair_002",
+      "platform": "uuv_1",
+      "source_transit_leg_index": 57,
+      "active_scan_duration_s": 148.80595700118283,
+      "guaranteed_marginal_area_m2": 730.5884940150387
+    },
+    {
+      "task_id": "repair_003",
+      "platform": "uuv_1",
+      "source_transit_leg_index": 55,
+      "active_scan_duration_s": 378.4494236439059,
+      "guaranteed_marginal_area_m2": 717.3542349826992
+    }
+  ],
+  "additional_active_scan_duration_s": 893.5892322675791,
+  "added_motion_distance_m": 0,
+  "added_motion_duration_s": 0,
+  "validation": {
+    "stdlib_tests_passed": 182,
+    "research_tests_passed": 94,
+    "independent_motion_and_footprint_audit_passed": true,
+    "independent_repair_audit_passed": true,
+    "minimum_hazard_clearance_lower_bound_m": 50.58719898456562,
+    "maximum_join_position_error_m": 1.4380373887290168e-12,
+    "maximum_join_heading_error_rad": 2.0539125955565396e-15,
+    "independent_target_sample_spacing_m": 5,
+    "independent_target_sample_count": 350612,
+    "exact_sensor_repair_policy_sample_ratio": 0.9990901623447002,
+    "input_tamper_cases_rejected": 6,
+    "figure_panel_alignment": "PASS",
+    "figure_minimum_text_pt": 9,
+    "figure_collision_fail": 0,
+    "figure_collision_warn": 0,
+    "clean_export_route_science_equal_except_total_computation_seconds": true,
+    "clean_export_repair_science_equal_except_source_result_sha256": true,
+    "clean_export_geometry_and_schedule_byte_identical_files": 10,
+    "clean_export_figure_png_byte_identical": true
+  },
+  "initial_condition_change": "UUV2 starts in the short-scan cluster, instead of its A3 initial point; distributed predeployment / recovery outside this run.",
+  "model": "2D point platforms, forward-only G1 lines/arcs, stop at primitive joins, declared acceleration caps, ideal circular50m sensor footprint without occlusion/depth/acoustic validation.",
+  "cooperative_clock_and_continuous_separation_verified": false,
+  "complete_chapter_strict_reproduction": false,
+  "next_step": "A7 common-clock scheduling, USV support/waits and continuous curved variable-speed separation/range validation; retain same documented deployment boundary."
+}

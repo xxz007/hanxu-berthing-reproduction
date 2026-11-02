@@ -73,7 +73,7 @@
   ],
   "application_extension": {
     "approved_scope": "Open-chart irregular-area coverage, followed by USV/UUV cooperation",
-    "current_stage": "A5: safe navigation separated from fixed target; 47/90 fixed-pose connectors pass, 41/43 remaining have endpoint obstruction certificates; finite task-adaptation trial has no complete UUV route",
+    "current_stage": "A6: complete individual forward-curvature routes;86 source scans+3 explicit repair activations achieve>=99.9039% ideal coverage; cooperative motion clock unverified",
     "candidate_area_m2": 8767426.837145586,
     "task_area_m2": 10031250.0,
     "chart_cells": [
@@ -81,7 +81,7 @@
       "US5LGBDE"
     ],
     "coverage_planner_run": true,
-    "next_stage": "Joint short-scan position/direction/order and curvature-constrained connection planning, followed by full original-target footprint and curved variable-speed continuous separation checks.",
+    "next_stage": "A7 common-clock scheduling, USV support/waits and continuous curved variable-speed separation/range validation; retain same documented deployment boundary.",
     "source_registry": "docs/open_chart_stage_a_sources.json",
     "coverage_ratio": 0.9990005219397708,
     "repeated_ratio": 0.24861507113013467,
@@ -107,11 +107,21 @@
     "local_motion_cases_independently_audited": 6,
     "full_mission_motion_feasible": false,
     "full_mission_retiming_released": false,
-    "mission_end_s_scope": "A3 point-platform constant-speed baseline only; no motion-feasible A4/A5 full-mission clock",
+    "mission_end_s_scope": "A3 point-platform constant-speed baseline only; no cooperative A6 clock released.",
     "a5_summary": "docs/headland_navigation_a5_summary.json",
     "a5_navigation_area_m2": 17628413.234442856,
     "a5_fixed_connectors_passed": 47,
     "a5_fixed_connectors_required": 90,
-    "a5_endpoint_obstruction_certificates": 41
+    "a5_endpoint_obstruction_certificates": 41,
+    "a6_summary": "docs/joint_coverage_a6_summary.json",
+    "a6_individual_routes_verified": true,
+    "a6_original_scan_tasks": 86,
+    "a6_explicit_repair_tasks": 3,
+    "a6_repair_policy_coverage_lower_ratio": 0.999039175619205,
+    "a6_ideal_coverage_gate_passed": true,
+    "a6_initial_uuv2_position_changed": true,
+    "separation_metric_scope": "A3 constant-speed straight baseline only; A6 curved individual routes have no cooperative distance/range acceptance.",
+    "coverage_metric_scope": "Legacy coverage_ratio / repeated_ratio / missed_area_m2 are the A2/A3 baseline; A6 repair policy separately in a6_summary.",
+    "route_length_metric_scope": "Legacy route_length_m is the A2 single-platform baseline; A6 per-platform values in a6_summary."
   }
 }
