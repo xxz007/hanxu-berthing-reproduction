@@ -1,12 +1,12 @@
 {
-  "recorded_on": "2026-10-31",
+  "recorded_on": "2026-11-02",
   "timezone": "America/New_York",
   "research_status": "resumed_active",
   "scope": "Han Xu 2023 Chapter 3 R0-R8; fourth/fifth chapter controls out of current scope",
   "complete_chapter_strict_reproduction": false,
   "verification": {
-    "stdlib_unit_tests": 139,
-    "research_preprocessing_tests": 70,
+    "stdlib_unit_tests": 152,
+    "research_preprocessing_tests": 78,
     "independent_PROJ_forward_inverse_comparisons": 1648,
     "new_dependencies_installed": false
   },
@@ -73,7 +73,7 @@
   ],
   "application_extension": {
     "approved_scope": "Open-chart irregular-area coverage, followed by USV/UUV cooperation",
-    "current_stage": "A3 1 USV + 2 UUV allocation and timed 2D point-platform geometry passed",
+    "current_stage": "A4: forward-turn workspace audit and six independently checked local motion cases completed; unchanged full mission is infeasible under declared fixed-domain/forward-only model",
     "candidate_area_m2": 8767426.837145586,
     "task_area_m2": 10031250.0,
     "chart_cells": [
@@ -81,7 +81,7 @@
       "US5LGBDE"
     ],
     "coverage_planner_run": true,
-    "next_stage": "Finite-turning-radius and speed feasibility of coverage/transit paths, then deployment/recovery, depth clearance and actual communication constraints",
+    "next_stage": "Separate safe headland/navigation water from unchanged coverage target; replan bounded-curvature UUV and USV routes; re-evaluate whole-target coverage and continuous distances for curved variable-speed motion",
     "source_registry": "docs/open_chart_stage_a_sources.json",
     "coverage_ratio": 0.9990005219397708,
     "repeated_ratio": 0.24861507113013467,
@@ -99,6 +99,14 @@
     "minimum_horizontal_separation_m": 445.0,
     "maximum_usv_uuv_range_m": 2760.3849369245586,
     "launch_recovery_included": false,
-    "depth_dynamics_acoustics_verified": false
+    "depth_dynamics_acoustics_verified": false,
+    "a4_summary": "docs/motion_feasibility_a4_summary.json",
+    "a4_nominal_uuv_radius_m": 20,
+    "a4_certified_infeasible_scan_pose_endpoints": 40,
+    "a4_required_scan_pose_endpoints_checked": 168,
+    "local_motion_cases_independently_audited": 6,
+    "full_mission_motion_feasible": false,
+    "full_mission_retiming_released": false,
+    "mission_end_s_scope": "A3 point-platform constant-speed baseline only; not a motion-feasible A4 clock"
   }
 }

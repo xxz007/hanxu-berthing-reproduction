@@ -1,0 +1,41 @@
+{
+  "stage": "A4 forward-turn workspace certificates and one local headland correction",
+  "source_a3_result_sha256": "af9377748ad75b686a0623b80749547f4d10877c0ac2880da6454c48ffa3be42",
+  "source_a3_provenance_sha256": "592d1a0ecb7acce864bb3fc3562cebcb698d29508c443f189a0582323f0c9f01",
+  "target_candidate_sha256": "12183e2b7a1ef72109b8b1886ae93f50bc7619d6d7eb05d8927820cbdeda14ea",
+  "minimum_radius_sweep_m": [
+    5,
+    10,
+    20,
+    40,
+    80
+  ],
+  "nominal_uuv_minimum_radius_m": 20,
+  "nominal_usv_minimum_radius_m": 40,
+  "local_headland_radius_m": 20,
+  "local_segment_length_m": 100,
+  "local_headland_extra_inset_m": 10,
+  "maximum_arc_sagitta_m": 0.01,
+  "cruise_mps": 1.5,
+  "tangential_accel_mps2": 0.1,
+  "lateral_accel_mps2": 0.05,
+  "sensor_radius_m": 50,
+  "footprint_quadrant_segments": 30,
+  "model": "Forward-only tangent-continuous position curves; no in-place heading rotation. Stop at primitive curvature changes for local speed continuity. All settings are engineering examples, not hardware specifications.",
+  "acceptance": "Do not release full mission retiming if any mandatory scan-pose endpoint has a supporting-halfplane infeasibility certificate. One local patch is not a full mission solution. Coverage target and source A3 are immutable.",
+  "scope_limitations": [
+    "No vehicle hull, depth, currents, propulsion, tracking or acoustic model",
+    "No assertion that passing necessary workspace bounds is sufficient for feasible motion",
+    "Local clipped-task footprint comparison is counterfactual; other mission connectors are not repaired",
+    "No global G2, optimality or complete thesis-reproduction claim"
+  ],
+  "support_hull_relative_expansion": 1e-06,
+  "support_hull_policy": "Scale only the necessary-test outer hull around its vertex centroid by1.000001, then verify the complete original target is covered. This enlarges the containing halfplanes, makes infeasibility certificates conservative, and never changes navigation or coverage geometry.",
+  "local_scan_spacing_m": 80,
+  "turn_scanning_sensitivity": "Primary turn scan-OFF retains A2/A3 sensor activation. Separate scan-ON comparison assumes an ideal circle remains active on the entire turn connector; use inner chord-buffer compensation, not a hardware sonar claim.",
+  "source_a3_scientific_result_sha256": "2b40689e244d9996b4216e92a30a29402e62317de4e008088828445d7c99cd13",
+  "source_a3_reference_policy": "Full result/provenance hashes record the reference snapshot. Regenerated A3 may differ only in total_computation_seconds; canonical scientific result must match, and the observed provenance must identify the observed result hash.",
+  "a1_hazards_sha256": "939e51d6f1ad2d89723e85e4cc12614a8042de3742074c72ac3ec57a64aae8a7",
+  "a1_task_boundary_sha256": "02a0ba0c085f10381ae9267a7ac4bc306077063be978bb23f1ebc3f8750e18a0",
+  "original_grid_sha256": "e674978c4ea3f95aac548cb3bf859049da1fad136d21ab9e143d89f696ae0e7b"
+}

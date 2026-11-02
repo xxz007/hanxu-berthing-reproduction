@@ -1,0 +1,194 @@
+{
+  "stage": "A4",
+  "status": "workspace_audit_and_local_motion_study_completed",
+  "full_mission_motion_feasible": false,
+  "full_mission_retiming_released": false,
+  "source_a3_scientific_result_sha256": "2b40689e244d9996b4216e92a30a29402e62317de4e008088828445d7c99cd13",
+  "target_geometry_sha256": "12183e2b7a1ef72109b8b1886ae93f50bc7619d6d7eb05d8927820cbdeda14ea",
+  "radius_sweep": [
+    {
+      "minimum_radius_m": 5,
+      "mandatory_scan_pose_endpoints_checked": 168,
+      "certified_infeasible_endpoint_count": 17,
+      "failed_task_count": 15,
+      "by_platform": {
+        "uuv_1": 13,
+        "uuv_2": 4
+      }
+    },
+    {
+      "minimum_radius_m": 10,
+      "mandatory_scan_pose_endpoints_checked": 168,
+      "certified_infeasible_endpoint_count": 27,
+      "failed_task_count": 23,
+      "by_platform": {
+        "uuv_1": 20,
+        "uuv_2": 7
+      }
+    },
+    {
+      "minimum_radius_m": 20,
+      "mandatory_scan_pose_endpoints_checked": 168,
+      "certified_infeasible_endpoint_count": 40,
+      "failed_task_count": 36,
+      "by_platform": {
+        "uuv_1": 20,
+        "uuv_2": 20
+      }
+    },
+    {
+      "minimum_radius_m": 40,
+      "mandatory_scan_pose_endpoints_checked": 168,
+      "certified_infeasible_endpoint_count": 41,
+      "failed_task_count": 37,
+      "by_platform": {
+        "uuv_1": 21,
+        "uuv_2": 20
+      }
+    },
+    {
+      "minimum_radius_m": 80,
+      "mandatory_scan_pose_endpoints_checked": 168,
+      "certified_infeasible_endpoint_count": 41,
+      "failed_task_count": 37,
+      "by_platform": {
+        "uuv_1": 21,
+        "uuv_2": 20
+      }
+    }
+  ],
+  "heading_discontinuities": {
+    "uuv_1": {
+      "heading_discontinuity_count": 124,
+      "maximum_heading_jump_deg": 180.0
+    },
+    "uuv_2": {
+      "heading_discontinuity_count": 204,
+      "maximum_heading_jump_deg": 180.0
+    },
+    "usv": {
+      "heading_discontinuity_count": 5,
+      "maximum_heading_jump_deg": 131.63486302328621
+    }
+  },
+  "local_patch": {
+    "task_ids": [
+      "scan_000",
+      "scan_001"
+    ],
+    "turn_radius_m": 20,
+    "retreat_distances_m": [
+      30.0,
+      67.5
+    ],
+    "length_m": 302.8318530717959,
+    "duration_s": 287.8318530717959,
+    "maximum_curvature_per_m": 0.05,
+    "speed_limit_mps": 1.5,
+    "arc_speed_limit_mps": 1,
+    "tangential_acceleration_limit_mps2": 0.1,
+    "lateral_acceleration_limit_mps2": 0.05,
+    "original_hazard_clearance_lower_bound_m": 559.0953444181627,
+    "raw_closed_grid_collisions": 0
+  },
+  "counterfactual_coverage": {
+    "target_area_m2": 8767426.837145586,
+    "baseline_recomputed_covered_area_m2": 8758663.986377198,
+    "baseline_area_error_vs_A3_m2": 3.725290298461914e-09,
+    "after_one_patch_covered_area_m2": 8756963.2040193,
+    "after_one_patch_coverage_ratio": 0.9988065331686655,
+    "after_one_patch_missed_area_m2": 10463.633126257637,
+    "coverage_loss_m2": 1700.7823578976095,
+    "turn_connector_scanning_on_coverage_ratio_lower_bound": 0.9989435887098208,
+    "turn_connector_scanning_on_coverage_ratio_upper_bound": 0.9989437520920069,
+    "turn_connector_scanning_on_missed_area_upper_bound_m2": 9262.008696580306,
+    "turn_connector_footprint_chord_compensation_m": 0.009868792685368,
+    "semantics": "Counterfactual footprint change for exactly two task endpoints; other84 footprints unchanged. Primary case turns scanning OFF; separately labelled ideal connector-scanning-ON sensitivity. Neither is a complete route or a physical sensor validation."
+  },
+  "sensitivity": [
+    {
+      "case": "r20_m2.5",
+      "turn_radius_m": 20,
+      "extra_headland_margin_m": 2.5,
+      "local_duration_s": 287.8318530717959,
+      "local_length_m": 302.8318530717959,
+      "scan_off_coverage_ratio": 0.9988773681245404,
+      "scan_on_coverage_ratio_lower_bound": 0.9989678360502245,
+      "scan_on_coverage_ratio_upper_bound": 0.9989679566481731,
+      "audit_passed": true,
+      "result_sha256": "c89a2128dba77c406a244f4b535d9c34aad1b972b7f29756b150408ddae00e22"
+    },
+    {
+      "case": "r20_m5",
+      "turn_radius_m": 20,
+      "extra_headland_margin_m": 5,
+      "local_duration_s": 287.8318530717959,
+      "local_length_m": 302.8318530717959,
+      "scan_off_coverage_ratio": 0.9988543968415493,
+      "scan_on_coverage_ratio_lower_bound": 0.998960661040992,
+      "scan_on_coverage_ratio_upper_bound": 0.9989607951110047,
+      "audit_passed": true,
+      "result_sha256": "536e5c6ac7ddc83bd550d80a3ef72110f36cb8394bf28f1fd48f796da7b8ddf5"
+    },
+    {
+      "case": "r20_m10",
+      "turn_radius_m": 20,
+      "extra_headland_margin_m": 10,
+      "local_duration_s": 287.8318530717959,
+      "local_length_m": 302.8318530717959,
+      "scan_off_coverage_ratio": 0.9988065331686655,
+      "scan_on_coverage_ratio_lower_bound": 0.9989435887098208,
+      "scan_on_coverage_ratio_upper_bound": 0.9989437520920069,
+      "audit_passed": true,
+      "result_sha256": "652f54fb51506cf4344ef1ec2f6b8a82ae9245c7995f935c0c6ca9dcb4161cd7"
+    },
+    {
+      "case": "r40_m2.5",
+      "turn_radius_m": 40,
+      "extra_headland_margin_m": 2.5,
+      "local_duration_s": 266.3331277202316,
+      "local_length_m": 325.66370614359175,
+      "scan_off_coverage_ratio": 0.9986730372187157,
+      "scan_on_coverage_ratio_lower_bound": 0.9989374484612245,
+      "scan_on_coverage_ratio_upper_bound": 0.9989376174704018,
+      "audit_passed": true,
+      "result_sha256": "aa28d9a9b8850087081cc21e0a2e05f281a3da8e2689643311227a700da96bc1"
+    },
+    {
+      "case": "r40_m5",
+      "turn_radius_m": 40,
+      "extra_headland_margin_m": 5,
+      "local_duration_s": 266.3331277202316,
+      "local_length_m": 325.66370614359175,
+      "scan_off_coverage_ratio": 0.9986432835261255,
+      "scan_on_coverage_ratio_lower_bound": 0.9989280846161404,
+      "scan_on_coverage_ratio_upper_bound": 0.9989282663129507,
+      "audit_passed": true,
+      "result_sha256": "23b7e9186201dd44e6856e844d8530983856b820a38aabb5c49c4d69f099a376"
+    },
+    {
+      "case": "r40_m10",
+      "turn_radius_m": 40,
+      "extra_headland_margin_m": 10,
+      "local_duration_s": 266.3331277202316,
+      "local_length_m": 325.66370614359175,
+      "scan_off_coverage_ratio": 0.9985792331064306,
+      "scan_on_coverage_ratio_lower_bound": 0.9989069007416405,
+      "scan_on_coverage_ratio_upper_bound": 0.9989071091191208,
+      "audit_passed": true,
+      "result_sha256": "c5c53c44c0480ca9849711729f60938d7961a93cce6cebbabc0c44ec600d850a"
+    }
+  ],
+  "verification": {
+    "stdlib_tests": 152,
+    "research_tests": 78,
+    "all_six_independent_audits_passed": true,
+    "clean_export_reproduced": true,
+    "independent_csv_max_position_or_speed_error": 9.094947017729282e-13,
+    "figure_minimum_text_pt": 9,
+    "figure_collision_fail": 0,
+    "figure_collision_warn": 0
+  },
+  "interpretation": "Navigation remains clipped to the original task region. Task outside is not necessarily land. Local repair does not release the full mission; source A3 point-platform result retained.",
+  "generator": "scripts/run_motion_sensitivity.py"
+}

@@ -40,6 +40,7 @@ hanxu-berthing-reproduction/
 │   ├── coverage.py              扫描航线与关闭扫描的避障连接
 │   ├── cooperative_allocation.py  两艘 UUV 的任务分带与路线
 │   ├── mission_timing.py        路线赋时、等待与连续间距核查
+│   ├── motion_feasibility.py    转弯空间必要条件与局部启停速度律
 │   └── pipeline.py               合成港口学习流程
 ├── scripts/                      地图恢复、实验运行、对照与绘图
 ├── tests/                        标准库算法检查
@@ -86,7 +87,16 @@ hanxu-berthing-reproduction/
 
 ## 5、实验复现结果展示
 
-### 当前应用 A3：USV / UUV 分工与时间回放
+### 当前进展 A4：转弯空间与局部速度实验
+
+![固定任务边界附近的原端点、局部掉头曲线与20m和40m半径的启停速度对照](docs/assets/motion_feasibility_a4.png)
+
+- **空间核查**：在固定导航域、只前进且不能原地转向的模型下，最小半径 **20 m** 时，至少 **40 / 168** 个必要扫描端点空间不足，涉及 **36 条任务**。
+- **局部修正**：构造半径 **20 / 40 m** 的掉头曲线并加入启停、切向与横向加速度限制；六组局部实验独立审计通过，原始闭格碰撞均为 **0**。这是局部运动验证，完整任务尚未通过运动验收。
+- **覆盖影响**：名义 20 m 方案只退回两个端点，掉头不扫描时覆盖从 **99.9001%** 降为 **99.8807%**；沿用原足迹数值模型时，开启转弯扫描的对照仍低于 99.9% 门槛。原完整目标与 A3 基线均保留。
+- **建模结论**：任务边界不等于障碍边界，下一步将安全导航水域与覆盖目标分开设计，再重排完整路线与协同时钟。[核查推导、参数对照与运行入口](reports/A4_转弯空间核查与局部速度实验.md)
+
+### 应用基线 A3：USV / UUV 分工与时间回放
 
 ![真实海图中的两艘UUV分区扫描、USV水面支援，以及完整任务时钟的平台间距](docs/assets/cooperative_coverage_a3.png)
 
@@ -237,7 +247,7 @@ python scripts/run_demo.py
 
 这是教学演示入口；第 5 部分的真实海图覆盖结果按下面的 A1→A2→A3 流程生成。
 
-### 第二步：运行真实海图覆盖与多平台协同
+### 第二步：运行真实海图覆盖、协同与运动核查
 
 先在已激活的环境中准备 Python 依赖，并让原生工具进入 PATH。本机 GDAL / PROJ 位于 `/Applications/Postgres.app/Contents/Versions/18/bin`；使用该安装时，先执行 `export PATH="/Applications/Postgres.app/Contents/Versions/18/bin:$PATH"`。其他安装位置应使用自己的目录；GEOS 也需能被系统或脚本发现。
 
@@ -249,7 +259,7 @@ command -v ogr2ogr gdal_rasterize proj
 
 地图脚本支持通过 `--gdal-bin`、`--geos-lib` 指定位置，详见各脚本的 `--help`。
 
-流程为：**A1 下载并整理海图 → A2 单平台覆盖与审计 → 固定等价输入 → A3 两艘 UUV 分工与 USV 支援 → 审计、绘图与回放**。
+流程为：**A1 下载并整理海图 → A2 单平台覆盖与审计 → 固定等价输入 → A3 两艘 UUV 分工与 USV 支援 → A4 转弯空间核查与局部修正**。A4 的完成状态表示核查实验完成，不表示完整任务运动验收通过。
 
 原始海图和完整运行数据没有随仓库上传，需要自行下载或使用本地保存的固定快照。NOAA 在线文件可能更新；如果大小或 SHA 校验失败，脚本会停止并保留下载文件，应先核对来源版本，再继续运行。
 
@@ -305,6 +315,11 @@ python scripts/build_cooperative_replay.py \
   --prepared-dir "$berthing_run/a1_map" --run-dir "$berthing_run/a3" \
   --audit-json "$berthing_run/a3_audit.json" --output "$berthing_run/replay.html"
 
+# A4：复跑六组转弯半径／预留空间实验、独立审计和图件
+python scripts/run_motion_sensitivity.py \
+  --a3-run-dir "$berthing_run/a3" --prepared-dir "$berthing_run/a1_map" \
+  --grid-dir "$berthing_run/grid" --output-dir "$berthing_run/a4_study"
+
 printf '结果目录：%s\n' "$berthing_run"
 )
 ```
@@ -323,6 +338,7 @@ printf '结果目录：%s\n' "$berthing_run"
 | A3 交互回放 | 本次目录下 **`replay.html`**，用浏览器离线打开 |
 | 路线、指标、参数与来源哈希 | `a2/`、`a3/` 中的 `result.json`、`config.json`、`provenance.json` |
 | 独立核查结果 | 本次目录下 `a1_audit.json`、`a2_audit.json`、`a3_audit.json` |
+| A4 参数对照、局部轨迹与图件 | `a4_study/study_summary.json`、`cases/` 中的 `local_motion.csv` 和 `figure/` |
 
 需要检查代码时，在项目根目录执行：
 
@@ -331,4 +347,4 @@ PYTHONPATH=src python -m unittest discover -s tests
 PYTHONPATH=src:scripts python -m unittest discover -s research_tests
 ```
 
-各阶段的参数、结果与验证范围见 [A1 地图报告](reports/A1_开放海图与任务区域.md)、[A2 覆盖报告](reports/A2_单平台区域覆盖规划.md) 和 [A3 协同报告](reports/A3_USV_UUV任务分配与时间回放.md)。
+各阶段的参数、结果与验证范围见 [A1 地图报告](reports/A1_开放海图与任务区域.md)、[A2 覆盖报告](reports/A2_单平台区域覆盖规划.md)、[A3 协同报告](reports/A3_USV_UUV任务分配与时间回放.md) 和 [A4 运动核查报告](reports/A4_转弯空间核查与局部速度实验.md)。
