@@ -174,13 +174,5 @@
     "2.5m restores one connection but still3 conservative components",
     "Starting navigation domain selected explicitly; complete original A1 candidate retained as sensor coverage target",
     "Other component coverage/misses computed and independently checked; no obstacle clearing or denominator reduction"
-  ],
-  "local_evidence": "outputs/20261031T044614_242722Z_open_chart_coverage_a2",
-  "final_local_outputs": {
-    "prepared": "fresh_A1",
-    "grid": "grid_reproduced",
-    "run": "run_formal",
-    "audit": "independent_audit_formal.json",
-    "figure": "figure_formal"
-  }
+  ]
 }

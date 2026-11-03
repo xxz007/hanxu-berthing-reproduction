@@ -31,3 +31,18 @@ docs/source_local.json
 [Aa][Gg][Ee][Nn][Tt].[Mm][Dd]
 [Aa][Gg][Ee][Nn][Tt][Ss].[Mm][Dd]
 [Hh][Aa][Nn][Dd][Oo][Ff][Ff].[Mm][Dd]
+
+# Internal planning, progress, handoffs, retrospectives and working archives.
+local_notes/
+docs/project_progress.md
+docs/reproduction_status.json
+docs/[0-9][0-9]_*.md
+docs/assets/*generation*.json
+docs/assets/*generation*.md
+docs/assets/*manifest*.json
+reports/*.md
+!reports/README.md
+reports/baseline/**/code_snapshot/
+reports/baseline/**/environment.json
+reports/baseline/**/test_results.txt
+reports/baseline/**/summary.md

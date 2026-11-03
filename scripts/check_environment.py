@@ -17,8 +17,8 @@ def main():
     source = args.source_pdf or (root / manifest["relative_path"])
     required = [
         "README.md", "pyproject.toml",
-        "configs/paper_ch3_reference.json", "docs/01_scope.md",
-        "docs/02_reproduction_plan.md", "docs/03_paper_alignment.md",
+        "configs/paper_ch3_reference.json", "docs/methods.md",
+        "docs/experiments.md", "docs/sources.md",
         "src/berthing_planner/__init__.py", "tests/README.md", "data/README.md",
     ]
     missing = [name for name in required if not (root / name).is_file()]
