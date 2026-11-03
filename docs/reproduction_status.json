@@ -144,5 +144,31 @@
     "a8_independent_audit_passed": true,
     "a7_baseline_minimum_horizontal_separation_m": 36.20043228044051,
     "a7_baseline_maximum_usv_uuv_range_m": 2312.242297191423
+  },
+  "progress_review": {
+    "reviewed_on": "2026-11-03",
+    "timezone": "Asia/Singapore",
+    "report": "docs/project_progress.md",
+    "scientific_baseline_commit": "bce8828316069957c71145a4680cee77a4832755",
+    "latest_completed_application_stage": "A8",
+    "new_experiments_started_in_this_review": false,
+    "A9_started": false,
+    "source_and_artifact_hashes_rechecked": true,
+    "full_tests_rerun_in_this_review": false,
+    "tracking_control_closed_loop_verified": false,
+    "final_integrated_A1_to_A8_release_acceptance_completed": false,
+    "proposed_closeout_scope": "Reproducible2D coverage planning and USV/UUV support feasibility/cost learning project; proposal, not user/supervisor final acceptance",
+    "essential_closeout_work": [
+      "Choose final reference/comparison configurations and scope; A7 primary and A8 comparison recommended",
+      "Integrate run/input preparation and perform final fixed-input A1-to-A8 end-to-end release validation",
+      "Consolidate final report/demo and learner rerun/explanation acceptance"
+    ],
+    "conditional_improvement": "Optimize mobile travel/count if claiming efficient support; otherwise keep A8 finite-policy cost limitation explicit",
+    "extensions_not_assumed_required_for_2D_closeout": [
+      "Tracking controller and disturbance simulation",
+      "Real acoustic/depth/current/energy models and deployment/recovery",
+      "Real-system trials"
+    ],
+    "strict_thesis_reproduction_complete": false
   }
 }
