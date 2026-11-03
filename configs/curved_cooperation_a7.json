@@ -1,0 +1,41 @@
+{
+  "stage": "A7 curved common clock and USV transfer-to-station support",
+  "source_a6_scientific_sha256": "73120e904a030b03798bc6af728caa7899a5ff63113b8171188aa770379c814c",
+  "source_repair_scientific_sha256": "2cb4a447254cb4b7fd871601835cdd5432ace8374cab9c821ecd207bfcbd588e",
+  "target_geometry_sha256": "12183e2b7a1ef72109b8b1886ae93f50bc7619d6d7eb05d8927820cbdeda14ea",
+  "hazards_geometry_sha256": "939e51d6f1ad2d89723e85e4cc12614a8042de3742074c72ac3ec57a64aae8a7",
+  "navigation_sha256": "c93c7015a9937471da022f771f3463fcec468e0955cc29e7154a09c5aa1aacbc",
+  "minimum_separation_m": 25,
+  "support_range_m": 3000,
+  "station_range_reserve_m": 50,
+  "station_route_clearance_m": 30,
+  "station_grid_step_m": 25,
+  "maximum_station_candidates": 20,
+  "maximum_arc_sagitta_m": 0.02,
+  "usv_minimum_turning_radius_m": 40,
+  "usv_cruise_mps": 3,
+  "tangential_accel_mps2": 0.1,
+  "lateral_accel_mps2": 0.05,
+  "distance_tolerance_m": 0.05,
+  "distance_numerical_margin_m": 1e-06,
+  "max_distance_refinements": 200000,
+  "uuv2_departure_candidates_s": [
+    0,
+    60,
+    120,
+    300,
+    600,
+    1200,
+    1800,
+    3600
+  ],
+  "usv_departure_candidates_s": [
+    0,
+    60,
+    120,
+    300,
+    600
+  ],
+  "trace_step_s": 10,
+  "policy": "Preserve all A6 initial poses and UUV curves/profiles; USV forward transfer from its A6 initial pose to finite-grid support station then hold. Predeparture and final waits explicit; all89 scan windows mapped to global clock, no scanning on holds.25m separation and3000m geometric horizontal support range; no real acoustics, hull/current/depth/control or deployment/recovery validation."
+}

@@ -1,0 +1,119 @@
+{
+  "recorded_on": "2026-11-03",
+  "timezone": "America/New_York",
+  "stage": "A7 common curved mission clock and continuous2D distance/range certificates passed",
+  "config": "configs/curved_cooperation_a7.json",
+  "source_scope": "Frozen A6 routes and repair policy, same A1 complete target and A5 navigation, no new dataset retrieval",
+  "source_result_sha256": "79d440aaa67a5304ebe38ac59c301b8b442cf3ebbe15aafd24ad2d2843fa3c19",
+  "target_geometry_sha256": "12183e2b7a1ef72109b8b1886ae93f50bc7619d6d7eb05d8927820cbdeda14ea",
+  "navigation_sha256": "c93c7015a9937471da022f771f3463fcec468e0955cc29e7154a09c5aa1aacbc",
+  "all_A6_initial_poses_preserved": true,
+  "uuv_curves_and_speed_profiles_unchanged": true,
+  "mission_end_s": 67772.97121203525,
+  "strategy": "UUV A6 curves/profiles unchanged; USV same initial pose, safe forward transfer to finite-grid station, then hold. No optimality claim.",
+  "platforms": {
+    "uuv_1": {
+      "length_m": 75087.83124778577,
+      "departure_s": 0.0,
+      "motion_finish_s": 54013.16157531878,
+      "hold_duration_s": 13759.809636716469,
+      "scan_count": 41
+    },
+    "uuv_2": {
+      "length_m": 92997.1345116897,
+      "departure_s": 0,
+      "motion_finish_s": 67772.97121203525,
+      "hold_duration_s": 0,
+      "scan_count": 48
+    },
+    "usv": {
+      "length_m": 650.5805426286397,
+      "departure_s": 0,
+      "motion_finish_s": 284.88513917674015,
+      "hold_duration_s": 67488.08607285851,
+      "scan_count": 0
+    }
+  },
+  "original_scans": 86,
+  "explicit_repairs": 3,
+  "coverage_lower_ratio_unchanged": 0.999039175619205,
+  "coverage_scope": "Inherited A6 audited footprint;89 scan windows mapped to global time; holds and other ordinary transit OFF",
+  "distance_pairs": {
+    "uuv_1__uuv_2": {
+      "converged": true,
+      "minimum_distance_lower_m": 870.967564853343,
+      "minimum_distance_witness_m": 871.0169582238503,
+      "minimum_witness_time_s": 26900.504348332724,
+      "maximum_distance_witness_m": 4120.195112592557,
+      "maximum_distance_upper_m": 4120.242086984852,
+      "maximum_witness_time_s": 63222.71181950231,
+      "tolerance_m": 0.05,
+      "numerical_margin_m": 1e-06,
+      "refinements": 313,
+      "state_sample_count": 3725,
+      "method": "Whole-time arc-length movement enclosures; sample witnesses plus outward interval bounds, not sample-only acceptance"
+    },
+    "usv__uuv_1": {
+      "converged": true,
+      "minimum_distance_lower_m": 36.20043228044051,
+      "minimum_distance_witness_m": 36.25000027008355,
+      "minimum_witness_time_s": 50127.14669885954,
+      "maximum_distance_witness_m": 2308.414434661485,
+      "maximum_distance_upper_m": 2308.4639767756803,
+      "maximum_witness_time_s": 7509.6401600843865,
+      "tolerance_m": 0.05,
+      "numerical_margin_m": 1e-06,
+      "refinements": 189,
+      "state_sample_count": 1725,
+      "method": "Whole-time arc-length movement enclosures; sample witnesses plus outward interval bounds, not sample-only acceptance"
+    },
+    "usv__uuv_2": {
+      "converged": true,
+      "minimum_distance_lower_m": 43.7018520362495,
+      "minimum_distance_witness_m": 43.75000080492879,
+      "minimum_witness_time_s": 1892.4585153591838,
+      "maximum_distance_witness_m": 2312.196674174599,
+      "maximum_distance_upper_m": 2312.242297191423,
+      "maximum_witness_time_s": 11055.165453240137,
+      "tolerance_m": 0.05,
+      "numerical_margin_m": 1e-06,
+      "refinements": 197,
+      "state_sample_count": 2181,
+      "method": "Whole-time arc-length movement enclosures; sample witnesses plus outward interval bounds, not sample-only acceptance"
+    }
+  },
+  "minimum_separation_requirement_m": 25,
+  "support_range_requirement_m": 3000,
+  "minimum_hazard_clearance_lower_m": 50.58598168188405,
+  "naive_A6_parallel_start_passed": false,
+  "naive_witness_violations": {
+    "usv_uuv2_minimum_m": 5.000016039677315,
+    "usv_uuv1_maximum_m": 3225.40559007169
+  },
+  "verification": {
+    "stdlib_tests": 193,
+    "research_tests": 99,
+    "independent_audit_passed": true,
+    "trace_rows_checked": 25005,
+    "continuous_interval_partitions": {
+      "uuv_1__uuv_2": 1862,
+      "usv__uuv_1": 862,
+      "usv__uuv_2": 1090
+    },
+    "clean_export_science_equal": true,
+    "derived_byte_identical_file_count": 12,
+    "png_byte_identical": true,
+    "negative_controls": 4,
+    "browser_reference_states": 36,
+    "figure_font_min_pt": 9,
+    "figure_collision_fail": 0,
+    "figure_collision_warn": 0
+  },
+  "limitations": [
+    "2D point kinematics, individual forward curvature constraints, stop at primitive joins; not full vehicle dynamics or global G2",
+    "Ideal station holding and horizontal geometric support range; no current, energy, depth or acoustic verification",
+    "Deployment/recovery excluded; no global optimality claim",
+    "Original thesis strict reproduction remains incomplete"
+  ],
+  "raw_coordinates_and_replay": "Local outputs only; no full route geometry, CSV or offline HTML uploaded"
+}

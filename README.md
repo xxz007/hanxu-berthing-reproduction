@@ -39,7 +39,8 @@ hanxu-berthing-reproduction/
 │   ├── replanning.py            细图受阻航段局部替换
 │   ├── coverage.py              扫描航线与关闭扫描的避障连接
 │   ├── cooperative_allocation.py  两艘 UUV 的任务分带与路线
-│   ├── mission_timing.py        路线赋时、等待与连续间距核查
+│   ├── mission_timing.py        折线基线赋时、等待与间距核查
+│   ├── curved_timing.py         变速曲线共同时间轴与连续距离证书
 │   ├── motion_feasibility.py    转弯空间必要条件与局部启停速度律
 │   ├── joint_coverage.py        扫描位置／朝向／顺序候选与分层搜索
 │   ├── maneuver_search.py      有界前进位姿搜索与曲线连接
@@ -89,7 +90,16 @@ hanxu-berthing-reproduction/
 
 ## 5、实验复现结果展示
 
-### 当前进展 A6：完整个体曲线与按需补扫
+### 当前进展 A7：共同任务时钟与 USV 支援
+
+![共同时间轴下的三平台路线、真实障碍与支援距离对照](docs/assets/curved_cooperation_a7.png)
+
+- **怎样协作**：保留 A6 三平台初始位姿、两艘 UUV 曲线和全部 **89 个扫描窗口**；USV 从原起点转场约 **651 m**，约 **4.75 分钟**后到达支援驻点并驻守。
+- **任务时间**：共同任务约 **18.826 小时**，UUV1 先完成后等待约 **3.822 小时**；原目标、50 m 障碍裕度及 **99.9039% 理想覆盖下界**保持。
+- **全过程核查**：最小水平间距保守下界 **36.20 m**，最大支援距离保守上界 **2.31225 km**，满足 **25 m / 3 km** 要求。原 A6 三条独立曲线直接同时出发会出现约 **5 m** 近距和 **3.225 km** 超距，不能直接作为协同结果。
+- **验证与范围**：193 项算法测试、99 项科研检查、独立连续区间核查及干净代码复跑通过；提供共同时间轴回放。本阶段是二维运动与理想驻守模型，真实控制、洋流、深度、声学及部署／回收仍需后续验证。[实验解读与连续时间核查](reports/A7_共同任务时钟与连续间距核查.md) · [数值汇总](docs/curved_cooperation_a7_summary.json)
+
+### 前序成果 A6：完整个体曲线与按需补扫
 
 ![完整个体曲线、明确补扫段与短扫描任务的局部修复](docs/assets/joint_coverage_a6.png)
 
@@ -265,7 +275,7 @@ python scripts/run_demo.py
 
 脚本使用合成港口地图，运行通航到达与船艉抵泊两个算例，并在 `outputs/` 下自动新建带时间戳的目录。终端会打印结果位置，用浏览器打开其中的 **`index.html`**，即可查看路径、指标与回放；`metrics.json` 和轨迹 CSV 保存在同一目录。
 
-这是教学演示入口；第 5 部分的真实海图结果按下面的 A1→A6 分阶段流程生成。
+这是教学演示入口；第 5 部分的真实海图结果按下面的 A1→A7 分阶段流程生成。
 
 ### 第二步：运行真实海图覆盖、协同与运动核查
 
@@ -279,7 +289,7 @@ command -v ogr2ogr gdal_rasterize proj
 
 地图脚本支持通过 `--gdal-bin`、`--geos-lib` 指定位置，详见各脚本的 `--help`。
 
-流程为：**A1 下载并整理海图 → A2 单平台覆盖与审计 → 固定等价输入 → A3 两艘 UUV 分工与 USV 支援 → A4 转弯空间核查与局部修正 → A5 独立导航域与连接核查 → A6 个体连续曲线与按需补扫**。A6 验证个体二维运动与理想足迹，协同时钟和连续间距另行验收。
+流程为：**A1 下载并整理海图 → A2 单平台覆盖与审计 → 固定等价输入 → A3 两艘 UUV 分工与 USV 支援 → A4 转弯空间核查与局部修正 → A5 独立导航域与连接核查 → A6 个体连续曲线与按需补扫 → A7 共同任务时钟与连续距离核查**。A7 在声明的二维模型内完成协同赋时、USV 转场／驻守和等待；真实驻守控制、声学及部署／回收不在本次验收范围。
 
 原始海图和完整运行数据没有随仓库上传，需要自行下载或使用本地保存的固定快照。NOAA 在线文件可能更新；如果大小或 SHA 校验失败，脚本会停止并保留下载文件，应先核对来源版本，再继续运行。
 
@@ -381,6 +391,25 @@ python scripts/plot_joint_coverage.py \
   --audit-json "$berthing_run/a6_audit.json" --repair-audit-json "$berthing_run/a6_repair_audit.json" \
   --output-dir "$berthing_run/a6_figure"
 
+# A7：共同任务时间轴、USV 转场／驻守和连续间距证书
+python scripts/run_curved_cooperation.py \
+  --a6-run-dir "$berthing_run/a6" --repair-dir "$berthing_run/a6_repair" \
+  --route-audit-json "$berthing_run/a6_audit.json" --repair-audit-json "$berthing_run/a6_repair_audit.json" \
+  --prepared-dir "$berthing_run/a1_map" --navigation-dir "$berthing_run/a5_nav" \
+  --output-dir "$berthing_run/a7"
+python research_tests/audit_curved_cooperation.py \
+  --run-dir "$berthing_run/a7" --a6-run-dir "$berthing_run/a6" --repair-dir "$berthing_run/a6_repair" \
+  --prepared-dir "$berthing_run/a1_map" --navigation-dir "$berthing_run/a5_nav" \
+  --json-out "$berthing_run/a7_audit.json"
+python scripts/plot_curved_cooperation.py \
+  --run-dir "$berthing_run/a7" --a6-run-dir "$berthing_run/a6" --audit-json "$berthing_run/a7_audit.json" \
+  --prepared-dir "$berthing_run/a1_map" --navigation-dir "$berthing_run/a5_nav" \
+  --output-dir "$berthing_run/a7_figure"
+python scripts/build_curved_cooperation_replay.py \
+  --run-dir "$berthing_run/a7" --audit-json "$berthing_run/a7_audit.json" \
+  --prepared-dir "$berthing_run/a1_map" --navigation-dir "$berthing_run/a5_nav" \
+  --output "$berthing_run/a7_replay.html"
+
 printf '结果目录：%s\n' "$berthing_run"
 )
 ```
@@ -399,6 +428,7 @@ printf '结果目录：%s\n' "$berthing_run"
 | A3 交互回放 | 本次目录下 **`replay.html`**，用浏览器离线打开 |
 | 路线、指标、参数与来源哈希 | `a2/`、`a3/` 中的 `result.json`、`config.json`、`provenance.json` |
 | 独立核查结果 | 本次目录下 `a1_audit.json`、`a2_audit.json`、`a3_audit.json` |
+| A7 共同时间轴、区间证书与离线回放 | `a7/result.json`、`a7/certificates/`、`a7/global_scan_schedule.csv`、`a7_audit.json`、`a7_figure/`、**`a7_replay.html`** |
 | A6 个体曲线、补扫时段与覆盖图 | `a6/result.json`、`a6_repair/repair_schedule.csv`、`a6_repair/result.json`、`a6_figure/` |
 | A5 安全导航域、逐段连接、失败节点与独立核查 | `a5_nav/`、`a5_fixed/result.json`、`a5_adapted/result.json`、`a5_obstructions.json`、`a5_audit.json` |
 | A4 参数对照、局部轨迹与图件 | `a4_study/study_summary.json`、`cases/` 中的 `local_motion.csv` 和 `figure/` |
@@ -407,7 +437,7 @@ printf '结果目录：%s\n' "$berthing_run"
 
 ```bash
 PYTHONPATH=src python -m unittest discover -s tests
-PYTHONPATH=src:scripts python -m unittest discover -s research_tests
+PYTHONPATH=src:scripts:research_tests python -m unittest discover -s research_tests
 ```
 
-各阶段的参数、结果与验证范围见 [A1 地图报告](reports/A1_开放海图与任务区域.md)、[A2 覆盖报告](reports/A2_单平台区域覆盖规划.md)、[A3 协同报告](reports/A3_USV_UUV任务分配与时间回放.md)、[A4 运动核查报告](reports/A4_转弯空间核查与局部速度实验.md)、[A5 导航域与连接报告](reports/A5_独立导航域与转弯连接核查.md) 和 [A6 连续曲线与补扫报告](reports/A6_连续曲线与按需补扫.md)。
+各阶段的参数、结果与验证范围见 [A1 地图报告](reports/A1_开放海图与任务区域.md)、[A2 覆盖报告](reports/A2_单平台区域覆盖规划.md)、[A3 协同报告](reports/A3_USV_UUV任务分配与时间回放.md)、[A4 运动核查报告](reports/A4_转弯空间核查与局部速度实验.md)、[A5 导航域与连接报告](reports/A5_独立导航域与转弯连接核查.md)、[A6 连续曲线与补扫报告](reports/A6_连续曲线与按需补扫.md) 和 [A7 共同任务时钟报告](reports/A7_共同任务时钟与连续间距核查.md)。
