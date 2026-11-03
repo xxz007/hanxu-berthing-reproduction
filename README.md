@@ -19,6 +19,31 @@ hanxu-berthing-reproduction/
 ├── README.md                     项目简介、成果与运行入口
 ├── configs/                      地图、算法参数、固定随机种子
 ├── src/berthing_planner/          搜索、平滑、覆盖与协同规划核心
+│   ├── quadtree.py               四叉树与几何查询
+│   ├── raster_map.py             恢复地图与规划图接口
+│   ├── search.py                 普通 A*、父节点连接改进
+│   ├── curves.py                 基本 G2CBS 与曲线检查
+│   ├── g2_bisection.py           短航段角度二分构造
+│   ├── g2_merge.py               明确标注的短转向工程合并
+│   ├── reeds_shepp.py            RS 接口与候选检查
+│   ├── rs_families.py            RS 解析路径族
+│   ├── stitching.py              平滑前段与 RS 的组合接入
+│   ├── stern_axis.py             船艉轴线接入补充策略
+│   ├── jps.py                    JPS 对照
+│   ├── smooth_rrt.py             Smooth-RRT 对照
+│   ├── coordinates.py           墨卡托投影与栅格坐标
+│   ├── gshhg.py                 真实海岸线读取与裁剪环
+│   ├── occupancy.py             填陆地图四叉树与几何查询
+│   ├── replanning.py            细图受阻航段局部替换
+│   ├── coverage.py              扫描航线与关闭扫描的避障连接
+│   ├── cooperative_allocation.py  两艘 UUV 的任务分带与路线
+│   ├── mission_timing.py        折线基线赋时、等待与间距核查
+│   ├── curved_timing.py         变速曲线共同时间轴与连续距离证书
+│   ├── scheduled_timing.py      多次曲线转场、段间等待与支援范围分类
+│   ├── motion_feasibility.py    转弯空间必要条件与局部启停速度律
+│   ├── joint_coverage.py        扫描位置／朝向／顺序候选与分层搜索
+│   ├── maneuver_search.py      有界前进位姿搜索与曲线连接
+│   └── pipeline.py               合成港口学习流程
 ├── scripts/                      地图恢复、实验运行、对照与绘图
 ├── tests/                        标准库算法检查
 ├── research_tests/               地图预处理检查
@@ -29,40 +54,6 @@ hanxu-berthing-reproduction/
 ├── data/                         本地原始／处理数据目录
 └── outputs/                      每次运行的结果、配置、快照与哈希
 ```
-
-<details>
-<summary>展开核心算法模块</summary>
-
-```text
-src/berthing_planner/
-├── quadtree.py               四叉树与几何查询
-├── raster_map.py             恢复地图与规划图接口
-├── search.py                 普通 A*、父节点连接改进
-├── curves.py                 基本 G2CBS 与曲线检查
-├── g2_bisection.py           短航段角度二分构造
-├── g2_merge.py               明确标注的短转向工程合并
-├── reeds_shepp.py            RS 接口与候选检查
-├── rs_families.py            RS 解析路径族
-├── stitching.py              平滑前段与 RS 的组合接入
-├── stern_axis.py             船艉轴线接入补充策略
-├── jps.py                    JPS 对照
-├── smooth_rrt.py             Smooth-RRT 对照
-├── coordinates.py           墨卡托投影与栅格坐标
-├── gshhg.py                 真实海岸线读取与裁剪环
-├── occupancy.py             填陆地图四叉树与几何查询
-├── replanning.py            细图受阻航段局部替换
-├── coverage.py              扫描航线与关闭扫描的避障连接
-├── cooperative_allocation.py  两艘 UUV 的任务分带与路线
-├── mission_timing.py        折线基线赋时、等待与间距核查
-├── curved_timing.py         变速曲线共同时间轴与连续距离证书
-├── scheduled_timing.py      多次曲线转场、段间等待与支援范围分类
-├── motion_feasibility.py    转弯空间必要条件与局部启停速度律
-├── joint_coverage.py        扫描位置／朝向／顺序候选与分层搜索
-├── maneuver_search.py      有界前进位姿搜索与曲线连接
-└── pipeline.py               合成港口学习流程
-```
-
-</details>
 
 ## 3、学习路线
 
