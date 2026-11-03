@@ -41,6 +41,7 @@ hanxu-berthing-reproduction/
 │   ├── cooperative_allocation.py  两艘 UUV 的任务分带与路线
 │   ├── mission_timing.py        折线基线赋时、等待与间距核查
 │   ├── curved_timing.py         变速曲线共同时间轴与连续距离证书
+│   ├── scheduled_timing.py      多次曲线转场、段间等待与支援范围分类
 │   ├── motion_feasibility.py    转弯空间必要条件与局部启停速度律
 │   ├── joint_coverage.py        扫描位置／朝向／顺序候选与分层搜索
 │   ├── maneuver_search.py      有界前进位姿搜索与曲线连接
@@ -90,7 +91,16 @@ hanxu-berthing-reproduction/
 
 ## 5、实验复现结果展示
 
-### 当前进展 A7：共同任务时钟与 USV 支援
+### 当前进展 A8：支援范围敏感性与移动支援对照
+
+![相同 UUV 任务下的 USV 移动路线、支援范围适用边界与航程代价](docs/assets/support_sensitivity_a8.png)
+
+- **对照条件**：保持 A7 三平台初始位姿、两艘 UUV 曲线／速度和 **89 个扫描窗口**，比较原驻守与分段移动；25 m 安全间距和原 50 m 障碍裕度不变。
+- **收紧支援范围**：在 **2300 m** 条件下，原驻守方案超距；分 11 次转场的移动方案通过，最大支援距离保守上界 **2295.48 m**，最小间距保守下界 **41.99 m**。
+- **航程代价**：USV 从 **0.651 km** 增至 **10.173 km**，约为原来的 **15.64 倍**；任务仍为 **18.826 小时**，理想覆盖下界仍为 **99.9039%**。移动支援的收益和航行成本需一起衡量。
+- **适用边界**：初始位置已要求支援范围至少 **2289.56 m**；2290 m 下当前两套方案均失败，尚不能据此判定所有策略无解。204 项算法测试、105 项科研检查与独立连续核查通过；当前是离线二维规划与理想等待，真实控制、洋流及声学仍需后续验证。[实验解读与完整对照](reports/A8_支援范围敏感性与移动支援对照.md) · [数值汇总](docs/support_sensitivity_a8_summary.json)
+
+### 前序成果 A7：共同任务时钟与 USV 支援
 
 ![共同时间轴下的三平台路线、真实障碍与支援距离对照](docs/assets/curved_cooperation_a7.png)
 
@@ -275,7 +285,7 @@ python scripts/run_demo.py
 
 脚本使用合成港口地图，运行通航到达与船艉抵泊两个算例，并在 `outputs/` 下自动新建带时间戳的目录。终端会打印结果位置，用浏览器打开其中的 **`index.html`**，即可查看路径、指标与回放；`metrics.json` 和轨迹 CSV 保存在同一目录。
 
-这是教学演示入口；第 5 部分的真实海图结果按下面的 A1→A7 分阶段流程生成。
+这是教学演示入口；第 5 部分的真实海图结果按下面的 A1→A8 分阶段流程生成。
 
 ### 第二步：运行真实海图覆盖、协同与运动核查
 
@@ -289,7 +299,7 @@ command -v ogr2ogr gdal_rasterize proj
 
 地图脚本支持通过 `--gdal-bin`、`--geos-lib` 指定位置，详见各脚本的 `--help`。
 
-流程为：**A1 下载并整理海图 → A2 单平台覆盖与审计 → 固定等价输入 → A3 两艘 UUV 分工与 USV 支援 → A4 转弯空间核查与局部修正 → A5 独立导航域与连接核查 → A6 个体连续曲线与按需补扫 → A7 共同任务时钟与连续距离核查**。A7 在声明的二维模型内完成协同赋时、USV 转场／驻守和等待；真实驻守控制、声学及部署／回收不在本次验收范围。
+流程为：**A1 下载并整理海图 → A2 单平台覆盖与审计 → 固定等价输入 → A3 两艘 UUV 分工与 USV 支援 → A4 转弯空间核查与局部修正 → A5 独立导航域与连接核查 → A6 个体连续曲线与按需补扫 → A7 共同任务时钟与连续距离核查 → A8 支援范围敏感性与移动支援对照**。A8 固定 UUV 任务，以两套 USV 策略评价范围与航程代价；当前为离线二维规划和理想等待，真实控制、声学及部署／回收不在本次验收范围。
 
 原始海图和完整运行数据没有随仓库上传，需要自行下载或使用本地保存的固定快照。NOAA 在线文件可能更新；如果大小或 SHA 校验失败，脚本会停止并保留下载文件，应先核对来源版本，再继续运行。
 
@@ -410,6 +420,20 @@ python scripts/build_curved_cooperation_replay.py \
   --prepared-dir "$berthing_run/a1_map" --navigation-dir "$berthing_run/a5_nav" \
   --output "$berthing_run/a7_replay.html"
 
+# A8：固定 UUV 任务，比较原驻守与移动支援的适用范围和代价
+python scripts/run_support_sensitivity.py \
+  --a7-run-dir "$berthing_run/a7" --a7-audit-json "$berthing_run/a7_audit.json" \
+  --prepared-dir "$berthing_run/a1_map" --navigation-dir "$berthing_run/a5_nav" \
+  --output-dir "$berthing_run/a8"
+python research_tests/audit_support_sensitivity.py \
+  --run-dir "$berthing_run/a8" --a7-run-dir "$berthing_run/a7" \
+  --prepared-dir "$berthing_run/a1_map" --navigation-dir "$berthing_run/a5_nav" \
+  --json-out "$berthing_run/a8_audit.json"
+python scripts/plot_support_sensitivity.py \
+  --run-dir "$berthing_run/a8" --a7-run-dir "$berthing_run/a7" --audit-json "$berthing_run/a8_audit.json" \
+  --prepared-dir "$berthing_run/a1_map" --navigation-dir "$berthing_run/a5_nav" \
+  --output-dir "$berthing_run/a8_figure"
+
 printf '结果目录：%s\n' "$berthing_run"
 )
 ```
@@ -428,6 +452,7 @@ printf '结果目录：%s\n' "$berthing_run"
 | A3 交互回放 | 本次目录下 **`replay.html`**，用浏览器离线打开 |
 | 路线、指标、参数与来源哈希 | `a2/`、`a3/` 中的 `result.json`、`config.json`、`provenance.json` |
 | 独立核查结果 | 本次目录下 `a1_audit.json`、`a2_audit.json`、`a3_audit.json` |
+| A8 范围对照、移动轨迹与连续证书 | `a8/range_sweep.csv`、`a8/mobile_trace.csv`、`a8/result.json`、`a8/certificates/`、`a8_audit.json`、`a8_figure/` |
 | A7 共同时间轴、区间证书与离线回放 | `a7/result.json`、`a7/certificates/`、`a7/global_scan_schedule.csv`、`a7_audit.json`、`a7_figure/`、**`a7_replay.html`** |
 | A6 个体曲线、补扫时段与覆盖图 | `a6/result.json`、`a6_repair/repair_schedule.csv`、`a6_repair/result.json`、`a6_figure/` |
 | A5 安全导航域、逐段连接、失败节点与独立核查 | `a5_nav/`、`a5_fixed/result.json`、`a5_adapted/result.json`、`a5_obstructions.json`、`a5_audit.json` |
@@ -440,4 +465,4 @@ PYTHONPATH=src python -m unittest discover -s tests
 PYTHONPATH=src:scripts:research_tests python -m unittest discover -s research_tests
 ```
 
-各阶段的参数、结果与验证范围见 [A1 地图报告](reports/A1_开放海图与任务区域.md)、[A2 覆盖报告](reports/A2_单平台区域覆盖规划.md)、[A3 协同报告](reports/A3_USV_UUV任务分配与时间回放.md)、[A4 运动核查报告](reports/A4_转弯空间核查与局部速度实验.md)、[A5 导航域与连接报告](reports/A5_独立导航域与转弯连接核查.md)、[A6 连续曲线与补扫报告](reports/A6_连续曲线与按需补扫.md) 和 [A7 共同任务时钟报告](reports/A7_共同任务时钟与连续间距核查.md)。
+各阶段的参数、结果与验证范围见 [A1 地图报告](reports/A1_开放海图与任务区域.md)、[A2 覆盖报告](reports/A2_单平台区域覆盖规划.md)、[A3 协同报告](reports/A3_USV_UUV任务分配与时间回放.md)、[A4 运动核查报告](reports/A4_转弯空间核查与局部速度实验.md)、[A5 导航域与连接报告](reports/A5_独立导航域与转弯连接核查.md)、[A6 连续曲线与补扫报告](reports/A6_连续曲线与按需补扫.md)、[A7 共同任务时钟报告](reports/A7_共同任务时钟与连续间距核查.md) 和 [A8 支援范围与移动支援报告](reports/A8_支援范围敏感性与移动支援对照.md)。

@@ -1,0 +1,197 @@
+{
+  "recorded_on": "2026-11-03",
+  "timezone": "Asia/Singapore",
+  "stage": "A8 frozen-UUV support-range sensitivity and scheduled mobile support passed in declared2D model",
+  "config": "configs/support_sensitivity_a8.json",
+  "source_commit": "f3755df896de76470a017cf8f2a9a0ee867f21bc",
+  "source_A7_scientific_sha256": "8c3673ebc453261036470998326cefc512eb231681aa97cca5e6da71d4512177",
+  "source_result_sha256": "96f648ae6cce142f19abc10c5683b3fd0721589e9df35fc1f2d970b45dcb4314",
+  "source_scope": "No new dataset retrieval. A7 initial poses, UUV geometry/profiles/89 windows/coverage target/A5 navigation fixed.",
+  "all_A7_initial_poses_preserved": true,
+  "uuv_curves_profiles_and89_windows_preserved": true,
+  "coverage_lower_ratio_unchanged": 0.999039175619205,
+  "mission_end_s": 67772.97121203525,
+  "minimum_separation_requirement_m": 25,
+  "original_hazard_margin_m": 50,
+  "range_grid_m": [
+    3000,
+    2500,
+    2350,
+    2320,
+    2310,
+    2300,
+    2290,
+    2280,
+    2200,
+    2000
+  ],
+  "mobile_design_range_m": 2300,
+  "necessary_conditions": {
+    "initial_usv_uuv_distances_m": {
+      "uuv_1": 1851.8656133747934,
+      "uuv_2": 2289.5626960300665
+    },
+    "initial_required_support_range_m": 2289.5626960300665,
+    "uuv_pair_half_maximum_witness_m": 2060.0975562962785,
+    "uuv_pair_witness_time_s": 63222.71181950231,
+    "scope": "Initial distances are necessary for any USV policy with same fixed initial poses and support required at t=0. Pair half-distance is another necessary bound at its witnessed time, independent of USV speed or obstacles."
+  },
+  "strategies": {
+    "a7_fixed_station": {
+      "usv_length_m": 650.5805426286397,
+      "usv_motion_duration_s": 284.88513917674015,
+      "usv_hold_duration_s": 67488.08607285851,
+      "pairs": {
+        "usv__uuv_1": {
+          "converged": true,
+          "minimum_distance_lower_m": 36.20043228044051,
+          "minimum_distance_witness_m": 36.25000027008355,
+          "minimum_witness_time_s": 50127.14669885954,
+          "maximum_distance_witness_m": 2308.414434661485,
+          "maximum_distance_upper_m": 2308.4639767756803,
+          "maximum_witness_time_s": 7509.6401600843865,
+          "tolerance_m": 0.05,
+          "numerical_margin_m": 1e-06,
+          "refinements": 189,
+          "state_sample_count": 1725,
+          "method": "Whole-time arc-length movement enclosures; sample witnesses plus outward interval bounds, not sample-only acceptance"
+        },
+        "usv__uuv_2": {
+          "converged": true,
+          "minimum_distance_lower_m": 43.7018520362495,
+          "minimum_distance_witness_m": 43.75000080492879,
+          "minimum_witness_time_s": 1892.4585153591838,
+          "maximum_distance_witness_m": 2312.196674174599,
+          "maximum_distance_upper_m": 2312.242297191423,
+          "maximum_witness_time_s": 11055.165453240137,
+          "tolerance_m": 0.05,
+          "numerical_margin_m": 1e-06,
+          "refinements": 197,
+          "state_sample_count": 2181,
+          "method": "Whole-time arc-length movement enclosures; sample witnesses plus outward interval bounds, not sample-only acceptance"
+        }
+      }
+    },
+    "scheduled_mobile": {
+      "usv_length_m": 10173.33421923618,
+      "usv_motion_duration_s": 4364.177729990493,
+      "usv_hold_duration_s": 63408.793482044755,
+      "pairs": {
+        "usv__uuv_1": {
+          "converged": true,
+          "minimum_distance_lower_m": 41.99532980039397,
+          "minimum_distance_witness_m": 42.045277620640725,
+          "minimum_witness_time_s": 37039.53795218815,
+          "maximum_distance_witness_m": 2214.9022751110133,
+          "maximum_distance_upper_m": 2214.949204387435,
+          "maximum_witness_time_s": 12653.649577364855,
+          "tolerance_m": 0.05,
+          "numerical_margin_m": 1e-06,
+          "refinements": 337,
+          "state_sample_count": 2201,
+          "method": "Whole-time arc-length movement enclosures; sample witnesses plus outward interval bounds, not sample-only acceptance"
+        },
+        "usv__uuv_2": {
+          "converged": true,
+          "minimum_distance_lower_m": 438.7847276310326,
+          "minimum_distance_witness_m": 438.83344011958854,
+          "minimum_witness_time_s": 5264.425849247376,
+          "maximum_distance_witness_m": 2295.4264680398765,
+          "maximum_distance_upper_m": 2295.4760466428957,
+          "maximum_witness_time_s": 55390.93026122276,
+          "tolerance_m": 0.05,
+          "numerical_margin_m": 1e-06,
+          "refinements": 178,
+          "state_sample_count": 2323,
+          "method": "Whole-time arc-length movement enclosures; sample witnesses plus outward interval bounds, not sample-only acceptance"
+        }
+      }
+    }
+  },
+  "range_sweep": [
+    {
+      "support_range_m": 3000,
+      "a7_fixed_station": "certified_pass",
+      "scheduled_mobile": "certified_pass"
+    },
+    {
+      "support_range_m": 2500,
+      "a7_fixed_station": "certified_pass",
+      "scheduled_mobile": "certified_pass"
+    },
+    {
+      "support_range_m": 2350,
+      "a7_fixed_station": "certified_pass",
+      "scheduled_mobile": "certified_pass"
+    },
+    {
+      "support_range_m": 2320,
+      "a7_fixed_station": "certified_pass",
+      "scheduled_mobile": "certified_pass"
+    },
+    {
+      "support_range_m": 2310,
+      "a7_fixed_station": "witnessed_strategy_violation",
+      "scheduled_mobile": "certified_pass"
+    },
+    {
+      "support_range_m": 2300,
+      "a7_fixed_station": "witnessed_strategy_violation",
+      "scheduled_mobile": "certified_pass"
+    },
+    {
+      "support_range_m": 2290,
+      "a7_fixed_station": "witnessed_strategy_violation",
+      "scheduled_mobile": "witnessed_strategy_violation"
+    },
+    {
+      "support_range_m": 2280,
+      "a7_fixed_station": "initial_condition_impossible",
+      "scheduled_mobile": "initial_condition_impossible"
+    },
+    {
+      "support_range_m": 2200,
+      "a7_fixed_station": "initial_condition_impossible",
+      "scheduled_mobile": "initial_condition_impossible"
+    },
+    {
+      "support_range_m": 2000,
+      "a7_fixed_station": "initial_condition_impossible",
+      "scheduled_mobile": "initial_condition_impossible"
+    }
+  ],
+  "window_count": 38,
+  "mobile_sorties": 11,
+  "mobile_minimum_hazard_clearance_lower_m": 88.8201450245764,
+  "comparison_scope": "One fixed A7 holding strategy and one fixed A8 mobile strategy planned at2300m, then evaluated across10 thresholds. Not10 independently optimized policies, stochastic replicates or global optimality/infeasibility proof.",
+  "verification": {
+    "stdlib_tests": 204,
+    "research_tests": 105,
+    "independent_audit_passed": true,
+    "window_and_global_certificates_checked": 156,
+    "inherited_UUV_pair_certificate_rechecked": true,
+    "trace_rows_checked": 15075,
+    "maximum_trace_position_difference_m": 9.840316583168898e-12,
+    "clean_export_science_equal": true,
+    "derived_byte_identical_files": 160,
+    "png_byte_identical": true,
+    "input_negative_controls": 3,
+    "mathematical_auditor_negative_controls": 2,
+    "figure_min_font_pt": 9,
+    "figure_collision_fail": 0,
+    "figure_collision_warn": 0
+  },
+  "limitations": [
+    "2D point forward-curvature stop-to-stop kinematics and ideal holds; not full dynamics or global G2",
+    "Offline full UUV schedule knowledge; not online controller/MPC",
+    "Horizontal geometric support only; no real acoustic/depth/current/energy/tracking verification",
+    "Deployment/recovery excluded; original strict thesis reproduction remains false"
+  ],
+  "raw_maps_coordinates_and_CSV": "Local outputs only; code, scalar summaries, reports and generated preview uploaded",
+  "costs": {
+    "additional_usv_distance_m": 9522.75367660754,
+    "usv_distance_factor": 15.637317061668194,
+    "mission_time_change_s": 0,
+    "energy_not_computed": true
+  }
+}
