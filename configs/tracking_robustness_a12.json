@@ -1,0 +1,395 @@
+{
+  "stage": "A12 registered deterministic disturbance and measurement-error comparison",
+  "source_a9_scientific_sha256": "c0fdad3a13fb76b85e8e2b55c698ef85ef78512c6b1d8f2cc729f025c22a5d22",
+  "target_geometry_sha256": "12183e2b7a1ef72109b8b1886ae93f50bc7619d6d7eb05d8927820cbdeda14ea",
+  "hazards_geometry_sha256": "939e51d6f1ad2d89723e85e4cc12614a8042de3742074c72ac3ec57a64aae8a7",
+  "navigation_sha256": "c93c7015a9937471da022f771f3463fcec468e0955cc29e7154a09c5aa1aacbc",
+  "step_s": 0.5,
+  "minimum_coverage_ratio": 0.999,
+  "minimum_separation_m": 25,
+  "support_range_m": 2300,
+  "hazard_margin_m": 50,
+  "sensor_radius_m": 50,
+  "simplification_tolerance_m": 0.02,
+  "footprint_quadrant_segments": 120,
+  "gains": {
+    "position_p": 0.25,
+    "velocity_d": 1.0,
+    "position_i": 0.02,
+    "integral_limit": 2.0,
+    "heading_p": 1.0,
+    "yaw_rate_d": 1.5
+  },
+  "limits": {
+    "usv": {
+      "speed_mps": 3.3,
+      "acceleration_mps2": 0.2,
+      "yaw_rate_radps": 0.15,
+      "yaw_acceleration_radps2": 0.05
+    },
+    "uuv_1": {
+      "speed_mps": 1.65,
+      "acceleration_mps2": 0.2,
+      "yaw_rate_radps": 0.15,
+      "yaw_acceleration_radps2": 0.05
+    },
+    "uuv_2": {
+      "speed_mps": 1.65,
+      "acceleration_mps2": 0.2,
+      "yaw_rate_radps": 0.15,
+      "yaw_acceleration_radps2": 0.05
+    }
+  },
+  "cases": {
+    "nominal": {
+      "initial_offset_m": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "initial_heading_error_deg": 0,
+      "drift_mps": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "position_bias_m": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "position_noise_amplitude_m": 0,
+      "heading_bias_deg": 0
+    },
+    "initial_offset": {
+      "initial_offset_m": [
+        [
+          1,
+          -0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          -0.5,
+          0.5
+        ]
+      ],
+      "initial_heading_error_deg": 1,
+      "drift_mps": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "position_bias_m": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "position_noise_amplitude_m": 0,
+      "heading_bias_deg": 0
+    },
+    "drift_005": {
+      "initial_offset_m": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "initial_heading_error_deg": 0,
+      "drift_mps": [
+        [
+          0.05,
+          0
+        ],
+        [
+          0.05,
+          0
+        ],
+        [
+          0.05,
+          0
+        ]
+      ],
+      "position_bias_m": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "position_noise_amplitude_m": 0,
+      "heading_bias_deg": 0
+    },
+    "sensor_010": {
+      "initial_offset_m": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "initial_heading_error_deg": 0,
+      "drift_mps": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "position_bias_m": [
+        [
+          0.1,
+          0
+        ],
+        [
+          0,
+          0.1
+        ],
+        [
+          0,
+          -0.1
+        ]
+      ],
+      "position_noise_amplitude_m": 0.02,
+      "heading_bias_deg": 0.5
+    },
+    "combined": {
+      "initial_offset_m": [
+        [
+          1,
+          -0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          -0.5,
+          0.5
+        ]
+      ],
+      "initial_heading_error_deg": 1,
+      "drift_mps": [
+        [
+          0.05,
+          0
+        ],
+        [
+          0.05,
+          0
+        ],
+        [
+          0.05,
+          0
+        ]
+      ],
+      "position_bias_m": [
+        [
+          0.1,
+          0
+        ],
+        [
+          0,
+          0.1
+        ],
+        [
+          0,
+          -0.1
+        ]
+      ],
+      "position_noise_amplitude_m": 0.02,
+      "heading_bias_deg": 0.5
+    },
+    "sensor_5m": {
+      "initial_offset_m": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "initial_heading_error_deg": 0,
+      "drift_mps": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "position_bias_m": [
+        [
+          5,
+          0
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          0,
+          -5
+        ]
+      ],
+      "position_noise_amplitude_m": 0,
+      "heading_bias_deg": 3
+    },
+    "current_over_limit": {
+      "initial_offset_m": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "initial_heading_error_deg": 0,
+      "drift_mps": [
+        [
+          0.6,
+          0
+        ],
+        [
+          1.8,
+          0
+        ],
+        [
+          1.8,
+          0
+        ]
+      ],
+      "position_bias_m": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "position_noise_amplitude_m": 0,
+      "heading_bias_deg": 0
+    }
+  },
+  "scope": "Engineering fully actuated world-frame double integrator with independent yaw acceleration and bounded velocities/accelerations. Exact zero-order-hold plant integration; ideal ground velocity measurement plus declared position/heading errors. Not underactuated marine craft, hydrodynamics, force/energy model, MPC, acoustic/3D or real-system validation.",
+  "design": {
+    "registered_on": "2026-11-05",
+    "timezone": "Asia/Taipei",
+    "case_order": [
+      "nominal",
+      "initial_offset",
+      "drift_005",
+      "sensor_010",
+      "combined",
+      "sensor_5m",
+      "current_over_limit"
+    ],
+    "nominal_reused_from_A11": true,
+    "type": "Matched fixed-reference deterministic scenarios, one-factor controls plus a combined case and deliberately adverse stress cases",
+    "replicates_per_condition": 1,
+    "randomization": "Not used; exact deterministic same-input simulations, no statistical population claim",
+    "frozen": "A9 reference, 89 scan windows, map, mission horizon, gains, control/velocity limits, sensor footprint and mission gates fixed",
+    "interpretation": "Engineering test magnitudes, not measured Long Beach currents or vehicle sensor specifications. No p values or random-sample confidence intervals. Failure is retained, not tuned away.",
+    "geometry_enclosure": "0.02m path simplification allowance is included in all continuous path and footprint enclosures; mission gates remain fixed."
+  }
+}

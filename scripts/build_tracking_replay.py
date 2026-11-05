@@ -1,0 +1,38 @@
+"""Offline 30-second display frames from audited ACTUAL closed-loop states."""
+import argparse
+import hashlib
+import json
+from pathlib import Path
+import numpy as np
+
+
+def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    for name in ('run-dir','audit-json','prepared-dir','navigation-dir','output'):parser.add_argument('--'+name,type=Path,required=True)
+    args=parser.parse_args();read=lambda f:json.loads(f.read_text());audit=read(args.audit_json);result=read(args.run_dir/'result.json');cfg=read(args.run_dir/'config.json')
+    if not audit['passed']or not audit['mission_constraints_certified']or audit['source_result_sha256']!=hashlib.sha256((args.run_dir/'result.json').read_bytes()).hexdigest():raise ValueError('Matched passed actual-trajectory audit required')
+    z=np.load(args.run_dir/'trajectory.npz');t=z['times'];indices=np.unique(np.r_[0,np.searchsorted(t,np.arange(0,t[-1],30)),len(t)-1]);paths=read(args.run_dir/'geometry_enclosures.json')['paths'];shapes={}
+    for name,key,d in [('navigation','navigation_sha256',args.navigation_dir),('hazards','hazards_geometry_sha256',args.prepared_dir)]:
+        f=d/(name+'.geojson')
+        if hashlib.sha256(f.read_bytes()).hexdigest()!=cfg[key]:raise ValueError('Chart pin changed')
+        shapes[name]=read(f)['features'][0]['geometry']
+    data={'times':t[indices].tolist(),'states':z['states'][indices,:,:3].tolist(),'reference':z['reference'][indices,:,:3].tolist(),'paths':{n:p['points']for n,p in paths.items()},'shapes':shapes,'coverage':result['geometry']['coverage_lower_ratio']}
+    html='''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>闭环轨迹回放</title>
+<style>body{margin:24px auto;padding:0 20px;max-width:1120px;font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;color:#19334b;background:#f7f9fb}h1{font-size:25px}p{line-height:1.7}main{display:grid;grid-template-columns:minmax(0,760px) 260px;gap:20px}canvas{width:100%;background:white;border:1px solid #d6dfe8;border-radius:10px}aside,.controls{background:white;padding:16px;border:1px solid #d6dfe8;border-radius:10px}.controls{margin-top:16px}button{background:#078b8b;color:white;border:0;border-radius:6px;padding:8px 16px;margin-right:8px;cursor:pointer}input[type=range]{width:100%;margin:18px 0}label{display:inline-block;margin:8px 15px 8px 0}small{line-height:1.7;color:#586b7d}table{width:100%;border-collapse:collapse}td{padding:8px 0;border-bottom:1px solid #edf1f4}strong{font-variant-numeric:tabular-nums}@media(max-width:700px){main{grid-template-columns:1fr}body{margin:14px auto}}</style>
+<h1>A11 · 实际闭环轨迹回放</h1><p>固定真实海图、参考任务与扫描时段；展示控制器驱动仿真器积分得到的实际状态。</p>
+<main><section><canvas id="map" width="760" height="760"></canvas><div class="controls"><button id="play">播放</button><button id="reset">重置</button><button id="end">到终点</button><strong id="time"></strong><input id="timeline" type="range" min="0" value="0" step="1" aria-label="任务时间"><label><input type="checkbox" id="routes" checked>显示实际路线</label><label><input type="checkbox" id="ref" checked>显示参考位置</label></div></section>
+<aside><h3>当前状态</h3><p>位置跟踪误差</p><table id="metrics"></table><p>紫色：USV<br>青色：UUV1<br>橙色：UUV2<br>灰色：海图障碍<br>浅青色：安全导航水域<br>空心圆：参考位置</p><p>全任务覆盖保守下界<br><strong id="coverage"></strong></p><small>回放为每30秒一帧的展示，不用于安全验收。约束核查使用完整控制区间与实际扫描足迹。<br><br>全驱动二维替代模型、理想速度测量；名义毫米级误差不代表实艇精度。未验证欠驱动水动力学或论文MPC。</small></aside></main>
+<script>const D=__DATA__;const names=['usv','uuv_1','uuv_2'],colors=['#7854a2','#078b8b','#b97825'];const C=document.getElementById('map'),ctx=C.getContext('2d'),slider=document.getElementById('timeline');slider.max=D.times.length-1;let timer=null;const xy=p=>[40+p[0]/5120*680,720-p[1]/5120*680];
+function shape(g,color){if(g.type==='GeometryCollection')return g.geometries.forEach(q=>shape(q,color));if(g.type==='MultiPolygon')return g.coordinates.forEach(q=>shape({type:'Polygon',coordinates:q},color));if(g.type==='Polygon'){ctx.beginPath();g.coordinates.forEach(r=>{r.forEach((p,i)=>{const q=xy(p);i?ctx.lineTo(...q):ctx.moveTo(...q)});ctx.closePath()});ctx.fillStyle=color;ctx.fill('evenodd')}else if(g.type==='LineString'){ctx.beginPath();g.coordinates.forEach((p,i)=>{const q=xy(p);i?ctx.lineTo(...q):ctx.moveTo(...q)});ctx.strokeStyle=color;ctx.lineWidth=1;ctx.stroke()}else if(g.type==='MultiLineString')g.coordinates.forEach(q=>shape({type:'LineString',coordinates:q},color));else if(g.type==='Point'||g.type==='MultiPoint'){(g.type==='Point'?[g.coordinates]:g.coordinates).forEach(p=>{const q=xy(p);ctx.beginPath();ctx.arc(...q,2,0,Math.PI*2);ctx.fillStyle=color;ctx.fill()})}}
+function pause(){if(timer)clearInterval(timer);timer=null;document.getElementById('play').textContent='播放'}
+function draw(){const i=+slider.value;ctx.clearRect(0,0,760,760);ctx.fillStyle='#f0f1f2';ctx.fillRect(40,40,680,680);ctx.save();ctx.beginPath();ctx.rect(40,40,680,680);ctx.clip();shape(D.shapes.navigation,'#d9efed');shape(D.shapes.hazards,'#8b929a');
+if(document.getElementById('routes').checked)names.forEach((n,j)=>{ctx.beginPath();D.paths[n].forEach((p,k)=>{const q=xy(p);k?ctx.lineTo(...q):ctx.moveTo(...q)});ctx.strokeStyle=colors[j];ctx.lineWidth=j?1:2;ctx.stroke()});
+names.forEach((n,j)=>{const p=D.states[i][j],q=xy(p),r=xy(D.reference[i][j]);if(document.getElementById('ref').checked){ctx.beginPath();ctx.arc(...r,8,0,2*Math.PI);ctx.strokeStyle=colors[j];ctx.lineWidth=1.5;ctx.stroke()}ctx.save();ctx.translate(...q);ctx.rotate(-p[2]);ctx.beginPath();ctx.moveTo(9,0);ctx.lineTo(-6,-5);ctx.lineTo(-6,5);ctx.closePath();ctx.fillStyle=colors[j];ctx.fill();ctx.restore()});ctx.restore();
+ctx.font='13px Arial';ctx.fillStyle='#586b7d';ctx.textAlign='center';for(let m=0;m<=5000;m+=1000){ctx.fillText(m,40+m/5120*680,743);ctx.fillText(m,20,724-m/5120*680)}ctx.fillText('东向 / m',380,753);ctx.fillText('北向 / m',65,25);document.getElementById('time').textContent=(D.times[i]/3600).toFixed(3)+' h';document.getElementById('coverage').textContent=(100*D.coverage).toFixed(5)+'%';document.getElementById('metrics').innerHTML=names.map((n,j)=>{const p=D.states[i][j],r=D.reference[i][j],e=Math.hypot(p[0]-r[0],p[1]-r[1]);return '<tr><td>'+n.toUpperCase().replace('_','')+'</td><td><strong>'+e.toFixed(5)+' m</strong></td></tr>'}).join('')}
+slider.addEventListener('input',()=>{pause();draw()});document.getElementById('routes').onchange=draw;document.getElementById('ref').onchange=draw;document.getElementById('play').onclick=()=>{if(timer)return pause();document.getElementById('play').textContent='暂停';timer=setInterval(()=>{if(+slider.value>=+slider.max)return pause();slider.value=+slider.value+1;draw()},80)};document.getElementById('reset').onclick=()=>{pause();slider.value=0;draw()};document.getElementById('end').onclick=()=>{pause();slider.value=slider.max;draw()};draw();</script></html>'''
+    args.output.parent.mkdir(parents=True,exist_ok=True)
+    with args.output.open('x')as f:f.write(html.replace('__DATA__',json.dumps(data,separators=(',',':'))))
+    print(args.output)
+
+
+if __name__=='__main__':main()

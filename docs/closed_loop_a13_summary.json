@@ -1,0 +1,40 @@
+{
+  "recorded_on": "2026-11-05",
+  "timezone": "Asia/Taipei",
+  "stage": "A13",
+  "passed": true,
+  "entry": "scripts/run_closed_loop_reproduction.py",
+  "artifact_auditor": "research_tests/audit_closed_loop_reproduction.py",
+  "planning_steps": 35,
+  "outer_steps": 11,
+  "output_files_hash_checked": 786,
+  "tests": {
+    "core_tests": 209,
+    "research_tests": 121
+  },
+  "control_periods_s": [
+    0.5,
+    0.25,
+    1.0
+  ],
+  "registered_case_count": 7,
+  "distinct_actual_trajectory_runs": 9,
+  "reproduced_actual_derived_files": 45,
+  "both_png_byte_reproduced": true,
+  "case_outcomes": {
+    "nominal": "certified_pass",
+    "initial_offset": "certified_pass",
+    "drift_005": "certified_pass",
+    "sensor_010": "certified_pass",
+    "combined": "certified_pass",
+    "sensor_5m": "witnessed_violation",
+    "current_over_limit": "witnessed_violation"
+  },
+  "all_registered_conditions_safe": false,
+  "acceptance_sha256": "801c6cd2562e81a2f900bc2a15f5e38ff6a6e10ec65831bad47bc9da6d77b658",
+  "source_raw_charts": "Pinned NOAA US5LGBCE/US5LGBDE archives, no reused processed outputs",
+  "real_marine_vehicle_validated": false,
+  "strict_original_thesis_reproduction": false,
+  "learner_or_supervisor_acceptance": false,
+  "scope": "Fixed-reference fully actuated planar ZOH acceleration surrogate. Registered deterministic disturbance cases, including retained violations. Not underactuated hydrodynamics, MPC, energy/acoustics/3D or real-system/learner acceptance."
+}

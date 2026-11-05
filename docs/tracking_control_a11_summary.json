@@ -1,0 +1,92 @@
+{
+  "recorded_on": "2026-11-05",
+  "timezone": "Asia/Taipei",
+  "stage": "A11",
+  "config": "configs/tracking_control_a11.json",
+  "model": "Fully actuated East/North acceleration double integrator with independent yaw acceleration, constant-drift position equation and exact ZOH integration",
+  "source_a9_scientific_sha256": "c0fdad3a13fb76b85e8e2b55c698ef85ef78512c6b1d8f2cc729f025c22a5d22",
+  "source_result_sha256": "803fac6390fcd33f379eda18a17ea9174c7ed5cfed05fb8e3f89acb2a3da5b08",
+  "mission_end_s": 67772.97121203525,
+  "reference_scan_count": 89,
+  "control_period_s": 0.5,
+  "control_intervals": 137108,
+  "metrics": {
+    "usv": {
+      "maximum_position_error_m": 0.0006468578035378176,
+      "time_weighted_position_rmse_m": 1.1316290635574646e-05,
+      "maximum_heading_error_rad": 5.329070518200751e-15,
+      "maximum_ground_velocity_error_mps": 0.00018781398666936242,
+      "maximum_command_acceleration_mps2": 0.11157701301119986,
+      "maximum_yaw_acceleration_radps2": 0.0025000000000034617,
+      "maximum_water_relative_speed_mps": 3.00000000000133
+    },
+    "uuv_1": {
+      "maximum_position_error_m": 0.0009655093507604581,
+      "time_weighted_position_rmse_m": 9.745104935421391e-05,
+      "maximum_heading_error_rad": 1.8118839761882555e-13,
+      "maximum_ground_velocity_error_mps": 0.0002344510114274774,
+      "maximum_command_acceleration_mps2": 0.11180152339958022,
+      "maximum_yaw_acceleration_radps2": 0.005000000000170668,
+      "maximum_water_relative_speed_mps": 1.500000000017818
+    },
+    "uuv_2": {
+      "maximum_position_error_m": 0.0010566629705329803,
+      "time_weighted_position_rmse_m": 0.0001251893562179754,
+      "maximum_heading_error_rad": 3.304023721284466e-13,
+      "maximum_ground_velocity_error_mps": 0.0002409183195694887,
+      "maximum_command_acceleration_mps2": 0.11180306879204151,
+      "maximum_yaw_acceleration_radps2": 0.005000000000330947,
+      "maximum_water_relative_speed_mps": 1.5000000094505668
+    }
+  },
+  "actual_coverage_lower_ratio": 0.9990366025151681,
+  "independent_coverage_lower_ratio": 0.9990391992120878,
+  "independent_distance_pairs": {
+    "usv__uuv_1": {
+      "minimum_distance_lower_m": 38.37511530471558,
+      "maximum_distance_upper_m": 2262.465203417299,
+      "minimum_distance_witness_m": 38.75011630471579,
+      "maximum_distance_witness_m": 2262.2151894395447
+    },
+    "usv__uuv_2": {
+      "minimum_distance_lower_m": 360.87501431168783,
+      "maximum_distance_upper_m": 2295.4164173332106,
+      "minimum_distance_witness_m": 361.250015311688,
+      "maximum_distance_witness_m": 2295.250315617614
+    },
+    "uuv_1__uuv_2": {
+      "minimum_distance_lower_m": 870.3932946268109,
+      "maximum_distance_upper_m": 4120.445207323032,
+      "minimum_distance_witness_m": 871.0169369445252,
+      "maximum_distance_witness_m": 4120.195191048979
+    }
+  },
+  "independent_hazard_clearance_lower_m": {
+    "usv": 572.2485262985207,
+    "uuv_1": 50.74967940444818,
+    "uuv_2": 50.57981260348159
+  },
+  "period_sensitivity": [
+    {
+      "period_s": 0.5,
+      "maximum_position_error_m": 0.0010566629705329803,
+      "mission_constraints_certified": true,
+      "coverage_lower_ratio": 0.9990366025151681
+    },
+    {
+      "period_s": 0.25,
+      "maximum_position_error_m": 0.00026986412202175574,
+      "mission_constraints_certified": true,
+      "coverage_lower_ratio": 0.9990369156897931
+    },
+    {
+      "period_s": 1.0,
+      "maximum_position_error_m": 0.004101888157179818,
+      "mission_constraints_certified": true,
+      "coverage_lower_ratio": 0.9990353488263625
+    }
+  ],
+  "nominal_mission_certified": true,
+  "scope": "Engineering fully actuated world-frame double integrator with independent yaw acceleration and bounded velocities/accelerations. Exact zero-order-hold plant integration; ideal ground velocity measurement plus declared position/heading errors. Not underactuated marine craft, hydrodynamics, force/energy model, MPC, acoustic/3D or real-system validation.",
+  "physical_accuracy_claim": false
+}

@@ -1,0 +1,13 @@
+{
+  "retrieved_on": "2026-11-05",
+  "timezone": "Asia/Taipei",
+  "sources": [
+    {
+      "title": "Fossen's Marine Craft Model",
+      "url": "https://www.fossen.biz/html/marineCraftModel.html",
+      "evidence": "Official author webpage, mathematical formulation and kinematics read on retrieval date",
+      "use": "Boundary comparison only: full marine dynamics include inertia, Coriolis, damping and restoring terms; this repository does not identify or implement those terms for a real vehicle."
+    }
+  ],
+  "model_provenance": "Own fully actuated planar world-frame acceleration surrogate and constrained feedforward+PID implementation. Gains, actuation limits, noise/drift strengths are explicit engineering settings, not fitted vessel parameters or original-thesis MPC. No third-party control code copied."
+}

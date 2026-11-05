@@ -135,6 +135,47 @@ python research_tests/audit_reproduction.py \
 
 `manifest.json` 保存环境、原始海图哈希、代码／配置哈希和每步命令／日志；`acceptance.json` 检查各阶段审计、完整目标、89 窗口、覆盖下界与距离／裕度门槛，并索引输出哈希。A4/A5 中的历史不可行方案保留为诊断对照；复跑通过不将它们改称完整任务可行，也不表示原论文第三章严格复现或控制闭环完成。
 
+<a id="a11"></a>
+## A11：实际反馈轨迹与任务重验
+
+使用受限加速度前馈加反馈控制，独立积分得到实际位置、速度、航向和转向速度。参考固定为 A9，实际扫描覆盖、避障和协同距离重新计算。0.25、0.5、1 s 三种控制周期均通过名义条件核查；0.5 s 时最大位置误差约 **1.06 mm**，这是理想测量与全驱动简化模型内的数值结果，不代表实艇精度。
+
+控制模型允许独立侧向加速，未建立欠驱动船舶水动力学，也不是论文 MPC。门槛与模型说明见 [控制方法](methods.md#closed-loop)，数据见 [A11 汇总](tracking_control_a11_summary.json)。入口为 `run_tracking_control.py` 与 `audit_tracking_control.py`。
+
+<a id="a12"></a>
+## A12：预登记扰动与测量误差对照
+
+地图、参考、增益、执行器上限、89 个扫描时段、99.9% 覆盖和 50 m / 25 m / 2300 m 门槛保持。7 个确定性条件为：名义、初始偏差、0.05 m/s 东向漂流、0.1 m 位置偏差叠加 0.02 m 周期测量误差、组合误差、5 m 位置偏差、超速度补偿能力的漂流。参数为工程测试设定，不是当地实测海流或设备规格。
+
+前 5 个条件通过独立轨迹核查；5 m 测量偏差与超速度漂流存在违约见证。前者覆盖低于 99.9% 门槛，后者同时出现大幅跟踪偏差与超支援范围。失败记录保留，不改变门槛或删除条件来达标。每条件只有一次确定性仿真，不作统计显著性推断。
+
+条件与数值见 [A12 汇总](tracking_robustness_a12_summary.json)；入口 `run_tracking_robustness.py`，名义条件复用已审计的 A11 输出，避免把它重复计作独立实验。
+
+<a id="a13"></a>
+## A13：原始海图到闭环对照的统一入口
+
+保留原 A10 入口，另提供扩展入口：
+
+```bash
+python scripts/run_closed_loop_reproduction.py \
+  --archives-dir /path/to/pinned_enc_archives \
+  --output-dir outputs/closed_loop_run_01
+```
+
+也可用 `--download` 代替 `--archives-dir`，必要时加 `--noaa-cname`。沿用 README 的既有科研环境，不自动安装依赖；输出目录必须不存在。
+
+入口在新目录先执行 A1→A9 的原 A10 流程，再顺序核查 A11 三种周期、A12 七条件与图件，并自动执行 A13 产物核对。结果分别保存在 `planning/`、`a11/`、`a12/`、`figures/`，`actual_tracking_replay.html` 提供实际闭环轨迹的离线回放；顶层编排包含对规划子流程的调用，不将两种步骤计数简单相加。顶层 `acceptance.json` 和 `independent_acceptance.json` 记录范围与验收。`all_registered_conditions_safe` 为 false 是保留强干扰失败的正确结果，不应与运行／审计失败混淆。
+
+```bash
+python research_tests/audit_closed_loop_reproduction.py \
+  --run-dir outputs/closed_loop_run_01 \
+  --json-out outputs/closed_loop_run_01/recheck.json
+```
+
+干净副本复跑已通过 35 步规划子流程、11 步顶层编排、786 份输出哈希核对，以及 209 核心 / 121 科研检查。9 次实际仿真的 45 份派生文件及两张 PNG 复现一致。[A13 验收数值](closed_loop_a13_summary.json)。
+
+这一入口验收的是声明替代模型下的规划—反馈仿真与误差对照，不代替原论文严格复现、实艇验证或个人／导师理解验收。
+
 ## 运行与验证
 
 完整 A1→A9 命令与 A10 统一入口、依赖和输出位置见 [README 运行指南](../README.md#6项目运行指南)。核心测试和独立审计代码随仓库提供；原始地图、完整运行输出及本机输入准备由使用者按固定来源与哈希配置。
