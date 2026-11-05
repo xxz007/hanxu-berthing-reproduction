@@ -1,0 +1,86 @@
+{
+  "description": "Frozen scientific regression values for the integrated final experiment; timing and provenance paths are excluded.",
+  "reference_fields": [
+    "mission_end_s",
+    "uuv_platforms",
+    "scan_windows",
+    "mobile_usv"
+  ],
+  "reference_scientific_sha256": "9d6f958204f17058c1483bcdf0d3d3a3ad7394f36779b85190197b86907e322f",
+  "derived_files_sha256": {
+    "nominal": {
+      "trajectory.npz": "d16cc0d5c361ebcd468a9b589907eb75da0c3a7933c08e9c7574b10a7ff73752",
+      "actual_covered_lower.geojson": "3aeffdc474420249b5505a8a8cc71464af476a05d52ac2e84fe456ba15b0cd12",
+      "geometry_enclosures.json": "f054c6609a6a359826283aea35d0da5d7cab7bde965ad13a63a12bd39b1cccb3",
+      "actual_missed_upper.geojson": "a02a8e6af2e553810b6f834ea2bc12620064311d1c8178b20e99f02b51d42c7f",
+      "distance_intervals.npz": "8a94c9426726e4d0ecc65440137778c1d40afc69c7587571ec1cd92f6e7cf331"
+    },
+    "period_025": {
+      "trajectory.npz": "60e78584d52fa70ff231963fade7ba41af050b2d1b60d6041cef7f6443b55719",
+      "actual_covered_lower.geojson": "d5d2e84324798784477fbe51c7c85b66ba27f494df1503c409b8da075498ad76",
+      "geometry_enclosures.json": "ec2df4444509f00a9586f88e4b6ff4afe154a3524ed1f53448475da2ef41193f",
+      "actual_missed_upper.geojson": "88e922f483f1e2af28888cfe8e8a025d4021c15f9cfe1e13fa6072ca38cfa6a1",
+      "distance_intervals.npz": "0ec4a97736ac39e60e357e152fc9dfb9da319523d09be6048798e83e21a6d8bf"
+    },
+    "period_100": {
+      "trajectory.npz": "a217c778404f24fb046c250db8d5b39fb97f488ffba888380b23f7678d622ab3",
+      "actual_covered_lower.geojson": "62124fef71d91b952ae6b5f91223f78fbacd1b84cef42ae6c9a7b53fd6b0f079",
+      "geometry_enclosures.json": "e196b2c316a600e10fd1bf80342e89d481bef49c8dbf3d075a29288a176f8aa2",
+      "actual_missed_upper.geojson": "5bff3bd3d984f964816a6efefcf99d7c3e427d7785b56ad10b0c21f4c9a83c26",
+      "distance_intervals.npz": "35b7d17d58b36d9997cf6627723ee4a109eaba64304c5b829beb8cabdbcb0235"
+    },
+    "initial_offset": {
+      "trajectory.npz": "c667b9abfa3a5243b93bfbee41fcea57f9e31744ed40a6e5276e343a7898f0df",
+      "actual_covered_lower.geojson": "7cf4d84d985ae6b921b5028dc36def959f911c8e7a9ee78f5e6d621e03b73c52",
+      "geometry_enclosures.json": "3b4dc71dd4ca580b8eec487b314bef68f0a7404005f34e95f7fb736bc7cf2bf9",
+      "actual_missed_upper.geojson": "d28f910b49aea72b2bd69de580e98f73ee998ced771fd3146899616a109dd2c9",
+      "distance_intervals.npz": "6e714b223182dc86c358695ec9f098144b3e4e4022a4a9fc3f21839cdeef04d0"
+    },
+    "drift_005": {
+      "trajectory.npz": "43088687d78d6af945cd05e085c1e157afaad850eb851f6b65d9eb9ded00ed45",
+      "actual_covered_lower.geojson": "d8b3be56ba522333fbf7bb0d34e2005e38d169702a46d063dde0cf267fe5c5f8",
+      "geometry_enclosures.json": "21a30e52c9efc63c5282ad2070994f53f8aab15b22bd36d4af0d7f75387e4dc1",
+      "actual_missed_upper.geojson": "18c560b6586af80298098ee996cd5ef304153c40eab5dbd5e02a7342910c69e2",
+      "distance_intervals.npz": "bb8606415abf6d4d9b2e206cdace179e8b44f1556db78137f6be19d6b8573e9e"
+    },
+    "sensor_010": {
+      "trajectory.npz": "1a93c090133f57a0c05a615701084f9555d181ac3904c11eefbb112c4c6978ef",
+      "actual_covered_lower.geojson": "ba224de6d7de6e12d4e72bda2511381218b7697672dcb305289277975ac14e3a",
+      "geometry_enclosures.json": "bdfd2d1ef2c7761139e6bb0212eac878699e201d7720285f2ae9d1ac03c63e9f",
+      "actual_missed_upper.geojson": "85bd606eacbc338048c1a0a632e0a10d2010e60204989c6c8a2b0e009eaaf49d",
+      "distance_intervals.npz": "276591fb1d1b505dfacd7be5070df3d5f6691dd1ab4381d1abf8ba4d4897a297"
+    },
+    "combined": {
+      "trajectory.npz": "0d7ead3b842a9449c07dd7f0c3094a3b358c0d8b96eab12bd35d664ea46fad8c",
+      "actual_covered_lower.geojson": "1c47d2b5fbb2b077166da96aaa35d35191f94f7d90ae8b61abac8379d5d7de11",
+      "geometry_enclosures.json": "20879458dc4f586b63b05941f75f18511c3e3d694725bb64bea87849a0fbb9fe",
+      "actual_missed_upper.geojson": "ce8a94e684810b89d751dc23e0dad8b88a1c980664eec1b69b18153fe7696fbd",
+      "distance_intervals.npz": "a81e3e46e4c94c3e1f30ed54d0487c9a4ea2222194faaef4a03486c41ef8154c"
+    },
+    "sensor_5m": {
+      "trajectory.npz": "845571dd857cadef4cf525048ce338173fbf329f8ca25338a87ab25b9dc86ee2",
+      "actual_covered_lower.geojson": "25ddc223202e4a1acf3ce8156c0f488eba17c06a7217d63212701379d6add66b",
+      "geometry_enclosures.json": "194998d5eb3b135eaaf2a9be7a3762e7ac60f6b562a5e0b559216faf29a06952",
+      "actual_missed_upper.geojson": "d1bc9411d4ffbee1d4e46b5044a5c383350409064e4124c6de6e798f4487f971",
+      "distance_intervals.npz": "bed680615f9602e96e50da3009ca4d5e3c57ec4ce590b3e56c65103f6ecf6c58"
+    },
+    "current_over_limit": {
+      "trajectory.npz": "603958f5eaf61dd19dc520ff5dde80a1815afcd71e6d78264b36f21cd26db1c1",
+      "actual_covered_lower.geojson": "a6561f47e0966059bf6976c48e9451a72c7b6f2224dc96def44ad01783bb86df",
+      "geometry_enclosures.json": "8dcd4593174873a97f05896019f64c6e4a1f2a54062d265ee5a214e8e83e112f",
+      "actual_missed_upper.geojson": "4890187c18e69140d59bc615e2cfabaa8607c76cf0ac229129e812416688501e",
+      "distance_intervals.npz": "6925e0d3f860a726a60d2df1c6673e528c4245eba6ff9ca349f175cd937830bf"
+    }
+  },
+  "case_outcomes": {
+    "nominal": "certified_pass",
+    "initial_offset": "certified_pass",
+    "drift_005": "certified_pass",
+    "sensor_010": "certified_pass",
+    "combined": "certified_pass",
+    "sensor_5m": "witnessed_violation",
+    "current_over_limit": "witnessed_violation"
+  },
+  "scan_count": 89,
+  "target_area_m2": 8767426.837145586
+}

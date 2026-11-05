@@ -4,6 +4,11 @@ No production Dubins, reachable-box or curve-evaluation imports. Native GEOS
 checks full independently enclosed curves; NumPy separately checks source masks.
 This audits the recorded success/failure experiment, not full mission feasibility.
 """
+from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+from berthing_planner.validation.curves import arc_enclosure
+
 import argparse
 import hashlib
 import json
@@ -19,15 +24,6 @@ from audit_open_chart_stage_a import inside
 from audit_motion_feasibility import piece_points,speed_checks
 
 
-def arc_enclosure(pieces,error=.01):
-    points=[];bound=0.0
-    for p in pieces:
-        k=abs(p['curvature'])
-        steps=max(1,math.ceil(p['length']*k/(2*math.acos(1-error*k))))if k else 1
-        xy=piece_points(p,np.linspace(0,1,steps+1))
-        points.extend(xy.tolist()if not points else xy[1:].tolist())
-        if k:bound=max(bound,(1-math.cos(p['length']*k/steps/2))/k)
-    return points,bound
 
 
 def main():

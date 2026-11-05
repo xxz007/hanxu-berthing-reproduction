@@ -1,4 +1,9 @@
 """A8 independent scheduled phase integration and continuous certificate audit."""
+from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+from berthing_planner.validation.curves import IndependentSchedule, IndependentWindow
+
 import argparse
 import csv
 import hashlib
@@ -16,26 +21,8 @@ from audit_motion_feasibility import piece_points,speed_checks
 from audit_headland_navigation import arc_enclosure
 
 
-class IndependentSchedule:
-    def __init__(self,legs,initial):
-        self.initial=initial;self.clocks=[IndependentClock(p)for p in legs];self.join_error=0.;prior=np.asarray(initial[:2])
-        for c in self.clocks:
-            self.join_error+=c.join_error+float(np.linalg.norm(prior-c.state(c.departure)[0]));prior=c.state(c.finish)[0]
-
-    def state(self,t):
-        progress=0.;last=(np.asarray(self.initial[:2]),0.,0.,self.initial[2])
-        for c in self.clocks:
-            if t<c.departure:break
-            p,s,v,yaw=c.state(t);last=(p,progress+s,v,yaw)
-            if t<c.finish:break
-            progress+=c.profile['length_m']
-        return last
 
 
-class IndependentWindow:
-    def __init__(self,clock,start):self.clock=clock;self.start=start;self.base=clock.state(start)[1];self.join_error=clock.join_error
-    def state(self,t):
-        p,s,v,yaw=self.clock.state(t+self.start);return p,s-self.base,v,yaw
 
 
 def classify_independently(pairs,required,separation,initial):

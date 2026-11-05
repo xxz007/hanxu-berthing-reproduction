@@ -1,0 +1,159 @@
+{
+  "experiment": "long_beach_cooperative_coverage",
+  "passed": true,
+  "mission_end_s": 67772.97121203525,
+  "scan_count": 89,
+  "usv_transfer_count": 2,
+  "usv_length_m": 685.6785869970438,
+  "nominal_audit": {
+    "passed": true,
+    "errors": [],
+    "source_result_sha256": "3a7628b69ea358729fb24ea715f2894bf35471a088e8a69abbb9a716b5b8fc63",
+    "case": "nominal",
+    "control_intervals": 137108,
+    "plant_residuals": {
+      "velocity_integral_error": 3.469446951953614e-18,
+      "position_integral_error_m": 8.998357614586894e-13,
+      "heading_integral_error_rad": 6.831341048396666e-15
+    },
+    "maximum_independent_reference_error": 7.73070496506989e-12,
+    "maximum_feedback_replay_error_or_short_interval_impulse": 2.693259365527112e-10,
+    "distance_pairs": {
+      "usv__uuv_1": {
+        "minimum_distance_lower_m": 38.37511530471558,
+        "maximum_distance_upper_m": 2262.465203417299,
+        "minimum_distance_witness_m": 38.75011630471579,
+        "maximum_distance_witness_m": 2262.2151894395447
+      },
+      "usv__uuv_2": {
+        "minimum_distance_lower_m": 360.87501431168783,
+        "maximum_distance_upper_m": 2295.4164173332106,
+        "minimum_distance_witness_m": 361.250015311688,
+        "maximum_distance_witness_m": 2295.250315617614
+      },
+      "uuv_1__uuv_2": {
+        "minimum_distance_lower_m": 870.3932946268109,
+        "maximum_distance_upper_m": 4120.445207323032,
+        "minimum_distance_witness_m": 871.0169369445252,
+        "maximum_distance_witness_m": 4120.195191048979
+      }
+    },
+    "independent_coverage_lower_ratio": 0.9990391992120878,
+    "independent_coverage_upper_ratio": 0.999040277985423,
+    "independent_hazard_clearance_lower_m": {
+      "usv": 572.2485262985207,
+      "uuv_1": 50.74967940444818,
+      "uuv_2": 50.57981260348159
+    },
+    "navigation_enclosures_passed": {
+      "usv": true,
+      "uuv_1": true,
+      "uuv_2": true
+    },
+    "constraint_outcome": "certified_pass",
+    "mission_constraints_certified": true,
+    "scope": "Engineering fully actuated world-frame double integrator with independent yaw acceleration and bounded velocities/accelerations. Exact zero-order-hold plant integration; ideal ground velocity measurement plus declared position/heading errors. Not underactuated marine craft, hydrodynamics, force/energy model, MPC, acoustic/3D or real-system validation."
+  },
+  "conditions": [
+    {
+      "case": "nominal",
+      "audit_passed": true,
+      "constraint_outcome": "certified_pass",
+      "maximum_position_error_m": 0.0010566629705329803,
+      "coverage_lower_ratio": 0.9990391992120878,
+      "coverage_upper_ratio": 0.999040277985423,
+      "minimum_pair_distance_lower_m": 38.37511530471558,
+      "maximum_support_distance_upper_m": 2295.4164173332106,
+      "minimum_hazard_clearance_lower_m": 50.57981260348159
+    },
+    {
+      "case": "initial_offset",
+      "audit_passed": true,
+      "constraint_outcome": "certified_pass",
+      "maximum_position_error_m": 1.118033988749895,
+      "coverage_lower_ratio": 0.9990394373794932,
+      "coverage_upper_ratio": 0.9990405436654572,
+      "minimum_pair_distance_lower_m": 38.375115304715585,
+      "maximum_support_distance_upper_m": 2295.4164173332106,
+      "minimum_hazard_clearance_lower_m": 50.56621339208847
+    },
+    {
+      "case": "drift_005",
+      "audit_passed": true,
+      "constraint_outcome": "certified_pass",
+      "maximum_position_error_m": 0.030371367187854048,
+      "coverage_lower_ratio": 0.9990391878379071,
+      "coverage_upper_ratio": 0.9990402893429485,
+      "minimum_pair_distance_lower_m": 38.375115304715585,
+      "maximum_support_distance_upper_m": 2295.4164173332106,
+      "minimum_hazard_clearance_lower_m": 50.580629074985474
+    },
+    {
+      "case": "sensor_010",
+      "audit_passed": true,
+      "constraint_outcome": "certified_pass",
+      "maximum_position_error_m": 0.12744251363115847,
+      "coverage_lower_ratio": 0.9990419087460635,
+      "coverage_upper_ratio": 0.9990467322329419,
+      "minimum_pair_distance_lower_m": 38.47894035294915,
+      "maximum_support_distance_upper_m": 2295.452553834441,
+      "minimum_hazard_clearance_lower_m": 50.550227898758735
+    },
+    {
+      "case": "combined",
+      "audit_passed": true,
+      "constraint_outcome": "certified_pass",
+      "maximum_position_error_m": 1.118033988749895,
+      "coverage_lower_ratio": 0.9990421593215755,
+      "coverage_upper_ratio": 0.9990469855716554,
+      "minimum_pair_distance_lower_m": 38.47894035294915,
+      "maximum_support_distance_upper_m": 2295.452553834441,
+      "minimum_hazard_clearance_lower_m": 50.54726384773562
+    },
+    {
+      "case": "sensor_5m",
+      "audit_passed": true,
+      "constraint_outcome": "witnessed_violation",
+      "maximum_position_error_m": 6.087221254246836,
+      "coverage_lower_ratio": 0.9989111692688052,
+      "coverage_upper_ratio": 0.9989127389704793,
+      "minimum_pair_distance_lower_m": 35.87590683022656,
+      "maximum_support_distance_upper_m": 2296.4350201718908,
+      "minimum_hazard_clearance_lower_m": 46.18178623083629
+    },
+    {
+      "case": "current_over_limit",
+      "audit_passed": true,
+      "constraint_outcome": "witnessed_violation",
+      "maximum_position_error_m": 13126.490997520525,
+      "coverage_lower_ratio": 0.03750068025747147,
+      "coverage_upper_ratio": 0.03754130281092272,
+      "minimum_pair_distance_lower_m": 679.6250225160469,
+      "maximum_support_distance_upper_m": 11965.369715128205,
+      "minimum_hazard_clearance_lower_m": -0.026250946692275727
+    }
+  ],
+  "strict_original_thesis_reproduction": false,
+  "real_marine_vehicle_validated": false,
+  "learner_or_supervisor_acceptance": false,
+  "scope": "Engineering fully actuated world-frame double integrator with independent yaw acceleration and bounded velocities/accelerations. Exact zero-order-hold plant integration; ideal ground velocity measurement plus declared position/heading errors. Not underactuated marine craft, hydrodynamics, force/energy model, MPC, acoustic/3D or real-system validation.",
+  "reproducibility": {
+    "from_raw_enc": true,
+    "functional_workflow_steps": 39,
+    "core_tests_passed": 209,
+    "research_tests_passed": 126,
+    "scientific_derived_files_byte_identical": 45,
+    "final_output_hashes_checked": 451,
+    "reference_scientific_sha256": "9d6f958204f17058c1483bcdf0d3d3a3ad7394f36779b85190197b86907e322f",
+    "case_outcomes": {
+      "nominal": "certified_pass",
+      "initial_offset": "certified_pass",
+      "drift_005": "certified_pass",
+      "sensor_010": "certified_pass",
+      "combined": "certified_pass",
+      "sensor_5m": "witnessed_violation",
+      "current_over_limit": "witnessed_violation"
+    },
+    "source_environment": "Python 3.12.14, NumPy 2.5.2, SciPy 1.18.0, Matplotlib 3.11.1, GEOS 3.14.1, GDAL 3.8.5, PROJ 9.7.1 on macOS"
+  }
+}

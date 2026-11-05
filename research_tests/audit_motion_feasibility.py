@@ -4,6 +4,11 @@ No production motion, curve evaluation or speed-law imports. Raster slabs are
 inflated by the certified arc-to-chord deviation, so sampled chord clearance
 also certifies the intervening analytic arcs.
 """
+from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+from berthing_planner.validation.curves import piece_points, speed_checks
+
 import argparse
 import hashlib
 import json
@@ -12,33 +17,8 @@ from pathlib import Path
 import numpy as np
 
 
-def piece_points(piece, fractions):
-    x,y,yaw=piece['pose'];k=piece['curvature'];s=np.asarray(fractions)*piece['length']
-    if k==0:return np.column_stack((x+s*np.cos(yaw),y+s*np.sin(yaw)))
-    # Rotation of a radius vector about the exact circle centre.
-    centre=np.array([x-np.sin(yaw)/k,y+np.cos(yaw)/k])
-    angle=yaw+k*s
-    return centre+np.column_stack((np.sin(angle)/k,-np.cos(angle)/k))
 
 
-def speed_checks(profile, pieces, config):
-    errors=[];time=distance=0.0
-    if len(profile['segments'])!=len(pieces):return ['piece/profile count mismatch']
-    for i,(s,p)in enumerate(zip(profile['segments'],pieces)):
-        values=[s[k]for k in ('t0_s','t1_s','ramp_duration_s','cruise_duration_s','peak_speed_mps','accel_mps2')]
-        if not all(math.isfinite(v)for v in values):errors.append('nonfinite');continue
-        ta,tc,v,a=s['ramp_duration_s'],s['cruise_duration_s'],s['peak_speed_mps'],s['accel_mps2']
-        expected=p['length'];duration=2*ta+tc
-        if min(ta,v,a)<=0 or tc<0:errors.append(f'nonpositive phase {i}')
-        if abs(v-a*ta)>1e-8 or abs(v*ta+v*tc-expected)>1e-6:errors.append(f'phase integral {i}')
-        if abs(s['t0_s']-time)>1e-7 or abs(s['t1_s']-time-duration)>1e-7:errors.append(f'clock {i}')
-        if abs(s['s0_m']-distance)>1e-6:errors.append(f'arc length origin {i}')
-        if v>config['cruise_mps']+1e-9 or a>config['tangential_accel_mps2']+1e-9:errors.append(f'kinematic limit {i}')
-        if v*v*abs(p['curvature'])>config['lateral_accel_mps2']+1e-9:errors.append(f'lateral limit {i}')
-        if abs(s['length_m']-expected)>1e-6:errors.append(f'length {i}')
-        time+=duration;distance+=expected
-    if abs(time-profile['duration_s'])>1e-7 or abs(distance-profile['length_m'])>1e-6:errors.append('total clock/length')
-    return errors
 
 
 def inflated_grid_hits(a,b,blocked,bounds,padding):

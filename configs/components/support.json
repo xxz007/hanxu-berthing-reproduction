@@ -1,0 +1,44 @@
+{
+  "target_geometry_sha256": "12183e2b7a1ef72109b8b1886ae93f50bc7619d6d7eb05d8927820cbdeda14ea",
+  "hazards_geometry_sha256": "939e51d6f1ad2d89723e85e4cc12614a8042de3742074c72ac3ec57a64aae8a7",
+  "navigation_sha256": "c93c7015a9937471da022f771f3463fcec468e0955cc29e7154a09c5aa1aacbc",
+  "mobile_design_range_m": 2300,
+  "minimum_separation_m": 25,
+  "hazard_margin_m": 50,
+  "window_duration_s": 1800,
+  "candidate_time_step_s": 10,
+  "candidate_grid_step_m": 25,
+  "candidate_x_bounds_m": [
+    2200,
+    3200
+  ],
+  "candidate_y_bounds_m": [
+    1500,
+    2800
+  ],
+  "station_sample_clearance_m": 30,
+  "station_sample_range_reserve_m": 0.5,
+  "usv_radius_m": 40,
+  "usv_cruise_mps": 3,
+  "tangential_accel_mps2": 0.1,
+  "lateral_accel_mps2": 0.05,
+  "maximum_arc_sagitta_m": 0.02,
+  "distance_tolerance_m": 0.05,
+  "numerical_margin_m": 1e-06,
+  "max_distance_refinements": 200000,
+  "trace_step_s": 20,
+  "policy": "Fixed offline finite look-ahead support: hold if certified, otherwise search grid stations and forward Dubins transfers. Samples rank/reject; whole-time certificates accept. Not globally optimal or an energy optimization.",
+  "maximum_station_candidates_per_horizon": 12,
+  "uuv2_departure_candidates_s": [
+    0,
+    60,
+    120,
+    300,
+    600,
+    1200,
+    1800,
+    3600
+  ],
+  "source_a6_scientific_sha256": "73120e904a030b03798bc6af728caa7899a5ff63113b8171188aa770379c814c",
+  "source_repair_scientific_sha256": "2cb4a447254cb4b7fd871601835cdd5432ace8374cab9c821ecd207bfcbd588e"
+}

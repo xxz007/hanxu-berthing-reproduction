@@ -1,0 +1,63 @@
+{
+  "stage": "A6 joint scan geometry/order and bounded-curvature planning",
+  "A1_geometry_sha256": {
+    "searchable": "12183e2b7a1ef72109b8b1886ae93f50bc7619d6d7eb05d8927820cbdeda14ea",
+    "hazards": "939e51d6f1ad2d89723e85e4cc12614a8042de3742074c72ac3ec57a64aae8a7",
+    "hazard_buffer": "d0281b02992fc189708dc4d8f19c48451446a6fde4f034d77b79a07fb3a8fa74",
+    "coverage": "85fe34776c01e98f87e4ac0b299b7106dfeac43206cc3c77413e035cf8291066",
+    "depth_qualified": "bb88b6eaf9529dcfadc2d566a4108ec32e4c548b65fa1a8ceb993575736b3e61",
+    "restricted": "48cfcb56bd423cde37531bb692bb914d66b61439670bb4dd026c725d8c7f9523",
+    "no_coverage": "f3a47fa77a5a0c16abdae321ab04b1a9d09fb0d81b55ef185e4606d24eef176a",
+    "task_boundary": "02a0ba0c085f10381ae9267a7ac4bc306077063be978bb23f1ebc3f8750e18a0"
+  },
+  "source_a3_scientific_result_sha256": "2b40689e244d9996b4216e92a30a29402e62317de4e008088828445d7c99cd13",
+  "navigation_bounds_m": [
+    0,
+    0,
+    5120,
+    5120
+  ],
+  "grid_n": 2048,
+  "minimum_original_hazard_clearance_m": 50,
+  "uuv_minimum_radius_m": 20,
+  "usv_minimum_radius_m": 40,
+  "maximum_arc_sagitta_m": 0.02,
+  "cruise_mps": {
+    "uuv_1": 1.5,
+    "uuv_2": 1.5,
+    "usv": 3
+  },
+  "tangential_accel_mps2": 0.1,
+  "lateral_accel_mps2": 0.05,
+  "sensor_radius_m": 50,
+  "footprint_quadrant_segments": 30,
+  "policy": "Every original task ID retained; positions, headings and order may change. Full original coverage target and safety unchanged; recompute full-target footprint. Separate transit-scan ON sensitivity, no cooperative retiming without complete motion routes and continuous checks. Retain every A5 admissible variant as a mandatory candidate so finite pruning cannot remove its demonstrated subchains.",
+  "expected_navigation_sha256": "c93c7015a9937471da022f771f3463fcec468e0955cc29e7154a09c5aa1aacbc",
+  "short_variant_heading_buckets": 16,
+  "maximum_variants_per_heading_bucket": 2,
+  "long_variants_per_direction": 10,
+  "coverage_loss_weight": 20,
+  "required_coverage_ratio": 0.999,
+  "a5_variant_files_sha256": {
+    "uuv_1": "208ebfb47a0a107185309bf8192a721a6c284421a9904ded16281052761ed356",
+    "uuv_2": "6219db40e8c9dd03254ec442ade7c46c4b1f098b4d2ba1d84ff5f4c45d796516"
+  },
+  "pose_search_max_expansions": 30000,
+  "pose_search_max_calls_per_layer": 24,
+  "pose_search_margin_m": 400,
+  "pose_search_position_resolution_m": 2.5,
+  "pose_search_heading_bins": 24,
+  "pose_search_straight_step_m": 5,
+  "pose_search_shot_every": 25,
+  "pose_search_shot_distance_m": 250,
+  "order_priority": {
+    "uuv_1": [
+      "source_order"
+    ],
+    "uuv_2": [
+      "short_cluster_last_scan_048",
+      "short_cluster_first_scan_048",
+      "source_order"
+    ]
+  }
+}
