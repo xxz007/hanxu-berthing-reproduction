@@ -84,7 +84,13 @@ def main():
             errors.extend(speed_checks(c.profile,c.pieces,{'cruise_mps':cfg['usv_cruise_mps'],'tangential_accel_mps2':cfg['tangential_accel_mps2'],'lateral_accel_mps2':cfg['lateral_accel_mps2']}))
             xy,error=arc_enclosure(c.pieces);shape={'type':'LineString','coordinates':xy};envelope=g.operation('buffer',shape,distance=(error+1e-6)/math.cos(math.pi/120),quadrant_segments=30)
             if not g.covers(shapes['navigation'],envelope):errors.append('whole-sortie navigation inclusion')
-            clearance=g.distance(shape,shapes['hazards'])-error;minimum_clearance=min(minimum_clearance,clearance)
+            clearance=g.distance(shape,shapes['hazards'])-error
+            # Two conservative chord bounds need not be ordered. Refine the
+            # independent enclosure before judging a tighter saved lower bound.
+            if clearance+1e-6<body['minimum_hazard_clearance_lower_m']:
+                fine_xy,fine_error=arc_enclosure(c.pieces,error=.0001)
+                clearance=g.distance({'type':'LineString','coordinates':fine_xy},shapes['hazards'])-fine_error
+            minimum_clearance=min(minimum_clearance,clearance)
             if clearance<cfg['hazard_margin_m']or clearance+1e-6<body['minimum_hazard_clearance_lower_m']:errors.append('hazard clearance')
             last=c.state(c.finish);previous=c.finish;pose=np.array([*last[0],last[3]]);length+=c.profile['length_m'];duration+=c.profile['duration_s']
     if previous<end:expected_holds.append((previous,end,list(pose)))

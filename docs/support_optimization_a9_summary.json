@@ -1,0 +1,35 @@
+{
+  "recorded_on": "2026-11-05",
+  "timezone": "Asia/Singapore",
+  "stage": "A9 matched-condition USV support travel improvement",
+  "config": "configs/support_optimization_a9.json",
+  "source_result_sha256": "1c69fa26ede61dac4fce01db3d9c3e52211dde93759f2fc75b6bd8198b9d5c8e",
+  "comparison": {
+    "source_a8_length_m": 10173.33421923618,
+    "source_a8_transfer_count": 11,
+    "source_a8_motion_duration_s": 4364.177729990493,
+    "optimized_length_m": 685.6785869970438,
+    "optimized_transfer_count": 2,
+    "length_saved_m": 9487.655632239135,
+    "length_saved_ratio": 0.932600406885234,
+    "strict_length_improvement": true,
+    "all_constraints_certified": true
+  },
+  "mission_end_s": 67772.97121203525,
+  "coverage_lower_ratio_unchanged": 0.999039175619205,
+  "scan_window_count": 89,
+  "support_range_requirement_m": 2300,
+  "minimum_separation_requirement_m": 25,
+  "original_hazard_margin_m": 50,
+  "maximum_support_distance_upper_m": 2295.2979267690102,
+  "minimum_usv_uuv_distance_lower_m": 38.70030362714926,
+  "usv_motion_duration_s": 351.97367663536977,
+  "verification": {
+    "independent_distance_certificates": 156,
+    "independent_trace_rows": 14859,
+    "passed": true
+  },
+  "scope": "Frozen A8 initial poses/UUV curves/profiles/89 scan windows and 2300m/25m/50m limits. Hold if next window certifies, else try longest finite future horizon first and nearest feasible grid stations with length-ranked forward Dubins transfers. Samples reject/rank only; selected window and final whole mission use continuous certificates. Finite greedy lookahead, not global optimum, control, or energy optimization.",
+  "independent_usv_hazard_clearance_lower_m": 572.2602119305855,
+  "source_scientific_sha256": "c0fdad3a13fb76b85e8e2b55c698ef85ef78512c6b1d8f2cc729f025c22a5d22"
+}

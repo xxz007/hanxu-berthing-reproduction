@@ -89,7 +89,7 @@ hanxu-berthing-reproduction/
 
 ## 5、实验复现结果展示
 
-[靠泊路径与方法对照](#berthing-results) · [跨图重规划](#cross-chart-results) · [覆盖与协同扩展](#coverage-results) · [驻守支援成果](#a7-results)
+[靠泊路径与方法对照](#berthing-results) · [跨图重规划](#cross-chart-results) · [覆盖与协同扩展](#coverage-results) · [驻守支援成果](#a7-results) · [移动支援优化](#a9-results)
 
 本节区分论文相关独立实验与应用扩展。论文原图、原表未全部严格对齐；应用结果采用明确的二维模型，不能代替真实船体控制或声学验证。
 
@@ -275,7 +275,19 @@ JPS 与同网格普通 A* 最短路一致。JPS 和当前 Smooth-RRT 输出仍�
 - **航程代价**：USV 从 **0.651 km** 增至 **10.173 km**，约为原来的 **15.64 倍**；任务仍为 **18.826 小时**，理想覆盖下界仍为 **99.9039%**。移动支援的收益和航行成本需一起衡量。
 - **适用边界**：初始位置已要求支援范围至少 **2289.56 m**；2290 m 下当前两套方案均失败，尚不能据此判定所有策略无解。独立连续核查通过；当前是离线二维规划与理想等待，真实控制、洋流及声学仍需后续验证。[实验解读与完整对照](docs/experiments.md#a8) · [数值汇总](docs/support_sensitivity_a8_summary.json)
 
+<a id="a9-results"></a>
+#### 减少移动支援航程（A9）
+
+![同一障碍海图和 UUV 任务下，A8 的 11 次 USV 转场与 A9 的 2 次转场对照](docs/assets/support_optimization_a9.png)
+
+- **同条件改进**：初始位姿、UUV 曲线与速度、89 个扫描窗口不变，仍要求 **2300 m** 支援范围、**25 m** 平台间距和 **50 m** 障碍裕度。
+- **减少往返**：采用较长时间的前视筛选驻点，优先保持驻守；USV 从 **11 次转场、10.173 km** 减至 **2 次、0.686 km**，航程减少 **93.26%**，运动时间由 **72.74 分钟**降至 **5.87 分钟**。
+- **核查结果**：最大支援距离保守上界 **2295.30 m**，最小 USV–UUV 间距保守下界 **38.70 m**；共同任务仍为 **18.826 小时**，理想覆盖下界仍为 **99.9039%**。
+- **解释边界**：这是有限候选、离线前视策略的改进，未证明全局最优；航程减少不等于已验证节能，理想驻守和真实控制仍需区分。[实验方法](docs/experiments.md#a9) · [数值汇总](docs/support_optimization_a9_summary.json)
+
 ## 6、项目运行指南
+
+已在声明环境中从两份新下载并通过固定哈希核验的原始海图完成 A1→A9 统一复跑（A10）：**35 个步骤、663 份输出哈希核对通过**，204 项核心测试与 113 项科研检查通过。A9 的 159 份派生文件与成果 PNG 复现一致。[复跑验收数值](docs/reproduction_a10_summary.json)
 
 ### 环境准备
 
@@ -306,7 +318,7 @@ python scripts/run_demo.py
 
 脚本使用合成港口地图，运行通航到达与船艉抵泊两个算例，并在 `outputs/` 下自动新建带时间戳的目录。终端会打印结果位置，用浏览器打开其中的 **`index.html`**，即可查看路径、指标与回放；`metrics.json` 和轨迹 CSV 保存在同一目录。
 
-这是教学演示入口；第 5 部分的真实海图结果按下面的 A1→A8 分阶段流程生成。
+这是教学演示入口；第 5 部分的真实海图结果可使用下面的 A1→A9 统一入口生成。
 
 ### 第二步：运行真实海图覆盖、协同与运动核查
 
@@ -331,7 +343,25 @@ export PATH="/Applications/Postgres.app/Contents/Versions/18/bin:$PATH"
 
 </details>
 
-流程为：**海图准备（A1）→ 单平台覆盖（A2）→ 分工基线（A3）→ 运动与导航核查（A4/A5）→ 个体曲线与补扫（A6）→ 协同时间轴（A7）→ 支援范围对照（A8）**。A8 固定 UUV 任务，以两套 USV 策略评价范围与航程代价；当前为离线二维规划和理想等待，真实控制、声学及部署／回收不在本次验收范围。
+推荐使用统一入口（A10），它会在新目录中从原始海图重建 A1→A9，依次运行独立核查、成果绘图和测试；任一步失败即停止，并保存对应日志。
+
+已有两份固定原始海图时：
+
+```bash
+python scripts/run_reproduction.py \
+  --archives-dir /path/to/pinned_enc_archives \
+  --output-dir outputs/reproduction_run_01
+```
+
+也可尝试官方在线下载，文件必须匹配固定版本；更新后的图幅不会自动替代原实验输入：
+
+```bash
+python scripts/run_reproduction.py --download --output-dir outputs/reproduction_download_01
+```
+
+环境要求同上；入口不会自动安装依赖，也不会覆盖已有输出。成功后查看 **`acceptance.json`** 中的验收结果、**`manifest.json`** 中的运行清单，以及 **`logs/`** 中的逐步日志。还可用 `research_tests/audit_reproduction.py` 独立核对完整性，命令见实验说明。完整流程会运行曲线候选搜索与几何核查，耗时高于合成演示。[统一复跑说明](docs/experiments.md#a10)
+
+流程为：**海图准备（A1）→ 单平台覆盖（A2）→ 分工基线（A3）→ 运动与导航核查（A4/A5）→ 个体曲线与补扫（A6）→ 协同时间轴（A7）→ 支援范围对照（A8）→ 移动支援改进（A9）**。A8 固定 UUV 任务，以两套 USV 策略评价范围与航程代价；当前为离线二维规划和理想等待，真实控制、声学及部署／回收不在本次验收范围。
 
 原始海图和完整运行数据没有随仓库上传，需要自行下载或使用本地保存的固定快照。NOAA 在线文件可能更新；如果大小或 SHA 校验失败，脚本会停止并保留下载文件，应先核对来源版本，再继续运行。
 
@@ -466,6 +496,23 @@ python scripts/plot_support_sensitivity.py \
   --prepared-dir "$berthing_run/a1_map" --navigation-dir "$berthing_run/a5_nav" \
   --output-dir "$berthing_run/a8_figure"
 
+# A9：固定 A8 条件，减少移动支援航程并独立核查
+python scripts/run_support_optimization.py \
+  --a8-run-dir "$berthing_run/a8" --a8-audit-json "$berthing_run/a8_audit.json" \
+  --a7-run-dir "$berthing_run/a7" --a7-audit-json "$berthing_run/a7_audit.json" \
+  --prepared-dir "$berthing_run/a1_map" --navigation-dir "$berthing_run/a5_nav" \
+  --output-dir "$berthing_run/a9"
+python research_tests/audit_support_optimization.py \
+  --run-dir "$berthing_run/a9" --a8-run-dir "$berthing_run/a8" \
+  --a8-audit-json "$berthing_run/a8_audit.json" --a7-run-dir "$berthing_run/a7" \
+  --prepared-dir "$berthing_run/a1_map" --navigation-dir "$berthing_run/a5_nav" \
+  --json-out "$berthing_run/a9_audit.json"
+python scripts/plot_support_optimization.py \
+  --run-dir "$berthing_run/a9" --a8-run-dir "$berthing_run/a8" \
+  --audit-json "$berthing_run/a9_audit.json" \
+  --prepared-dir "$berthing_run/a1_map" --navigation-dir "$berthing_run/a5_nav" \
+  --output-dir "$berthing_run/a9_figure"
+
 printf '结果目录：%s\n' "$berthing_run"
 )
 ```
@@ -481,12 +528,14 @@ printf '结果目录：%s\n' "$berthing_run"
 | 合成港口路径与回放 | 演示目录中的 `index.html`、`metrics.json` |
 | A1 海图与任务区域 | `a1_map/`、`a1_audit.json` |
 | A2 单平台覆盖 | `a2/`、`a2_figure/`、`a2_audit.json` |
-| A3 分工与折线回放 | `a3/`、`a3_figure/`、`a3_audit.json`、`replay.html` |
+| A3 分工与折线回放 | `a3/`、`a3_figure/`、`a3_audit.json`、`a3_replay.html`（统一入口）／`replay.html`（分步命令） |
 | A4 转弯空间与局部运动 | `a4_study/study_summary.json`、`a4_study/cases/` |
 | A5 导航域与连接核查 | `a5_nav/`、`a5_fixed/`、`a5_adapted/`、`a5_obstructions.json`、`a5_audit.json` |
 | A6 个体曲线与补扫 | `a6/`、`a6_repair/repair_schedule.csv`、`a6_repair/result.json`、`a6_figure/` |
 | A7 共同时钟与曲线回放 | `a7/result.json`、`a7/certificates/`、`a7_audit.json`、`a7_figure/`、**`a7_replay.html`** |
 | A8 范围对照与移动轨迹 | `a8/range_sweep.csv`、`a8/mobile_trace.csv`、`a8/certificates/`、`a8_audit.json`、`a8_figure/` |
+| A9 移动支援改进 | `a9/result.json`、`a9/mobile_trace.csv`、`a9/certificates/`、`a9_audit.json`、`a9_figure/` |
+| A10 统一复跑验收 | `acceptance.json`、`manifest.json`、`logs/` |
 
 HTML 回放下载后可在浏览器离线打开。各运行目录的 `result.json`、`config.json` 与 `provenance.json` 用于核对结果、实际参数和来源哈希；独立审计结果单独保存。
 

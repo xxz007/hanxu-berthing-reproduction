@@ -19,8 +19,8 @@ from berthing_planner.curves import Piece,line
 from berthing_planner.dubins import candidates
 from berthing_planner.headland import reachable_boxes,scan_variants,select_variant_chain
 from berthing_planner.motion_feasibility import stopping_profile
-from chart_geometry import Geos
-from run_headland_connectors import certify
+from navigation_geometry import NavigationGeometry
+from run_motion_feasibility import sample_enclosure
 
 
 def rings(shape):
@@ -55,18 +55,25 @@ def main():
     edges=np.asarray([(a,b)for ring in rings(nav)for a,b in zip(ring,ring[1:])if a!=b]);boundary_a,boundary_b=edges[:,0,:],edges[:,1,:]
     vector=boundary_b-boundary_a;norm2=np.sum(vector*vector,axis=1)
     platforms={};diagnostics={}
-    with Geos()as g:
+    with NavigationGeometry(nav,hazards)as navigation:
+        g=navigation.geos
         def point_shape(p):return {'type':'Point','coordinates':list(p)}
         def blocked_pose(pose,radius,length):
-            return any(g.distance(box,nav)>1e-5 for _,box in reachable_boxes(pose,radius,length))
+            return any(navigation.distance(box)>1e-5 for _,box in reachable_boxes(pose,radius,length))
         def footprint(points,radius):
             return g.operation('intersection',g.operation('buffer',{'type':'LineString','coordinates':points},distance=radius,quadrant_segments=30),target)
         def motion_edge(start,goal,radius):
             for candidate in candidates(start,goal,radius):
-                proof=certify(g,nav,hazards,candidate['pieces'],cfg['maximum_arc_sagitta_m'])
-                if proof['passed']and(proof.get('minimum_hazard_clearance_lower_bound_m')is None or proof['minimum_hazard_clearance_lower_bound_m']>=50):
+                if not candidate['pieces']:
+                    return {'pieces':[],'length_m':candidate['length_m'],'word':candidate['word'],'clearance_lower_bound_m':None}
+                points,error=sample_enclosure(candidate['pieces'],cfg['maximum_arc_sagitta_m'])
+                chord={'type':'LineString','coordinates':points}
+                envelope=g.operation('buffer',chord,distance=(error+1e-5)/math.cos(math.pi/120),quadrant_segments=30)
+                if not navigation.covers(envelope):continue
+                clearance=navigation.distance(chord,to_hazards=True)-error
+                if clearance>=50:
                     return {'pieces':candidate['pieces'],'length_m':candidate['length_m'],'word':candidate['word'],
-                            'clearance_lower_bound_m':proof.get('minimum_hazard_clearance_lower_bound_m')}
+                            'clearance_lower_bound_m':clearance}
             return None
         for name in ('uuv_1','uuv_2'):
             tasks=[leg for leg in source['platforms'][name]['legs']if leg['scanning']]
@@ -81,7 +88,7 @@ def main():
                 variants=scan_variants(task['points'],radius,tangent,bad_entry,bad_exit);raw_counts.append(len(variants));accepted=[]
                 old=footprint(task['points'],cfg['sensor_radius_m'])
                 for v in variants:
-                    if not g.covers(nav,{'type':'LineString','coordinates':v['points']}):pruned+=1;continue
+                    if not navigation.covers({'type':'LineString','coordinates':v['points']}):pruned+=1;continue
                     entry=(*v['points'][0],v['heading_rad']+math.pi);exit=(*v['points'][1],v['heading_rad'])
                     if blocked_pose(entry,radius,past)or blocked_pose(exit,radius,future):pruned+=1;continue
                     changed=footprint(v['points'],cfg['sensor_radius_m']);loss=g.measure(g.operation('difference',old,changed))['area_m2']
@@ -111,7 +118,7 @@ def main():
                 waypoints=[]
                 for p in spine[1:-1]:
                     choices=[p]+[[p[0]+distance*math.cos(angle),p[1]+distance*math.sin(angle)]for distance in (radius,2*radius)for angle in np.linspace(0,2*math.pi,8,endpoint=False)]
-                    valid=[q for q in choices if g.covers(nav,point_shape(q))]
+                    valid=[q for q in choices if navigation.covers(point_shape(q))]
                     if valid:waypoints.append(max(valid,key=lambda q:g.distance(point_shape(q),blocked)))
                 poses=[start]+[(*p,math.atan2((waypoints[k+1]if k+1<len(waypoints)else goal)[1]-(waypoints[k-1]if k else start)[1],
                                              (waypoints[k+1]if k+1<len(waypoints)else goal)[0]-(waypoints[k-1]if k else start)[0]))for k,p in enumerate(waypoints)]+[goal]
@@ -123,7 +130,7 @@ def main():
                 mid=[(start[k]+goal[k])/2 for k in(0,1)];direction=math.atan2(goal[1]-start[1],goal[0]-start[0])
                 points=waypoints[:4]+[[mid[0]+distance*math.cos(angle),mid[1]+distance*math.sin(angle)]for distance in (2*radius,4*radius)for angle in (direction+math.pi/2,direction-math.pi/2)]
                 for p in points:
-                    if not g.covers(nav,point_shape(p)):continue
+                    if not navigation.covers(point_shape(p)):continue
                     for yaw in (direction,direction+math.pi/2,direction-math.pi/2):
                         first=motion_edge(start,(*p,yaw),radius)
                         if first is None:continue
@@ -164,7 +171,6 @@ def main():
             scans=[footprint(leg['points'],cfg['sensor_radius_m'])for name in('uuv_1','uuv_2')for leg in platforms[name]['legs']if leg['scanning']]
             covered=g.operation('union',{'type':'GeometryCollection','geometries':scans});area=g.measure(target)['area_m2'];off_area=g.measure(covered)['area_m2']
             lower=[covered];upper=[covered]
-            from run_motion_feasibility import sample_enclosure
             for name in('uuv_1','uuv_2'):
                 for leg in platforms[name]['legs']:
                     if leg['scanning']or not leg['pieces']:continue
@@ -184,7 +190,7 @@ def main():
             'method':'Finite task-variant layered graph with Dubins edges and bounded detour fallback; footprint-loss penalty20 per equivalent lost scan metre. Not globally optimal; source task IDs all retained.'}
     (args.output_dir/'result.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
     files=[args.config,args.a3_run_dir/'result.json',args.prepared_dir/'searchable.geojson',args.prepared_dir/'hazards.geojson',args.navigation_dir/'navigation.geojson']
-    code=[Path(__file__),ROOT/'src/berthing_planner/dubins.py',ROOT/'src/berthing_planner/curves.py',ROOT/'src/berthing_planner/headland.py',ROOT/'src/berthing_planner/motion_feasibility.py',ROOT/'scripts/run_headland_connectors.py',ROOT/'scripts/run_motion_feasibility.py',ROOT/'scripts/chart_geometry.py']
+    code=[Path(__file__),ROOT/'src/berthing_planner/dubins.py',ROOT/'src/berthing_planner/curves.py',ROOT/'src/berthing_planner/headland.py',ROOT/'src/berthing_planner/motion_feasibility.py',ROOT/'scripts/run_headland_connectors.py',ROOT/'scripts/navigation_geometry.py',ROOT/'scripts/run_motion_feasibility.py',ROOT/'scripts/chart_geometry.py']
     provenance={'input_sha256':{str(p.resolve()):hashlib.sha256(p.read_bytes()).hexdigest()for p in files},'code_sha256':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest()for p in code},'result_sha256':hashlib.sha256((args.output_dir/'result.json').read_bytes()).hexdigest()}
     (args.output_dir/'provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
     print(json.dumps({'all_platform_motion_geometry_complete':all_complete,'coverage':coverage},indent=2))
