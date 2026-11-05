@@ -93,7 +93,7 @@ hanxu-berthing-reproduction/
 固定约 **8.767427 km²** 目标，执行 **89 个扫描时段**，共同任务时长 **18.825825 h**。USV 采用 **2 次转场**，航程 **685.679 m**。图中显示实际状态积分轨迹；参考轨迹与实际轨迹分别记录。
 
 <table width="840">
-  <thead><tr><th>名义实际轨迹指标</th><th>独立核查结果</th><th>门槛</th></tr></thead>
+  <thead><tr><th width="250">名义实际轨迹指标</th><th width="300">独立核查结果</th><th width="290">门槛</th></tr></thead>
   <tbody>
     <tr><td>覆盖率保守下界</td><td><strong>99.90392%</strong></td><td>≥ 99.9%</td></tr>
     <tr><td>最大支援距离保守上界</td><td><strong>2295.416 m</strong></td><td>≤ 2300 m</td></tr>
@@ -110,7 +110,7 @@ hanxu-berthing-reproduction/
 ![七个确定性条件的覆盖、支援和间距核查，以及位置误差幅度](docs/assets/condition_outcomes.png)
 
 <table width="840">
-  <thead><tr><th>条件</th><th>约束结论</th><th>最大位置误差</th><th>实际覆盖下界</th></tr></thead>
+  <thead><tr><th width="300">条件</th><th width="170">约束结论</th><th width="190">最大位置误差</th><th width="180">实际覆盖下界</th></tr></thead>
   <tbody>
     <tr><td>名义</td><td>通过</td><td>0.001057 m</td><td>99.90392%</td></tr>
     <tr><td>初始位置与航向偏差</td><td>通过</td><td>1.11803 m</td><td>99.90394%</td></tr>
